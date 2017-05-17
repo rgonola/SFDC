@@ -1,0 +1,25 @@
+<apex:page sidebar="false" showHeader="false" standardStylesheets="false" standardController="Product2" extensions="DisplayATXADDIUSERS">
+    <apex:stylesheet value="https://cdn.wolterskluwer.io/wk.css/0.15.x/with-bootstrap.min.css" />
+    <apex:stylesheet value="{!URLFOR($Resource.Styles)}" />
+    <style>
+        body {
+        background-color: transparent;
+        }
+        
+        </style> 
+    <div class="col-sm-12">
+        <apex:repeat value="{!addiusersprice}" var="p">
+          <div class="col-sm-3 text-center package-box">
+          <div class="cart-upsell">
+                    <h1><strong>{!p.Product2.Marketing_Name__c}</strong></h1>
+                    <p>&nbsp;</p>
+                    <apex:outputText styleClass="h2 green" value="${0,number,###,#00}">
+                        <apex:param value="{!p.UnitPrice}"/>
+                    </apex:outputText>                    
+                    <br/><br/>
+                    <button type="button"  class="wk-button-default wk-button-full" onclick="window.top.location='{!$Label.Ecom_Link}{!p.Product2.productcode}&returnurl={!$Label.Ecom_Marketing_Link}enhance/atx-additional-licenses.aspx';"><span>Add to Cart</span></button>
+          </div>
+          </div>
+        </apex:repeat>
+        </div> 
+</apex:page>

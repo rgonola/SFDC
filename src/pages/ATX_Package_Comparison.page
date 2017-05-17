@@ -1,0 +1,55 @@
+<apex:page id="ATXComparison" sidebar="false" showHeader="false" standardStylesheets="false" standardController="Product2" extensions="Displayproducts" >
+    <apex:stylesheet value="https://cdn.wolterskluwer.io/wk.css/0.15.x/with-bootstrap.min.css" />
+    <apex:stylesheet value="{!URLFOR($Resource.Styles)}" />
+    <head>
+        <style>
+        body {
+        background-color: transparent;
+        }
+        
+        </style>
+</head>
+ <apex:form id="f">
+<!-- COMPARISON GRID -->
+  <apex:outputText >
+    <div class="container clearfix">
+        <div class="wk-row" style="margin:50px 0;">
+          <div class="wk-col-1">
+              &nbsp;
+          </div>
+          <apex:repeat value="{!productdetails}" var="prdct">
+          
+            <script>
+           
+           var prodids="{!prdct.Id}";
+            
+           </script>
+            <div class="col-sm-2">
+             <div class="cart-upsell">
+                <div class="row" style="margin-bottom:48px;">
+                    <h4 align="center">{!prdct.Marketing_Name__c}</h4>
+                <h4 align="center">&#36;{!UnitPrice[prdct.Id]}</h4>
+                <p><br/><apex:outputtext value="{!prdct.Detail_description__c}" escape="false" styleclass="h5" /></p>
+                </div>                
+                <div class="row" style="margin-top:20px;">
+                    <div class="col-xs-12">
+                        <button type="button" class="wk-button-success wk-button-full only"   onclick="window.top.location='{!$Label.Ecom_Link}{!prdct.Productcode}&returnurl={!$Label.Ecom_Marketing_Link}professional-tax-software/atx.aspx';" ><span>Buy Now</span></button>
+                    </div>
+                  </div>  
+                </div> 
+           </div> 
+           </apex:repeat>
+
+           </div>
+      
+           </div>
+            
+  </apex:outputText>
+  <!-- <apex:actionFunction name="checkout" action="{!saveToCart}" rerender="f">
+        <apex:param value="" name="prodids"/>
+   </apex:actionFunction -->
+   
+</apex:form>
+  <apex:insert name="ATXComparison" />
+ 
+</apex:page>

@@ -1,0 +1,14 @@
+@isTest
+public class CreateOrderTest{
+
+
+static testMethod void testParse() {
+        String json=        '{"Staging":{"Sfdc":{"SF_Quote_ID":"a1w1b00000036qFAAQ","SF_Order_ID":"a2p1b0000004O1cAAE","SF_Opportunity_ID":"0061b000002aFmsAAE","SF_Invoice_ID":"a2k1b000000HqMkAAK","SF_CreateNote_ID":null,"SF_Account_ID":"0011b0000054auLAAQ"},"Products":[{"Up_Down_Grade":"N","TRT_ID":"xxx","Taxable":"true","Sub_Start_Date":"2016-04-01","Sub_End_Date":"2017-03-31","STOL_Tax":"0.00","Revision_Number":"2016","Quantity":"1.00","PriceNet":"239.00","PriceList":"239.00","PriceExtended":"239.00","LineSequence":"1","ItemID":"TW W-21099_2016","ItemDescription":"2016 W-2/1099, 940/941","ItemClass":"Payroll","CreditNoteNumber":null,"Assemblies":[]},{"Up_Down_Grade":"N","TRT_ID":"xxx","Taxable":"true","Sub_Start_Date":"2016-04-01","Sub_End_Date":"2017-03-31","STOL_Tax":"0.00","Revision_Number":"2016","Quantity":"1.00","PriceNet":"50.00","PriceList":"50.00","PriceExtended":"50.00","LineSequence":"2","ItemID":"XSHIPPING50_2016","ItemDescription":"2016 TaxWise Standard Processing (Download Only)","ItemClass":"STDPROC","CreditNoteNumber":null,"Assemblies":[]},{"Up_Down_Grade":"N","TRT_ID":"xxx","Taxable":"false","Sub_Start_Date":"2016-04-01","Sub_End_Date":"2017-03-31","STOL_Tax":"0.00","Revision_Number":"2016","Quantity":"1.00","PriceNet":"17.34","PriceList":"17.34","PriceExtended":"17.34","LineSequence":"3","ItemID":"Tax","ItemDescription":"Sales Tax","ItemClass":null,"CreditNoteNumber":null,"Assemblies":[]}],"Order":{"Web_Source":null,"Train_Email":"Train@cch.com","Total_Shipping":"17.34","STX_Order_Sent":"2017-02-09T21:27:26.000Z","STX_Order_Number":"ORD-23631","STX_Invoice_Sent":"2017-02-09T21:27:34.000Z","STX_Invoice_Number":"INV-62789","STOL_Total_Tax":"0.00","SLS_CD":null,"QuoteType":"Quote","QuoteNum":"Q-100822","Payment_Type":null,"OrderType":"Quote","Ord_Val":"306.34","Ord_Source":"REP","Description":null,"Addl_SLS_CD":null},"Fees":[],"DataControl":{"Sent_At":"2017-02-09T04:27:39Z","Event_Source":"SFDC","Event_ID":"a3i1b0000001TD3AAM"},"Customer":{"Territory":null,"PID":"2701020","Office":"0","Last_Name":"Activate","First_Name":"Bill","Email":"mike.versaci@wolterskluwer.com","Company":"Vation Act Tax","ClientID":"6000907","Brand_Type":null},"Contacts":[{"Zip":"30062","State":"GA","Phone":null,"Mobile":"(770) 555-4789","Fax":null,"Email":"mike.versaci@wolterskluwer.com","Country":"US","Cnt_Type":"Shipping","City":"Marietta","Addr2":null,"Addr1":"13 Tax St."},{"Zip":"30062","State":"GA","Phone":null,"Mobile":"(770) 555-4789","Fax":null,"Email":"mike.versaci@wolterskluwer.com","Country":"US","Cnt_Type":"Mailing","City":"Marietta","Addr2":null,"Addr1":"13 Tax St."}]}}';
+        
+        //CreateOrder obj= new CreateOrder();
+         CreateOrder obj=CreateOrder.parse(json);
+        System.assert(obj != null);
+    }
+    
+    
+ }

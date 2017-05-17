@@ -1,0 +1,259 @@
+<apex:page standardController="SBQQ__Quote__c"  extensions="PrimarycontactExtension">
+
+<apex:pageMessages id="ccmsg"></apex:pageMessages>
+  <apex:form id="theFormID">
+  
+     <apex:pageBlock Title="Quote Details" id="error" rendered="{!primaryexist}">
+     
+    
+     
+     <font size="3" color="red"><b> System did not find any Primary Contact/No Contact.Please Make sure this Account has atleast one Primary Contact related to it.</b></font>
+     
+     <br/>
+     <apex:pageblockSection >
+     </apex:pageblockSection>
+     <apex:pageblockSection >
+     </apex:pageblockSection>
+     
+     <apex:repeat value="{!nonprimarycnt}" var="opt">  
+     <apex:pageblockSection title="{!opt.Name}" >
+        <apex:inputField value="{!opt.FirstName}" label="First Name" required="true" rendered="{!(opt.FirstName==null || opt.FirstName=='')}" /> 
+        <apex:OutputField value="{!opt.FirstName}" rendered="{!(opt.FirstName!=null || opt.FirstName!='')}" /> 
+        
+        <apex:inputField value="{!opt.LastName}" required="true" rendered="{!(opt.LastName==null || opt.LastName=='')}" /> 
+        <apex:OutputField value="{!opt.LastName}" rendered="{!(opt.LastName!=null || opt.LastName!='')}" /> 
+        
+        <apex:inputField value="{!opt.Phone}" rendered="{!(opt.Phone==null || opt.Phone=='')}"/>  
+        <apex:OutputField value="{!opt.Phone}" rendered="{!(opt.Phone!=null || opt.Phone!='')}" />
+        
+        <apex:inputField value="{!opt.Email}" required="true" rendered="{!(opt.Email==null || opt.Email=='')}"/> 
+        <apex:OutputField value="{!opt.Email}" rendered="{!(opt.Email!=null || opt.Email!='')}" />
+        
+        <apex:inputField value="{!opt.MobilePhone}" rendered="{!(opt.MobilePhone==null || opt.MobilePhone=='')}" />
+        <apex:OutputField value="{!opt.MobilePhone}" rendered="{!(opt.MobilePhone!=null || opt.MobilePhone!='')}"  />
+        
+        <apex:pageBlockSectionItem >
+        <apex:outputLabel value="Is Primary" for="prmycnt" />
+        
+        
+        <apex:OutputField value="{!opt.Is_Primary__c }" id="prmycnt"/>
+       
+        
+        </apex:pageBlockSectionItem>
+        </apex:pageblockSection>
+        
+        
+         <button type="button" location="Bottom" ><a href='https://wksfs.my.salesforce.com/{!opt.id}/e?retURL=https://wksfs.my.salesforce.com/apex/Primary_Contact_on_Quote?qut={!qute.id}'>Update this Contact</a></button>
+        
+        
+        </apex:repeat>
+        
+        <apex:pageBlocksection rendered="{!hasnocnt}">
+      <button type="button" location="Bottom" onclick="window.open('https://wksfs.my.salesforce.com/003/e?accid={!qute.SBQQ__Account__c}&RecordType=012E0000000LcvR&ent=Contact')">Create Contact</button>
+      <button type="button" location="Bottom" ><a href='https://wksfs.my.salesforce.com/apex/Primary_Contact_on_Quote?qut={!qute.id}'>Retry Now</a></button>
+     
+     </apex:pageBlocksection>  
+      
+      </apex:pageBlock>
+     
+     
+     
+    <apex:pageBlock Title="Quote Details" id="qutedetial" rendered="{!!primaryexist}">
+       
+        <apex:pageblockSection id="qutid" >
+       
+         
+         
+        <apex:OutputField value="{!qute.Name}"  /> 
+        
+         
+        <apex:OutputField value="{!qute.SBQQ__Status__c}" /> 
+        
+         
+        <apex:OutputField value="{!qute.SBQQ__Primary__c}"  />
+        
+        <apex:OutputField value="{!qute.SBQQ__Account__c}"  />
+        
+        <apex:OutputField value="{!qute.Account_Name__c}"  />
+        
+       
+        <apex:OutputField value="{!qute.SBQQ__Opportunity2__c}"   />
+        
+         <apex:OutputField value="{!qute.Opportunity_Type__c}"  />
+                   
+        </apex:pageblockSection>
+        
+        
+      
+       
+      
+      </apex:pageBlock>
+      
+      <apex:pageBlock Title="Sales Completion Questions" id="questnid" rendered="{!!primaryexist}">
+       
+        <apex:pageblockSection id="questns" >
+       
+         
+         
+        <apex:inputField value="{!qute.Primary_Factor_for_Purchase__c}"  /> 
+        
+        <apex:inputField value="{!qute.Which_Reseller_considered__c}"  />
+       
+        <apex:inputField value="{!qute.Which_other_products_considered__c}"   />
+        
+        <apex:inputField value="{!qute.Which_Reseller_previously__c}"  />
+        
+        <apex:inputField value="{!qute.What_was_the_previously_used_product__c}"  />  
+        
+        <apex:inputField value="{!qute.Other_Reseller_answer__c }"  />
+        
+        <apex:inputField value="{!qute.Other_Product_answer__c}" />
+         
+         </apex:pageblockSection>
+        
+       </apex:pageBlock>
+      
+      <apex:pageBlock Title="Competitors Information Section" id="cmptr" rendered="{!!primaryexist}">
+       
+        <apex:pageblockSection id="cmptrinf" >
+       
+         
+         
+        <apex:inputField value="{!opty.Competitor__c}"  /> 
+        
+        <apex:inputField value="{!opty.Other_Competitor__c}"  />
+       
+        
+         
+         </apex:pageblockSection>
+        
+       </apex:pageBlock>
+       
+    <apex:pageBlock title="Primary Contact Info" id="ccids" rendered="{!!primaryexist}">
+       
+        <apex:pageblockSection id="psid" >
+       
+       <apex:repeat value="{!cnt}" var="opt">  
+        <apex:inputField value="{!opt.FirstName}" required="true" rendered="{!(opt.FirstName==null || opt.FirstName=='')}" /> 
+        <apex:OutputField value="{!opt.FirstName}" rendered="{!(opt.FirstName!=null || opt.FirstName!='')}" /> 
+        
+        <apex:inputField value="{!opt.LastName}" required="true" rendered="{!(opt.LastName==null || opt.LastName=='')}" /> 
+        <apex:OutputField value="{!opt.LastName}" rendered="{!(opt.LastName!=null || opt.LastName!='')}" /> 
+        
+        <apex:inputField value="{!opt.Phone}" rendered="{!(opt.Phone==null || opt.Phone=='')}"/>  
+        <apex:OutputField value="{!opt.Phone}" rendered="{!(opt.Phone!=null || opt.Phone!='')}" />
+        
+        <apex:inputField value="{!opt.Email}" required="true" rendered="{!(opt.Email==null || opt.Email=='')}"/> 
+        <apex:OutputField value="{!opt.Email}" rendered="{!(opt.Email!=null || opt.Email!='')}" />
+        
+        <apex:inputField value="{!opt.MobilePhone}" rendered="{!(opt.MobilePhone==null || opt.MobilePhone=='')}" />
+        <apex:OutputField value="{!opt.MobilePhone}" rendered="{!(opt.MobilePhone!=null || opt.MobilePhone!='')}"  />
+        
+       
+        <apex:OutputField value="{!opt.Is_Primary__c }"   />
+         
+        
+        
+        </apex:repeat>
+                   
+        </apex:pageblockSection>
+      
+      </apex:pageBlock>
+      
+          <apex:pageBlock title="Account Address Validation" id="acctids" rendered="{!!primaryexist}">
+       
+        <apex:pageblockSection id="psid" >
+       
+       <apex:repeat value="{!cnt}" var="opt">  
+        <apex:inputField value="{!opt.FirstName}" required="true" rendered="{!(opt.FirstName==null || opt.FirstName=='')}" /> 
+        <apex:OutputField value="{!opt.FirstName}" rendered="{!(opt.FirstName!=null || opt.FirstName!='')}" /> 
+        
+        <apex:inputField value="{!opt.LastName}" required="true" rendered="{!(opt.LastName==null || opt.LastName=='')}" /> 
+        <apex:OutputField value="{!opt.LastName}" rendered="{!(opt.LastName!=null || opt.LastName!='')}" /> 
+        
+        <apex:inputField value="{!opt.Phone}" rendered="{!(opt.Phone==null || opt.Phone=='')}"/>  
+        <apex:OutputField value="{!opt.Phone}" rendered="{!(opt.Phone!=null || opt.Phone!='')}" />
+        
+        <apex:inputField value="{!opt.Email}" required="true" rendered="{!(opt.Email==null || opt.Email=='')}"/> 
+        <apex:OutputField value="{!opt.Email}" rendered="{!(opt.Email!=null || opt.Email!='')}" />
+        
+        <apex:inputField value="{!opt.MobilePhone}" rendered="{!(opt.MobilePhone==null || opt.MobilePhone=='')}" />
+        <apex:OutputField value="{!opt.MobilePhone}" rendered="{!(opt.MobilePhone!=null || opt.MobilePhone!='')}"  />
+        
+         
+        
+        
+        </apex:repeat>
+                   
+        </apex:pageblockSection>
+      
+      </apex:pageBlock>
+      
+      <apex:pageBlock title="iFirm Provisioning" id="ccid" rendered="{!!primaryexist}">
+       
+        <apex:pageblockSection id="psid" >
+       
+        <apex:OutputField value="{!ifirmprvsng.Suggested_URL__c}"   />
+        
+        <apex:inputField value="{!ifirmprvsng.IFirm_URL__c}"  rendered="{!(Provisionedurl ==null || Provisionedurl=='')}" />
+
+        <apex:OutputField value="{!prvsng[0].IFirm_URL__c}" rendered="{!(Provisionedurl !=null || Provisionedurl!='')}"  />
+        
+        
+        <apex:pageblockSectionItem rendered="{!(Provisionedurl ==null || Provisionedurl=='')}" >
+       <apex:outputLabel value="Onboarding Status" for="RegPickList" />
+        <apex:actionRegion >     
+       <apex:inputField value="{!ifirmprvsng.On_Boarding_Status__c}" id="RegPickList" > 
+       <apex:actionSupport event="onchange" reRender="ajaxrequest" />
+         </apex:inputField>  
+        </apex:actionRegion>  
+         </apex:pageblockSectionItem>    
+          
+       <apex:outputPanel id="ajaxrequest">
+        <apex:pageBlockSection rendered="{!ifirmprvsng.On_Boarding_Status__c=='Deferred'}">
+          <apex:inputField value="{!ifirmprvsng.Deffered_Date__c}" /> </apex:pageBlockSection>
+      </apex:outputPanel>
+       
+       
+        <apex:pageblockSectionItem rendered="{!(Provisionedurl !=null || Provisionedurl !='')}">
+       
+        <apex:outputLabel value="Onboarding Status" for="RegPickListsd" />
+        
+        <apex:actionRegion >     
+       <apex:inputField value="{!prvsng[0].On_Boarding_Status__c}" id="RegPickListsd" > 
+        <apex:actionSupport event="onchange" reRender="ajaxrequestsd" />
+         </apex:inputField>  
+        </apex:actionRegion>   
+              </apex:pageblockSectionItem> 
+           <apex:outputPanel id="ajaxrequestsd">
+        <apex:pageBlockSection rendered="{!onboardstatus=='Deferred'}">
+          <apex:inputField value="{!prvsng[0].Deffered_Date__c}" /> </apex:pageBlockSection>
+      </apex:outputPanel>
+      
+        
+        <apex:outputField label="Previous Users on Account" value="{!qute.SBQQ__Account__r.Total_iFirm_User__c}" rendered="{!qute.SBQQ__Type__c!='Amendment'}"/>
+        <apex:pageBlockSection ></apex:pageBlockSection>
+        <apex:outputField label="No of Users for this Order" value="{!ifirmprvsng.No_Of_Users__c}"/> 
+        
+      
+         <apex:inputField value="{!ifirmprvsng.Not_Ready_For_URL__c}" rendered="{!(Provisionedurl ==null || Provisionedurl=='')}" /> 
+         <apex:outputField value="{!ifirmprvsng.Total_iFirm_User__c}"/> 
+        </apex:pageblockSection>
+        
+        
+      
+        <apex:pageBlockButtons location="Bottom" rendered="{!!primaryexist}">
+          
+          <apex:commandButton action="{!onsave}" value="Save"  />
+ 
+          
+          <button type="button" ><a href='/{!qute.id}'>Cancel</a></button>
+          
+        </apex:pageBlockButtons>
+      
+      </apex:pageBlock>
+      
+     
+ 
+    </apex:form>   
+</apex:page>

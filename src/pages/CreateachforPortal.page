@@ -1,0 +1,24 @@
+<apex:page controller="IIT_ControllerPaymentMethodDisplay" showHeader="false" sidebar="false">
+<apex:sectionHeader title="Payment Method" subtitle="Add your ACH information below" />
+<apex:pageMessages id="ccmsg"></apex:pageMessages>
+<apex:form >
+     <apex:pageBlock title="ACH" id="achid">
+       
+        <apex:pageblockSection >
+            <apex:repeat value="{!$ObjectType.invoiceit_s__Payment_Method__c.FieldSets.Payment_Method}" var="fieldAPI">
+                           
+                      <apex:inputField value="{!paymentMethod1[fieldAPI]}" required="true" rendered="{!fieldAPI != 'invoiceit_s__Card_Number__c'}"/>
+                      <apex:inputField value="{!paymentMethod1.invoiceit_s__Card_Number__c}" label="Card Number " required="true" rendered="{!fieldAPI == 'invoiceit_s__Card_Number__c'}"/>
+                                    <!--{!fieldAPI.Label}-->
+                            
+                        </apex:repeat> 
+                        
+        </apex:pageblockSection>
+        <apex:pageBlockButtons location="Bottom">
+          
+          <apex:commandButton action="{!createACH}" value="Save"  />
+          <apex:commandButton action="{!CancelButton}" value="Cancel" immediate="true"/> 
+        </apex:pageBlockButtons>
+    </apex:pageBlock>
+   </apex:form>
+</apex:page>

@@ -1,0 +1,277 @@
+<apex:page controller="IIT_ControllerPaymentMethodDisplay" showHeader="false" sidebar="false">
+<apex:sectionHeader title="Payment Method" subtitle="Active Payment Method(s)" />
+<apex:pageMessages id="ccmsg"></apex:pageMessages>
+<apex:includeScript value="{!URLFOR($Resource.jQueryForPopup, 'jQuery/jquery-1.8.2.min.js')}"/>
+<script >
+$( document ).ready(function() {
+   var height = $(document).height()+'px';
+   //alert(height);
+   $("#newpb").css( { "position" : "fixed","bottom" : "0" } );
+});
+
+function toFocus(){
+    $('.fieldClass').focus();
+}
+</script>
+
+    <apex:includeScript value="{!URLFOR($Resource.invoiceit_s__AJS, 'ajs/js/jquery.min.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.invoiceit_s__AJS, 'ajs/js/jshashtable.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.invoiceit_s__AJS, 'ajs/js/jquery.nf.js')}" />
+    <script type="text/javascript">
+    
+        function validate(paymentMethodId) {
+            
+             $( document ).ready(function() {});
+             
+             var n = $( "input:checked" ).length;
+
+             if(n == 0) {
+                 alert('Please accept the terms and conditions at the bottom of the page');
+             } else {
+                 makedefault(paymentMethodId);
+             }
+         }
+         
+     
+    </script>         
+
+
+  <apex:form id="form1">
+  <apex:pageMessages ></apex:pageMessages>
+    <apex:actionFunction action="{!makeDefault}" name="makedefault" reRender="form1">  
+        <apex:param name="makede" value="" />
+    </apex:actionFunction>
+   <apex:pageBlock id="render">
+    <apex:pageBlockButtons location="Top">
+           <apex:commandButton value="Add Credit Card" action="{!Addcc}"   />
+            <apex:commandButton value="Add ACH" action="{!AddAch}"   />
+           <apex:commandButton value="Go to Open Invoices" action="{!generateToken}" status="saveStatus"  />
+   </apex:pageBlockButtons>
+   
+   
+    <apex:pageBlockTable value="{!listofPM}" var="PM">
+                <apex:column value="{!PM.Name}"/>
+                <apex:column value="{!PM.invoiceit_s__Bank_Account_Name__c}"/>
+                <apex:column value="{!PM.invoiceit_s__Account__r.CID__c}"/>
+                <apex:column value="{!PM.invoiceit_s__Account__r.PID__c}"/>
+                <apex:column headerValue="Last 4 Digits">
+                   <!-- <apex:outputText value="{!PM.invoiceit_s__Card_Number__c}"/> -->
+                    <apex:outputText value="{!PM.invoiceit_s__Card_Number__c}" rendered="{!PM.invoiceit_s__Payment_Method__c == 'Credit Card' }"/>
+                     <apex:outputText value="{!PM.Last_4_Digits__c}" rendered="{!PM.invoiceit_s__Payment_Method__c == 'ACH' }"/>
+                </apex:column>
+                <apex:column headerValue="Card Type">
+                     <apex:outputText value="{!PM.invoiceit_s__Card_Type__c}"/>
+                 </apex:column>
+                 <apex:column value="{!PM.invoiceit_s__Payment_Method__c}"/>
+                 <apex:column value="{!PM.invoiceit_s__Card_Expiration_Month__c}"/>
+                 <apex:column value="{!PM.invoiceit_s__Card_Expiration_Year__c}"/>
+                <!-- <apex:column value="{!PM.invoiceit_s__Active__c}"/> -->
+                                
+                <apex:column value="{!PM.invoiceit_s__Default__c}"/>
+                <apex:column headerValue="Action">
+                    <apex:commandButton value="Make default" reRender="form1" onclick="validate('{!PM.id}')">
+                    </apex:commandButton>
+                </apex:column>
+                <apex:column headerValue="Action">
+                    <apex:commandButton value="UpdateDetails" action="{!updateToken}" reRender="ccid" rendered="{!PM.invoiceit_s__Payment_Method__c != 'ACH' }" oncomplete="toFocus()">
+                        <apex:param name="updateT" value="{!PM.id}"/>
+                    </apex:commandButton>
+                </apex:column> 
+               <!--  <apex:column headerValue="Action">
+                    <apex:commandButton value="Delete" reRender="form1" action="{!Deletepaymnt}">
+                    <apex:param name="pid" value="{!PM.id}"/>
+                    </apex:commandButton>
+                </apex:column>--->
+           </apex:pageBlockTable>
+            </apex:pageBlock>
+           </apex:form>
+           
+            <apex:form id="theFormID" >
+     <!--<script type="text/javascript">theFormID.theFieldID.focus();</script>   -->
+    <apex:pageBlock id="ccid" >
+       
+        <apex:pageblockSection id="psid" title="Edit Your Credit Card Here"  rendered="{!!renderButton }">
+            <apex:repeat value="{!$ObjectType.invoiceit_s__Payment_Method__c.FieldSets.payment_for_Credit_Card}" var="fieldAPI">
+                           
+                      <apex:inputField value="{!paymentMethod[fieldAPI]}" required="true" rendered="{!fieldAPI != 'invoiceit_s__Card_Number__c' && fieldAPI != 'invoiceit_s__Billing_First_Name__c'}"/>
+                       <apex:outputText value="{!paymentMethod.invoiceit_s__Card_Number__c}" label="Card Number Ending "  rendered="{!fieldAPI == 'invoiceit_s__Card_Number__c'}" id="theFieldID" /> 
+                       <apex:inputField value="{!paymentMethod.invoiceit_s__Billing_First_Name__c}" label="Billing First Name" required="true" rendered="{!fieldAPI == 'invoiceit_s__Billing_First_Name__c'}"  styleClass="fieldClass"/>  
+                      
+                            
+                        </apex:repeat> 
+                        
+        </apex:pageblockSection>
+        <apex:pageBlockButtons location="Bottom" rendered="{!!renderButton }">
+          
+          <!--<apex:commandButton action="{!GenerateTokenPM}" value="Save" rendered="{!renderButton}"/>-->
+          <apex:commandButton action="{!updateButton}" value="Update" rendered="{!!renderButton}"/>
+          <apex:commandButton action="{!CancelButton}" value="Cancel" immediate="true"/> 
+        </apex:pageBlockButtons>
+      
+      </apex:pageBlock>
+    </apex:form>  
+    
+           <apex:form >
+           <apex:pageBlock title="Terms and Conditions"  id="newpb">
+           1. Authorization. This Agreement acknowledges Customer’s authorization to CCH SFS to
+
+            automatically obtain future payments from Customer’s credit card account and/or bank account as 
+            
+            provided above for any fees incurred and owed to CCH SFS as a result of Customer doing 
+            
+            business with CCH SFS. All fees are billed to the payment method that you designate during the 
+            
+            [registration/set-up process – i.e., when would the designation occur?][is this correct?]. If you 
+            
+            want to designate a different payment method or if there is a change in your payment 
+            
+            method account status, you must contact a sales representative [is this correct?] 
+            <br/><br/>
+            
+            2. Billing Schedule. All billing for electronic filing fees (if applicable) will occur on a regular, 
+            
+            approximately, weekly basis. The billing will show both the e-File fees and any applicable credits 
+            
+            Customer may have earned, along with any amounts debited or credited to Customer’s account. 
+            
+            CCH SFS will debit the account on file after each billing for ANY BALANCE DUE on 
+            
+            Customer’s account with CCH SFS. Billing for delayed software license fees will occur in 
+            
+            accordance with the dates set forth on the applicable agreement. If any scheduled payment date 
+            
+            falls on a Holiday or on a weekend, that payment will be processed on the next business day. 
+            
+            Customer understands that because these are electronic transactions, the transactions may be 
+            
+            processed as soon as the above mentioned periodic billing dates. To insure timely payment and 
+            
+            uninterrupted service of Customer’s access to CCH SFS software, the account listed above may 
+            
+            be used for other charges, such as additional software purchases, shipping charges, and any other 
+            
+            fees charged pursuant to written terms and conditions between Customer and CCH SFS. 
+            
+            <br/><br/>
+            3. Account Maintenance. Customer agrees to keep the designated account open with sufficient 
+            
+            available funds to meet all expected charges. CCH SFS RESERVES THE RIGHT TO SUSPEND 
+            
+            OR TERMINATE CUSTOMER’S ACCESS TO SOFTWARE AND/OR SERVICES AND/OR 
+            
+            TRANSMISSION PRIVILEGES WITHOUT NOTICE IF THE ACCOUNT IS CLOSED, 
+            
+            INVALID OR HAS INSUFFICIENT FUNDS. Customer is solely responsible for maintaining 
+            
+            and updating any changes in the account information by contacting a CCH SFS sales 
+            
+            representative [is this still the appropriate channel?]. If a transaction is declined for non-sufficient 
+            
+            funds, Customer understands and acknowledges that Customer will be charged a $30 non-
+            
+            sufficient funds fee. [Is it a one-time penalty or would it potentially be assessed multiple times?] 
+            
+            <br/><br/>
+            4. Third Party Account Holders. CCH SFS may allow Customer to use the account information of 
+            
+            a third-party. If the account information above differs from that of Customer’s information, then 
+            
+            CCH SFS will presume that Customer is duly authorized to use the third-party’s account for the 
+            
+            full term of this Agreement. If Customer does not have authority to use the provided account for 
+            
+            the full term of this Agreement, then Customer should not complete this Agreement and must 
+            
+            contact its sales representative to make payment arrangements. By providing a third-party’s 
+            
+            account information, Customer represents that: (a) Customer is fully authorized to make use of 
+            
+            the account for the full term of this Agreement; (b) Customer shall be solely liable for all 
+            
+            consequences of non-sufficient funds and account closings; and (c) Customer will indemnify and 
+            
+            hold harmless CCH SFS, its employees, officers, directors and affiliates against any and all 
+            
+            liability (including damages, recoveries, deficiencies, interest, penalties and reasonable attorney’s 
+            
+            fees) relating to Customer’s use of the account. 
+            <br/><br/>
+            
+            5. Representations and Certifications. Customer agrees to be bound by any rules that Customer’s 
+            
+            financial institution requires for ACH debit transactions and/or Customer’s credit card issuer 
+            
+            requires for credit card transactions. Customer certifies that Customer is an authorized user of the 
+            
+            designated credit card account or bank account, and that Customer will not dispute the payment 
+            
+            with Customer’s credit card company or financial institution, so long as the transaction 
+            
+            corresponds to the terms set forth herein.
+            
+            <br/><br/>
+            6. Refunds. Customer acknowledges and agrees that the CCH SFS Refund Policy (see 
+            
+            www.cchsfs.com/legal) governs all purchases from CCH SFS. 
+            
+            <br/><br/>
+            7. Termination. This Agreement shall automatically terminate upon either (a) Customer entering 
+            
+            into this Agreement at a later date with revised account information [Is this still accurate or with 
+            
+            the ability to add multiple payment choices is this no longer correct?], or (b) Customer 
+            
+            discontinuing its business relationship with CCH SFS and having a zero dollar balance. Customer 
+            
+            understands that this authorization will remain in effect until an automatic termination, or until 
+            
+            Customer cancels it in writing, whichever comes first.
+            
+            <br/><br/>
+            8. Governing Law. This Agreement shall be interpreted and enforced according to the laws of the 
+            
+            State of Illinois, without any regard to conflicts of law rules, and shall be treated as if executed 
+            
+            and performed in Cook County, Illinois. All disputes surrounding the performance of this 
+            
+            agreement shall be instituted and prosecuted exclusively in Cook County, Illinois, with Customer 
+            
+            specifically consenting to extraterritorial service of process for that purpose. Customer shall pay 
+            
+            all of CCH SFS' attorneys' fees and costs incurred in the enforcement of any of the provisions of 
+            
+            this Agreement; and Customer additionally agrees to pay all costs of collection of all sums 
+            
+            collected for all sums owed to CCH SFS, including a reasonable attorney's fee of not less than 
+            
+            fifteen (15%) percent of the amount placed for collection if the same is collected by or through an 
+            
+            attorney at law. Interest shall accrue on all amounts overdue and payable to CCH SFS at the rate 
+            
+            of 1½% per month or the maximum lawful amount, whichever is less. 
+            <br/><br/>
+            
+            9. Electronic Signature. Customer acknowledges and agrees that consent to this Agreement by 
+            
+            electronic means is subject to the federal Electronic Signatures in Global and National Commerce 
+            
+            Act, and that the parties hereto intend that the Act apply to the fullest extent possible.
+            <br/>
+            <br/>
+      
+      <input type="checkbox" name="newsletter" value="Hourly" checked="" />
+      <b> By checking this box, Customer hereby acknowledges you have read and agree to the terms presented in the Terms and Conditions agreement below.</b>
+          
+   
+      </apex:pageBlock>
+     </apex:form>
+     
+       
+  
+  
+  
+     
+    
+    
+  
+</apex:page>

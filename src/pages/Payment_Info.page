@@ -1,0 +1,654 @@
+<apex:page showHeader="false"  sidebar="false" cache="false" applyHtmlTag="false" applyBodyTag="false" standardStylesheets="false" Controller="Payment_Info_Extn"  >
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>Customer Information</title>
+<link href="https://cdn.wolterskluwer.io/wk-css/0.16.x/with-bootstrap.min.css" type="text/css" rel="stylesheet"/>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"/>
+
+<!--[if IE]><link rel="shortcut icon" href="https://cdn.wolterskluwer.io/wk.css/0.13.x/assets/images/favicon/favicon.ico"><![endif]-->
+<link rel="apple-touch-icon-precomposed" href="https://cdn.wolterskluwer.io/wk.css/0.13.x/assets/images/favicon/favicon-180.png"/>
+<link rel="icon" href="https://cdn.wolterskluwer.io/wk.css/0.13.x/assets/images/favicon/favicon-196.png"/>
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>-->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<style type="text/css">
+
+p, li {
+    font-family: "Fira Sans","Helvetica Neue",Helvetica,"Roboto",Arial,sans-serif;
+}
+label {
+    font-size: .9375rem;
+}
+.wk-footer .wk-footer-nav {
+    margin-bottom: 0;
+}
+.wk-footer-nav ul li {
+    float: left;
+    padding-left: 20px;
+}
+.wk-footer-nav ul li a {
+    color: #ffffff;
+    text-decoration: none;
+}
+.wk-footer-nav ul li:first-child {
+    padding-left: 0;
+}
+
+.wk-footer-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.cart-upsell {
+    background-color: #fff;
+    border: 1px solid #dadada;
+    padding: .9375rem;
+    margin-bottom: 10px;
+    position: relative;
+    min-height: 275px;
+}
+.cart-upsell button.only, .cart-upsell button.first, .cart-upsell button.second {
+    position: absolute;
+    bottom: 0;
+    margin: 0;
+}
+.cart-upsell button.only, .cart-upsell button.first {
+    left: 0;
+}
+.cart-upsell button.first {
+    width: 49%;
+}
+.cart-upsell button.second {
+    right: 0;
+    width: 49%;
+}
+.dark, .light {
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+.dark {
+    background-color: #e6e6e6;
+}
+.checklist {
+    padding: 10px;
+}
+.fa-plus {
+    -webkit-transition: .38s;
+    transition: .38s;
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+    opacity: 1;
+}
+
+.fa-plus-transition {
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+    opacity: 0;
+}
+
+.fa-minus {
+    -webkit-transition: .38s;
+    transition: .38s;
+    -webkit-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+    opacity: 0;
+    position: relative;
+    left: -17px;
+}
+
+.fa-minus-transition {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+    opacity: 1;
+}
+/*open plus/minus animation*/
+.fa-plus.open-slide {
+    -webkit-transition: .38s;
+    transition: .38s;
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+    opacity: 0;
+}
+
+.fa-plus-transition.open-slide {
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+    opacity: 1;
+}
+
+.fa-minus.open-slide {
+    -webkit-transition: .38s;
+    transition: .38s;
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+    opacity: 1;
+    position: relative;
+    left: -17px;
+}
+
+.fa-minus-transition.open-slide {
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+    opacity: 0;
+}
+/*Drop Down Styles*/
+#toggle-1-content,#toggle-2-content,#toggle-3-content,#toggle-4-content,#toggle-5-content,#toggle-6-content,#toggle-7-content,#toggle-8-content,#toggle-9-content,#toggle-10-content,#toggle-11-content,#toggle-12-content,#toggle-13-content,#toggle-14-content,#toggle-15-content,#toggle-16-content,#toggle-17-content,#toggle-18-content,#toggle-19-content,#toggle-20-content,#toggle-21-content,#toggle-22-content,#toggle-23-content {
+    display: none;
+}
+#toggle-1-1-content {
+    display: block;
+}
+.close-toggle {
+    text-decoration: none;
+    padding: 3px 10px;
+    margin: 20px 0;
+    cursor: pointer;
+    color: rgb(199,53,52);
+}
+.title p {
+    font-size: 1.5em;
+    color: #0081c6;
+    margin: 0 !important;
+    cursor: pointer;
+}
+.title-text {
+    color: #474747;
+}
+.wk-field-error {
+    display: none;
+}
+.wk-select-field>select {
+    padding: .15rem .5rem;
+}
+.wk-select-field:after {
+    top: .4rem
+}
+.on-file {
+    border: 1px solid #ececec;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+#error5 .message {
+    background-color: #e5202e;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    color: #ffffff
+}
+#error5 .message h4 {
+    color: #ffffff;
+}
+.errorMsg {
+    color: #e5202e !important;
+}
+#billing-address, #billing-address-2 {
+    display: none;
+}
+.nav-tabs.nav-justified>.active>a {
+    border: none !important;
+    border-bottom: 1px solid #fff !important;
+}
+.rich-tab-inactive {
+    background-color: #f3f3f3;
+}
+.rich-tab-active {
+    background-color: #ffffff;
+}
+.rich-tab-inactive, .rich-tab-active {
+    background-image: none;
+    font-size: 1em;
+    font-weight: 800;
+    font-family: "Fira Sans","Helvetica Neue",Helvetica,"Roboto",Arial,sans-serif;
+    cursor: pointer;
+}
+.rich-tab-bottom-line > table > tbody > tr > td:nth-child(odd) {
+    display: none;
+}
+table.detailList {
+    border-bottom: 15px solid #ffffff;
+    font-family: "Fira Sans","Helvetica Neue",Helvetica,"Roboto",Arial,sans-serif;
+    width: 100%
+}
+table.detailList .labelCol label {
+    margin-right: 10px;
+}
+table.detailList .labelCol {
+    text-align: right;
+}
+table.detailList .dataCol input {
+    margin-bottom: 10px;
+}
+
+@media screen and (max-width: 1024px) {
+    .wk-row {
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .cart-header {
+        display: none;
+    }
+    .cart-price {
+        text-align: left;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .wk-footer-nav ul li {
+        float: none;
+        padding: 0;
+    }
+    
+    
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+
+<!--PAGE CONTENT-->
+
+<section>
+  
+    <div class="wk-container wk-clearfix">
+        <div class="wk-row">
+            <div class="col-xs-12">
+                <div class="dark checklist">  
+                <apex:form id="shipfrm">
+        
+                     <div class="wk-row" id="error5">
+                    <apex:pageMessages />
+                   </div>
+                   
+                      <section>
+                <div class="container clearfix" style="margin-bottom: 20px;">
+                                <div class="row">
+                                                <div class="col-xs-12 text-center" style="color: #dadada;">
+                                                <p style="font-size: 1.5em;"><span >Account</span> <span class="wk-icon-angle-right"></span> <span >Shipping</span> <span  class="wk-icon-angle-right blue"></span><span style="color: #85bc20;"> Billing</span> <span style="color: #85bc20;" class="wk-icon-angle-right"></span> Review</p>
+                                                </div>
+                                </div>
+                </div>
+                </section>
+                    
+                     
+                    <div class="wk-layout-33-66">
+                    <div class="wk-layout-item">
+                    
+                             <div style="border: 1px solid #ccc; padding: 10px; background-color: #f3f3f3;">
+                            
+                             <h3 style="margin-top: 0 !important">Account Information</h3>
+                             <p><strong>Company Name:</strong>  {!Existingaccnt[0].Name}<br/>
+                             <strong>Contact Name:</strong> {!Existingaccnt[0].Acct_Primary_Contact__r.Name}<br/>
+                             <strong>Phone:</strong> {!Existingaccnt[0].Acct_Primary_Contact__r.Phone}<br/>
+                             <strong>Email:</strong> {!Existingaccnt[0].Acct_Primary_Contact__r.Email}</p>
+                            <!--- <a href="#"><button class="wk-button-secondary wk-button-full"><span class="wk-icon-edit"></span> Edit</button></a>-->
+                             
+                             
+                            </div>
+                            <br/>
+                           <div style="border: 1px solid #ccc; padding: 10px; background-color: #f3f3f3;">
+                           
+                           <h3 style="margin-top: 0 !important">Shipping Information</h3>
+                             <p><strong>Street Address:</strong>  {!Existingaccnt[0].ShippingStreet}<br/>
+                             <strong>City :</strong> {!Existingaccnt[0].shippingcity}<br/>
+                             <strong>State :</strong> {!Existingaccnt[0].shippingState}<br/>
+                             <strong>Postal Code :</strong> {!Existingaccnt[0].shippingpostalcode}</p>
+                             <!--- <a href="#"><button class="wk-button-secondary wk-button-full"><span class="wk-icon-edit"></span> Edit</button></a>-->
+                           </div>
+                           <div style="padding: 10px;">
+                            <p style="font-size: .8rem;"><strong>NOTE:</strong> If you need to change any of the above information, you can do so on the review page before finalizing your order.</p>
+                           </div>
+                           <div style="padding: 10px; position: absolute; bottom: 0;">
+                              <p><em>* Indicates a required field</em></p>
+                           </div>
+                    </div>
+                    <div class="wk-layout-item">
+                    
+                    <div class="wk-row">
+                        <div class="wk-col-12 text-center">
+                            <h3 style="margin-bottom: 15px; margin-top: 0;">Choose a Payment Method</h3>
+                        </div>
+                    </div>
+                    
+                  
+                    
+                    <apex:tabPanel styleClass="nav nav-tabs nav-justified" switchType="client" selectedTab="name1" id="theTabPanel">
+                    
+                      <apex:tab label="Credit/Debit Card" id="cc-debit" style="tab-pane;padding: 10px; background-color: #fff;">
+                        <div class="wk-row">
+                        <div class="wk-layout-50-50">
+                            <div class="wk-layout-item">
+                               <div class="wk-field-item">
+                                          <div class="wk-field-header">
+                                            <label>First Name as it Appears on Card*</label>
+                                          </div>
+                                          <apex:inputField value="{!ccpm.invoiceit_s__Billing_First_Name__c}" />
+                                          <div class="wk-field-error"></div>
+                                        </div>
+                                    </div>
+                                    <div class="wk-layout-item">
+                                        <div class="wk-field-item">
+                                          <div class="wk-field-header">
+                                            <label>Last Name as it Appears on Card*</label>
+                                          </div>
+                                          <apex:inputField value="{!ccpm.invoiceit_s__Billing_Last_Name__c}"  />
+                                          <div class="wk-field-error"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="wk-row">
+                            <div class="wk-layout-75-25">
+                            <div class="wk-layout-item">
+                            <div class="wk-field-item">
+                              <div class="wk-field-header">
+                                <label>Card Number*</label>
+                              </div>
+                              <apex:inputField value="{!ccpm.invoiceit_s__Card_Number__c}"  />
+                              <div class="wk-field-error"></div>
+                            </div>
+                            </div>
+                            <div class="wk-layout-item">
+                            <div class="wk-field-item">
+                                          <div class="wk-field-header">
+                                            <label>Security Code*</label>
+                                          </div>
+                                          <apex:inputField value="{!ccpm.invoiceit_s__CVV__c}" />
+                                          <div class="wk-field-error"></div>
+                                        </div>
+                                        </div>
+                                        </div>
+                                        </div>
+                            
+                            <div class="wk-row">
+                                <div class="wk-layout-33-33-33">
+                                    <div class="wk-layout-item">
+                                        <div class="wk-field-item">
+                                          <div class="wk-field-header">
+                                            <label>Expiration Month*</label>
+                                            </div>
+                                            <div class="wk-select-field">
+                                            <apex:inputField value="{!ccpm.invoiceit_s__Card_Expiration_Month__c}"  />
+                                          </div>
+                                          
+                                          <div class="wk-field-error"></div>
+                                        </div>
+                                    </div>
+                                    <div class="wk-layout-item">
+                                        <div class="wk-field-item">
+                                        <div class="wk-field-header">
+                                            <label>Exipration Year*</label>
+                                          </div>
+                                        <div class="wk-select-field">
+                                           <apex:inputField value="{!ccpm.invoiceit_s__Card_Expiration_Year__c}"  /> 
+                                          </div>
+                                          <div class="wk-field-error"></div>
+                                          </div>
+                                    </div>
+                                    <div class="wk-layout-item">
+                                        <div class="wk-field-item">
+                                          <div class="wk-field-header">
+                                          
+                                            <label>Card Type*</label>
+                                          </div>
+                                          
+                                            <div class="wk-select-field">
+                                          <apex:inputField value="{!ccpm.invoiceit_s__Card_Type__c}" />
+                                          </div>
+
+                                          <div class="wk-field-error"></div>
+                                        </div>
+                               
+                        </div>
+                    </div>
+                    </div>
+                    <apex:pageBlock >
+                    <div class="wk-row">
+                        <div class="wk-field-item">
+                          
+                          <div class="wk-checkbox-field">
+                            <label>
+                              <apex:inputCheckbox id="billing-address-check" value="{!ccpm.Same_as_Shipping_Add__c}" label="Billing Address same as Shipping Address?" selected="true"  >
+                              <apex:actionsupport event="onclick" rerender="SampleView" />
+                              </apex:inputCheckbox>
+                              <span>Billing Address for this card same as Shipping Address?</span>
+                              </label>
+                          </div>
+                          <div class="wk-checkbox-field">
+                            <label>
+                                <apex:inputCheckbox id="billin1" value="{!ccpm.invoiceit_s__Default__c}" label="Use this Payment Method for current order" selected="true" / >
+                                 <span>Use this Payment Method for current order</span>
+                            </label>
+                          </div>
+                          <div class="wk-field-error"></div>
+                        </div>
+                    </div>
+                   
+                   <apex:outputPanel id="SampleView">
+                   
+                          <apex:pageBlockSection rendered="{!!ccpm.Same_as_Shipping_Add__c}">
+                              
+                              
+                               <apex:inputText label="Address* " value="{!ccpm.invoiceit_s__Billing_Address__c}"/>
+                             
+                               <apex:inputText label="City* " value="{!ccpm.invoiceit_s__Billing_City__c}"/>
+                              
+                               
+                               
+                              <apex:inputText label="State* " value="{!ccpm.invoiceit_s__Billing_State_Province__c}"/>
+                              
+                             
+                           <apex:inputText label="Zip Code* " value="{!ccpm.invoiceit_s__Billing_Zip_Postal__c}"/>
+                                                                   
+                              
+                         </apex:pageBlockSection>
+                     
+                      </apex:outputPanel>
+                       </apex:pageBlock>
+                   
+                    
+                    <div class="wk-row">
+                    <button type="button"  class="wk-button-full wk-button-success" location="Top" onclick="cc()"   >Save Payment Information</button>
+
+                    </div>
+                        
+              </apex:tab>
+              
+                <apex:tab label="ACH Account"  id="ach-account" style="tab-pane;padding: 10px; background-color: #fff;">
+                        <div class="wk-row">
+                        <div class="wk-layout-50-50">
+                            <div class="wk-layout-item">
+                               <div class="wk-field-item">
+                                          <div class="wk-field-header">
+                                           <label>First Name on Account*</label>
+                                          </div>
+                                          <apex:inputField value="{!achpm.invoiceit_s__Billing_First_Name__c}"   />
+                                          <div class="wk-field-error"></div>
+                                        </div>
+                                    </div>
+                                    <div class="wk-layout-item">
+                                        <div class="wk-field-item">
+                                          <div class="wk-field-header">
+                                            <label>Last Name on Account*</label>
+                                          </div>
+                                          <apex:inputField value="{!achpm.invoiceit_s__Billing_Last_Name__c}"  />
+                                          <div class="wk-field-error"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="wk-row">
+                            <div class="wk-layout-75-25">
+                            <div class="wk-layout-item">
+                            <div class="wk-field-item">
+                              <div class="wk-field-header">
+                                <label>Bank Name*</label>
+                              </div>
+                              <apex:inputField value="{!achpm.invoiceit_s__Bank_Name__c}"   />
+                              <div class="wk-field-error"></div>
+                            </div>
+                            </div>
+                            <div class="wk-layout-item">
+                            <div class="wk-field-item">
+                                <div class="wk-field-header">
+                                  <label>Bank Account Type*</label>
+                                </div>
+                                   
+                                 <div class="wk-select-field">
+                                <apex:inputField value="{!achpm.invoiceit_s__Bank_Account_Type__c}"   />
+                                </div>
+                                <div class="wk-field-error"></div>
+                              </div>
+                                        </div>
+                                        </div>
+                                        </div>
+                                        
+                            
+                              
+                            <div class="wk-row">
+                        <div class="wk-layout-50-50">
+                            <div class="wk-layout-item">
+                               <div class="wk-field-item">
+                                          <div class="wk-field-header">
+                                            <label>Account Number*</label>
+                                          </div>
+                                          <apex:inputField value="{!achpm.invoiceit_s__Bank_Account_Number__c}"  />
+                                          <div class="wk-field-error"></div>
+                                        </div>
+                                    </div>
+                                    <div class="wk-layout-item">
+                                        <div class="wk-field-item">
+                                          <div class="wk-field-header">
+                                            <label>Routing Number*</label>
+                                          </div>
+                                          <apex:inputField value="{!achpm.invoiceit_s__Bank_Routing_Code__c}" />
+                                          <div class="wk-field-error"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                    <apex:pageBlock >   
+                       <div class="wk-row">
+                        <div class="wk-field-item">
+                          
+                          <div class="wk-checkbox-field">
+                            <label>
+                              <apex:inputCheckbox id="billing-address-check-2" value="{!achpm.Same_as_Shipping_Add__c}" label="Billing Address same as Shipping Address?" selected="true" >
+                              <apex:actionsupport event="onclick" rerender="SampleView1" />
+                              </apex:inputCheckbox>
+                              <span>Billing Address for this account same as Shipping Address?</span>
+                            </label>
+                          </div>
+                          <div class="wk-checkbox-field">
+                            <label>
+                               <apex:inputCheckbox id="billin" value="{!achpm.invoiceit_s__Default__c}" label="Use this Payment Method for current order" selected="true" / >
+                               <span>Use this Payment Method for current order</span>
+                            </label>
+                          </div>
+                          <div class="wk-field-error"></div>
+                        </div>
+                    </div>
+                    
+                     <apex:outputPanel id="SampleView1">
+                   
+                          <apex:pageBlockSection rendered="{!!achpm.Same_as_Shipping_Add__c}">
+                              
+                              
+                               <apex:inputText label="Address*" value="{!achpm.invoiceit_s__Billing_Address__c}"/>
+                             
+                               <apex:inputText label="City*" value="{!achpm.invoiceit_s__Billing_City__c}"/>
+                              
+                               
+                               
+                              <apex:inputText label="State*" value="{!achpm.invoiceit_s__Billing_State_Province__c}"/>
+                              
+                             
+                           <apex:inputText label="Zip Code*" value="{!achpm.invoiceit_s__Billing_Zip_Postal__c}"/>
+                                                                   
+                              
+                         </apex:pageBlockSection>
+                     
+                      </apex:outputPanel>
+                       </apex:pageBlock>
+                            
+                            <div class="wk-row">
+                            
+                    <button type="button"  class="wk-button-full wk-button-success" location="Top" onclick="saveach()">Save Payment Information</button>
+                    
+                    
+                    </div>
+                    
+                   </div> 
+                 </apex:tab>
+                        
+                        
+                        
+              </apex:tabPanel>
+                    
+                   
+                   
+                    </div>
+                    </div>
+                    
+                     <apex:actionstatus id="loading" startText="Loading...">
+            <apex:facet name="start">
+                    <div id="salesforceSource_blurybackground" style="z-index: 9999; position: fixed; left: 1px; top: 1px; width: 100%; height: 100%; text-align: center; vertical-align: middle; background-color: #dcdcdc; opacity: 0.75; filter: alpha(opacity = 50)"></div>
+                    <div id="ManageMembersViewport_loading" class="waitingSearchDiv" style="width: 100%; height: 80%; display: '';">
+                        <div style="max-width: 800px; width: 100%; position: fixed; top: 40%;left: 25%; z-index:10000;" class="waitingHolder">
+                            <table align="center" valign="top" style="width: 100%; height: 30%">
+                                <tr align="center" valign="top" style="width: 100%; height: 30%">
+                                    <td valign="top">
+                                    <p style="font-size:1.5em; color: #474747;" class="text-center">Please wait while we create your account.<br/>Do not hit the back button or close your browser.<br />
+                                <small>This may take a few seconds.</small></p>
+                                    <span class="wk-icon-reload wk-spin" style="color: #474747; font-size:2.5em;"></span></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div id="ManageMembersViewport_loading" class="waitingSearchDiv" style="width: 100%; height: 100%; display:'';" />
+                    <script>
+                        document.getElementById('ManageMembersViewport_loading').height = window.innerHeight * (3/4);
+                    </script>
+                </apex:facet>
+                            <apex:facet name="stop"></apex:facet>
+                        </apex:actionstatus>
+                        <apex:actionFunction name="cc" action="{!savecc}"  oncomplete="if({!iserror})cql();" status="loading" reRender="shipfrm" />
+                        <apex:actionFunction name="cql" action="{!insertquote}" oncomplete="if({!iserror})oql();"  status="loading" reRender="shipfrm"  />
+                        <apex:actionFunction name="oql" action="{!creatql}" oncomplete="if({!iserror})tx();"  status="loading" reRender="shipfrm"  />
+                        <apex:actionFunction name="tx" action="{!salestx}" oncomplete="openWindow();" status="loading" reRender="shipfrm"  />
+                        <apex:actionFunction name="saveach" action="{!saveAch}" oncomplete="if({!iserror})cql();" status="loading" rerender="shipfrm" />
+                      
+                      <script>
+                            function openWindow(){
+                               // window.open("{!$Label.Ecom_Link1}sales/PaymentConfirmationPage?accuntId={!crt[0].id}");
+                               window.top.location='{!$Label.Ecom_Link1}sales/PaymentConfirmationPage?accuntId={!crt[0].id}';
+                            }
+                        </script>
+             </apex:form>
+                    
+                
+              </div>
+            </div>
+        </div>
+        <br/>
+     
+ </div>
+</section> 
+
+
+
+</body>
+</html>
+</apex:page>

@@ -1,0 +1,59 @@
+<!--  
+Name: SubHistoryRelatedlistList
+Copyright © 2012 WK
+======================================================
+======================================================
+Purpose: This page is used in the account view page layout to show the subscription history.
+======================================================
+======================================================
+History
+-----------------------------------------------------------------------
+VERSION   AUTHOR   DATE       DETAIL 
+1.0       Aditya   28/03/2012 INITIAL DEVELOPMENT 
+-->
+
+<apex:page standardController="Account"
+	extensions="SubHistoryRelatedlistController"
+	action="{!getSubscriptionHistory}">
+	<apex:form >
+		<script>
+function viewRecord(temp){
+var url=window.location.protocol+"//"+window.location.host+"/"+temp;
+//alert(url);
+window.open(url);
+return;
+}
+</script>
+		<apex:pageMessage summary="No Records Found" strength="3"
+			severity="info" rendered="{!showMessage}" />
+		<apex:pageBlock rendered="{!showTable}">
+			<apex:pageBlockTable value="{!listSubscription}" var="obj">
+				<apex:column headerValue="Year" title="Year">
+					<apex:commandLink value="{!obj.Year__c}" title="view"
+						onclick="javascript:viewRecord('{!obj.Id}');return false;" />
+				</apex:column>
+				<apex:column headerValue="Previous Software"
+					title="Previous Software">
+					<apex:outputField value="{!obj.Previous_Software__c}" />
+				</apex:column>
+				<apex:column headerValue="Qualify" title="Qualify">
+					<apex:outputField value="{!obj.Account__r.Qualify__c}" />
+				</apex:column>
+				<apex:column headerValue="Prior Year Whole Value"
+					title="Prior Year Whole Value">
+					<apex:outputField value="{!obj.Prior_Year_Whole_Value__c}" />
+				</apex:column>
+				<apex:column headerValue="Bank Product Volume"
+					title="Bank Product Volume">
+					<apex:outputField value="{!obj.Bank_Products_del__c}" />
+				</apex:column>
+				<apex:column headerValue="E Files" title="E Files">
+					<apex:outputField value="{!obj.E_files_del__c}" />
+				</apex:column>
+				<apex:column headerValue="Purchase Date" title="Purchase Date">
+					<apex:outputField value="{!obj.Purchase_Date__c}" />
+				</apex:column>
+			</apex:pageBlockTable>
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

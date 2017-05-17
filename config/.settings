@@ -1,0 +1,17 @@
+{
+    "projectName": "SFS QA",
+    "username": "rgonola@cchsfs.com.qa",
+    "id": "e6a90170-3a80-11e7-bb94-2b7d53c97a03",
+    "namespace": "",
+    "orgType": "developer",
+    "loginUrl": "https://login.salesforce.com/",
+    "instanceUrl": "https://wksfs--QA.cs53.my.salesforce.com",
+    "workspace": "C:\\Users\\rajesh.gonola\\Documents",
+    "subscription": [
+        "ApexClass",
+        "ApexComponent",
+        "ApexPage",
+        "ApexTrigger",
+        "StaticResource"
+    ]
+}

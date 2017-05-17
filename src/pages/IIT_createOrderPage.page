@@ -1,0 +1,106 @@
+<apex:page standardController="SBQQ__Quote__c"   extensions="IIT_createOrder_extension" action="{!processOrder}">
+   <apex:form id="theform">
+       <apex:pageMessages id="msid"></apex:pageMessages> 
+        <apex:pageBlock id="addressValidationSection" title="Payment check" >   
+               
+        <!--    <apex:pageBlockSection id="dataCaptureSection" columns="1" rendered="{!isrender}">  
+        -->
+         <apex:pageBlockSection id="dataCaptureSection" columns="1" >
+        <!--   DOWNPAYMENTS   -->
+                <apex:pageBlockSectionItem rendered="{!IF(isnull(PPIcount) || PPIcount=0   ,true,false)}"    >
+                    No payment methods have down payments. No further processing will occur. 
+                    <br></br>Please hit the browser back button to return to the quote.
+                </apex:pageBlockSectionItem> 
+                <apex:pageBlockSectionItem rendered="{!IF(PPIcount>0,true,false)}"  >  
+                    Number of payment installments is {!PPIcount}
+                </apex:pageBlockSectionItem>
+        <!--   TRANSACTIONS   -->        
+                <apex:pageBlockSectionItem rendered="{!IF(isnull(TransactionOK) || TransactionOK=''   ,true,false)}"    >
+                   No Transactions created 
+                </apex:pageBlockSectionItem>                
+                 <apex:pageBlockSectionItem rendered="{!IF(isnull(TransactionOK) || TransactionOK=''   ,false,true)}">   
+                    Transactions:    {!TransactionOK}
+                </apex:pageBlockSectionItem>
+        <!--   PIDCID   -->         
+                <apex:pageBlockSectionItem >   
+                    Account PID / CID-  {!IncrementStatus}
+                </apex:pageBlockSectionItem>
+        <!--   ORDERS   -->        
+               <apex:pageBlockSectionItem rendered="{!IF(isnull(OrderID) || OrderID=''   ,true,false)}"    >
+                   No orders created 
+                </apex:pageBlockSectionItem> 
+               <apex:pageBlockSectionItem rendered="{!IF(isnull(OrderID) || OrderID=''   ,false,true)}"    >
+                   <apex:outputLink value="/{!orderID}">Order created</apex:outputLink> 
+                </apex:pageBlockSectionItem> 
+         <!--  INVOICES   -->       
+               <apex:pageBlockSectionItem rendered="{!IF(isnull(invoiceID) || invoiceID=''   ,true,false)}"    >
+                   No Invoices created  
+                </apex:pageBlockSectionItem> 
+               <apex:pageBlockSectionItem rendered="{!IF(isnull(invoiceID) || invoiceID=''   ,false,true)}"    >
+                   <apex:outputLink value="/{!invoiceID}">Invoice created</apex:outputLink>
+                </apex:pageBlockSectionItem>  
+                
+          <!--  Exceptions   -->       
+               <apex:pageBlockSectionItem rendered="{!IF(isnull(ErrorMsg) || ErrorMsg=''   ,false,true)}"    >
+                   <span style="color:red"> Error :  {!ErrorMsg} </span>
+                </apex:pageBlockSectionItem>             </apex:pageBlockSection>
+                <apex:pageBlockButtons location="Bottom" rendered="{!!isrender}">
+                <apex:commandButton value="Back To Quote" action="{!cancel}"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+        
+        <apex:pageBlock title="Creation Progress" rendered="{!isrender}">
+         <table style="width:100%" cellspacing="0" cellpadding="0" border="0" class="list" >
+              <thead class="rich-table-thead">
+              <tr class="headerRow">
+                <td ></td>   
+                <td>Status</td>
+              </tr>
+              <tr>
+                <td class="dataCell">Transactions Checked</td>   
+                <td class="dataCell">                
+                <apex:outputlabel rendered="{!IF(isnull(TransactionOK) || TransactionOK=''   ,true,false)}" style="color:red"   value="Stopped"></apex:outputlabel>
+                <apex:outputlabel rendered="{!IF(isnull(TransactionOK) || TransactionOK=''   ,false,true)}" style="color:Green" value="Success"></apex:outputlabel> 
+                </td>
+              </tr>
+              <tr>
+                <td class="dataCell">Order Created</td>   
+                <td class="dataCell">
+                <apex:outputlabel rendered="{!IF(isnull(OrderID) || OrderID=''   ,true,false)}" style="color:red"  value="Stopped"></apex:outputlabel>
+                <apex:outputlabel rendered="{!IF(isnull(OrderID) || OrderID=''   ,false,true)}" style="color:Green"  value="Success"></apex:outputlabel> 
+                </td>
+              </tr>
+              <tr>
+                <td class="dataCell"> Invoice Created</td>    
+                <td class="dataCell">
+                <apex:outputlabel rendered="{!IF(isnull(invoiceID) || invoiceID=''   ,true,false)}" style="color:red" value="Stopped"></apex:outputlabel>
+                <apex:outputlabel rendered="{!IF(isnull(invoiceID) || invoiceID=''   ,false,true)}" style="color:Green" value="Success"></apex:outputlabel>             
+                </td>
+              </tr>
+              </thead>
+            </table>
+            <apex:pageBlockButtons location="Bottom">
+                <apex:commandButton value="Back To Quote" action="{!cancel}"/>
+                <!--<apex:commandButton value="Process Data to Oracle" action="{!processDataToOracle}" rendered="{!IF(isnull(OrderID) || OrderID=''   ,false,true)}"/> -->
+            </apex:pageBlockButtons>
+         </apex:pageBlock>
+         
+             
+         
+         
+    </apex:form>
+</apex:page>
+
+<!--    
+Payment Check
+
+Number of payments to process is 1
+
+1 Transactions created                                   Success!
+
+Account PID / CID CID and PID assigned successfully
+
+Order Created                                            Success!
+
+Invoice Created                                          Success!
+-->

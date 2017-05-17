@@ -1,0 +1,12 @@
+[
+    {
+        "name": "SFS UAT",
+        "id": "338b9f70-3a81-11e7-bb94-2b7d53c97a03",
+        "instanceUrl": "https://wksfs--UAT.cs25.my.salesforce.com"
+    },
+    {
+        "name": "SFS QA",
+        "id": "437d5950-3a81-11e7-bb94-2b7d53c97a03",
+        "instanceUrl": "https://wksfs--QA.cs53.my.salesforce.com"
+    }
+]

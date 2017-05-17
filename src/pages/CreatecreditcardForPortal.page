@@ -1,0 +1,29 @@
+<apex:page controller="IIT_ControllerPaymentMethodDisplay" showHeader="false" sidebar="false">
+<apex:sectionHeader title="Payment Method" subtitle="Add your Credit Card information below" />
+<apex:pageMessages id="ccmsg"></apex:pageMessages>
+  <apex:form id="theFormID">
+    
+    <apex:pageBlock title="Credit Card" id="ccid">
+       
+        <apex:pageblockSection id="psid">
+            <apex:repeat value="{!$ObjectType.invoiceit_s__Payment_Method__c.FieldSets.payment_for_Credit_Card}" var="fieldAPI">
+                           
+                      <apex:inputField value="{!paymentMethod[fieldAPI]}" required="true" rendered="{!fieldAPI != 'invoiceit_s__Card_Number__c' && fieldAPI != 'invoiceit_s__Billing_First_Name__c'}"/>
+                       <apex:inputField value="{!paymentMethod.invoiceit_s__Card_Number__c}" label="Card Number " required="true" rendered="{!fieldAPI == 'invoiceit_s__Card_Number__c' && renderButton}" id="theFieldID" /> 
+                       <apex:inputField value="{!paymentMethod.invoiceit_s__Billing_First_Name__c}" label="Billing First Name" required="true" rendered="{!fieldAPI == 'invoiceit_s__Billing_First_Name__c'}"  styleClass="fieldClass"/>  
+                      <!--<input value="{!paymentMethod.invoiceit_s__Card_Number__c}" label="Card Number " required="true" rendered="{!fieldAPI == 'invoiceit_s__Card_Number__c'}" id="theFieldID" autofocus="autofocus"/> -->
+                                    <!--{!fieldAPI.Label}-->
+                            
+                        </apex:repeat> 
+                        
+        </apex:pageblockSection>
+        <apex:pageBlockButtons location="Bottom">
+          
+          <apex:commandButton action="{!GenerateTokenPM}" value="Save" rendered="{!renderButton}"/>
+          <apex:commandButton action="{!updateButton}" value="Update" rendered="{!!renderButton}"/>
+          <apex:commandButton action="{!CancelButton}" value="Cancel" immediate="true"/> 
+        </apex:pageBlockButtons>
+      
+      </apex:pageBlock>
+    </apex:form>   
+</apex:page>

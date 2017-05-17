@@ -1,0 +1,17 @@
+<apex:page sidebar="false" showHeader="false" standardStylesheets="false" standardController="Product2" extensions="DisplayIntSolRRetrieval">
+    <apex:stylesheet value="https://cdn.wolterskluwer.io/wk.css/0.15.x/with-bootstrap.min.css" />
+    <apex:stylesheet value="{!URLFOR($Resource.Styles)}" />
+        <style>
+        body {
+        background-color: transparent;
+        }       
+        </style> 
+        <div class="col-sm-3 text-center">
+              <h3 class="atx-title">Return Retrieval</h3>
+              <apex:outputText styleClass="h2 green" value="${0,number,###,#00}">
+                 <apex:param value="{!retretrievalprice.UnitPrice}"/>
+              </apex:outputText>
+                    <br/><br/>
+                    <button type="button"  class="wk-button-default wk-button-full" onclick="window.top.location='{!$Label.Ecom_Link}{!retretrievalprice.Product2.productcode}&returnurl={!$Label.Ecom_Marketing_Link}enhance/return-retrieval.aspx';" >Add to Cart</button>
+        </div>
+</apex:page>

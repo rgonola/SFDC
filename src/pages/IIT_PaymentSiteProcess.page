@@ -1,0 +1,124 @@
+<apex:page controller="IIT_ControllerPaymentSiteProcess" tabStyle="Account" sidebar="false" showHeader="false" cache="false">
+ <script>
+        function changeValue(input, textid) {
+            document.getElementById(textid).value = input.value;
+        }
+  </script>
+  <apex:form id="form1" rendered="{!!isDisplayblock}">  
+      <apex:pageMessages id="msg"/>
+  </apex:form>
+    <apex:form id="form" rendered="{!isDisplayblock}">        
+    <apex:sectionHeader title="" subtitle="Open Invoices" rendered="{!!isRender}"/>
+    <apex:sectionHeader title="" subtitle="Transaction detail(s)" rendered="{!isRender}"/>    
+    <apex:pageMessages id="msg" rendered="{!!dontShowMessage}"/>
+        <apex:pageBlock id="saveParentBlock1" rendered="{!isRender}" >
+          <apex:pageBlockTable value="{!listOftransactionToinsert}" var="Transaction">
+            <apex:column headerValue="Transaction Reference">
+              <apex:outputtext value="{!Transaction.Name}"  rendered="{!isTrasDispaly}"/>
+            </apex:column>
+            <!--<apex:column value="{!Transaction.Name}" headerValue="Transaction Reference"  rendered="{!isTrasDispaly}"/> -->
+            <apex:column headerValue="Invoice #">
+               <apex:outputField value="{!Transaction.invoiceit_s__Request_Invoice__c}"/>
+            </apex:column>
+            <apex:column value="{!Transaction.invoiceit_s__Request_Invoice__r.invoiceit_s__CurrencyL__r.invoiceit_s__Currency_Symbol__c} {!Transaction.invoiceit_s__Amount__c} (USD)" headerValue="Processed Amount"/>
+            <apex:column headerValue="Status">
+                 <apex:outputtext style="color:red" value="Stopped" rendered="{!!Transaction.invoiceit_s__Is_Payment_Processed_Successfully__c}"/>
+                 <apex:outputtext style="color:Green" value="Success" rendered="{!Transaction.invoiceit_s__Is_Payment_Processed_Successfully__c}"/>
+            </apex:column>  
+            <apex:column value="{!Transaction.invoiceit_s__Response__c}" headerValue="Gateway Response"/>
+          </apex:pageBlockTable>
+          <apex:commandbutton value="Open Invoices" action="{!openinvc}" />
+        </apex:pageBlock>
+        <apex:pageblock rendered="{!!isRender}" id="saveParentBlock">
+            
+           <apex:pageBlockTable value="{!listOfInvoiceWrapperClass}" var="InvoiceWrapperClass">
+                <apex:column headerValue="Action">
+                 <apex:inputCheckbox value="{!InvoiceWrapperClass.isSelected}" disabled="{!InvoiceWrapperClass.isHide}"/>
+                </apex:column>    
+                <apex:column value="{!InvoiceWrapperClass.invoiceObj.Name}"/>
+                <apex:column value="{!InvoiceWrapperClass.invoiceObj.invoiceit_s__Account__r.Name}"/>
+                <apex:column value="{!InvoiceWrapperClass.invoiceObj.Account_CID__c}"/>
+                <apex:column value="{!InvoiceWrapperClass.invoiceObj.Account_PID__c}"/>
+                <apex:column value="{!InvoiceWrapperClass.invoiceObj.invoiceit_s__Invoice_Date__c}"/>
+                <apex:column headerValue="Total Invoice Value" value="{!InvoiceWrapperClass.invoiceObj.invoiceit_s__CurrencyL__r.invoiceit_s__Currency_Symbol__c} {!InvoiceWrapperClass.invoiceObj.invoiceit_s__Total_Invoice_Value__c} ({!InvoiceWrapperClass.invoiceObj.invoiceit_s__CurrencyL__r.name})"/>
+                <apex:column headerValue="Unpaid Amount" value="{!InvoiceWrapperClass.invoiceObj.invoiceit_s__CurrencyL__r.invoiceit_s__Currency_Symbol__c} {!InvoiceWrapperClass.invoiceObj.invoiceit_s__Unpaid_Amount__c} ({!InvoiceWrapperClass.invoiceObj.invoiceit_s__CurrencyL__r.name})"/>
+                <apex:column headerValue="Amount to be Paid">
+                  <apex:inputField value="{!InvoiceWrapperClass.invoiceObj.invoiceit_s__Payment_Request_Amount__c}"/>
+                </apex:column> 
+                
+                <apex:column headerValue="Re-Process Failed Record" rendered="{! If(($Profile.Name == 'System Administrator' ||$Profile.Name == 'CPQ AR Manager') ,true,false) }" >
+                   <apex:commandButton value="Process" action="{!PaymentAllocation}"   reRender="saveParentBlock,msg">
+                      <apex:param value="{!InvoiceWrapperClass.invoiceObj.id}" name="Payment"/>
+                  </apex:commandButton>
+                </apex:column>
+           </apex:pageBlockTable> <br/><br/>
+           <apex:pageBlockSection title="Choose an existing payment method" collapsible="false"></apex:pageBlockSection>
+           <apex:pageBlockTable value="{!listPaymentMethod}" var="paymentmethod">
+                <apex:column headerValue="Select">
+                    <input type="radio" id="{!paymentmethod.Id}" name="Letters" value="{!paymentmethod.Id}" onclick="changeValue(this,'{!$Component.RadioButtonValue}');" /> 
+                  <script>
+                        if({!paymentmethod.invoiceit_s__Default__c}){
+                            var ids = {!paymentmethod.id};
+                            document.getElementById(ids.value).checked = 'checked';
+                        }
+                  </script>
+                </apex:column>
+               
+                
+                <apex:column value="{!paymentmethod.invoiceit_s__Bank_Account_Name__c}"/>
+                
+                 <apex:column value="{!paymentmethod.invoiceit_s__Account__r.CID__c}"/>
+                <apex:column value="{!paymentmethod.invoiceit_s__Account__r.PID__c}"/>
+                <!--<apex:column value="{!paymentmethod.invoiceit_s__Card_Number__c}" /> -->
+                 <apex:column headerValue="Last 4 Digits">
+                     <apex:outputText value="{!paymentmethod.invoiceit_s__Card_Number__c}" rendered="{!paymentmethod.invoiceit_s__Payment_Method__c == 'Credit Card' }"/>
+                     <apex:outputText value="{!paymentmethod.Last_4_Digits__c}" rendered="{!paymentmethod.invoiceit_s__Payment_Method__c == 'ACH' }"/>
+                 </apex:column>
+                 <apex:column headerValue="Card Type">
+                     <apex:outputText value="{!paymentmethod.invoiceit_s__Card_Type__c}"/>
+                 </apex:column>
+                 <apex:column value="{!paymentmethod.invoiceit_s__Payment_Method__c}"/>
+                 
+                <!--<apex:column value="{!paymentmethod.invoiceit_s__Card_Type__c}"/> -->
+                <apex:column value="{!paymentmethod.invoiceit_s__Card_Expiration_Month__c}"/>
+                 <apex:column value="{!paymentmethod.invoiceit_s__Card_Expiration_Year__c}"/>
+                 <apex:column title="Drag a trainer here to assign an event" value="{!paymentmethod.invoiceit_s__Default__c}">
+                  <apex:facet name="header">
+                        <apex:outputPanel >
+                            <apex:outputText value="Default "/>
+                            <apex:image value="/s.gif" styleClass="helpIcon" title="To update default payment method, please use link in Add/Update Payment Method Section"/>
+                        </apex:outputPanel>
+                    </apex:facet>
+                  </apex:column>
+
+                     
+                 
+           </apex:pageBlockTable><br/><br/>
+           <apex:inputHidden value="{!selectedValue}" id="RadioButtonValue" />
+
+           <apex:pageBlockSection title="Create/Update Payment Method(s)  details" collapsible="false">
+             <!--<apex:commandLink value="Create a new Payment Method" action="{!createPM}" >
+                 <apex:param name="makede" value="Credit Card"/>
+              </apex:commandLink>   <br/><br/>
+             <apex:commandLink value="Create ACH" action="{!createCCPM}" >
+                 <apex:param name="makede" value="ACH"/>
+             </apex:commandLink> <br/><br/> -->  
+             <apex:commandLink value="Update Payment Method" action="{!updatePM}"/>
+           </apex:pageBlockSection>
+           <apex:pageblockbuttons location="Bottom">
+                <apex:actionStatus id="saveStatus">
+            <apex:facet name="stop">
+                <apex:commandbutton value="Process Payment(s)**" status="saveStatus" action="{!processPayment}" rerender="form"/>
+            </apex:facet>
+            ** Please note if you select mutiple invoices and process the payment then your CC/ACH will show mutiple trasactions in your statement.
+            <apex:facet name="start">
+                <apex:commandButton value="Please wait..." disabled="true" status="saveStatus"/>
+            </apex:facet>
+             </apex:actionStatus>   
+              <!--  <apex:commandbutton value="Cancel" action="{!returnPageURL}" /> -->
+            </apex:pageblockbuttons>
+            
+        <apex:outputText style="align-center">** Please note if you select mutiple invoices and process the payment then your CC/ACH will show mutiple trasactions in your statement.</apex:outputText>
+        </apex:pageblock>
+    </apex:form>
+</apex:page>

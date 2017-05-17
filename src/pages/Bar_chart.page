@@ -1,0 +1,30 @@
+<apex:page controller="ChartController" showHeader="false"  sidebar="false" standardStylesheets="false">
+
+   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+   
+   <apex:pageBlock title="Products Tracker">
+   <apex:pageBlockSection >
+   <apex:pageBlockSectionItem >
+            <apex:chart height="400" width="600" data="{!CandidateData6}" >
+            
+            <apex:PieSeries tips="true" dataField="count" labelField="Value" />
+        </apex:chart>
+  </apex:pageBlockSectionItem>
+  
+  <apex:pageBlockSectionItem >
+           <apex:chart height="400" width="800" data="{!salebyProduct}"  >
+            <apex:axis type="Numeric" position="left" fields="count" steps="8" minimum="0" title="Record Count"/>
+            <apex:axis type="Category" position="bottom" fields="Value" title="Sales by Product"/>
+            <apex:barSeries orientation="vertical" axis="left" xField="Value" yField="count"  />
+        </apex:chart>
+        
+        </apex:pageBlockSectionItem>
+ </apex:pageBlockSection>
+ 
+ </apex:pageBlock> 
+ 
+  
+</apex:page>

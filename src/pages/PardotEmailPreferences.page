@@ -1,0 +1,53 @@
+<apex:page showHeader="false" standardStylesheets="false">
+
+<button type="submit" onClick="papiLogin()" >API CALL</button>
+<p id="demo"></p>
+
+<!--===============START API==================-->
+<script>
+    var restDomain="https://pi.pardot.com/api/";
+    var uKey="4ff3b7532f7ff27531ffd263e719553d";
+    var aKey="";
+    var uEmail="";
+    var pId="";
+    var listMember1="";
+    var listMembership= {};
+       
+//API to be called on page load 
+function papiLogin(){
+        var email="connor.grace%40wolterskluwer.com";
+        var pass="%21%24Robolock13%24%21";      
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+           if (this.readyState == 4 && this.status == 200) {
+             document.getElementById("demo").innerHTML = this.responseText
+             var response = JSON.parse(xhttp.responseText);
+             aKey = response.api_key;                
+
+           }
+        };      
+        xhttp.open("GET", restDomain+"login/version/4?email="+email+"&password="+pass+"&user_key="+uKey, true);
+        xhttp.setRequestHeader("Content-Type", "application/json");
+        xhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
+        xhttp.withCredentials = true;
+        xhttp.setRequestHeader("Authorization", "Basic " +email+":"+pass);
+        xhttp.send();
+};
+
+
+var viewData = { 
+    prospect : [] 
+};
+
+function onGeneratedRow(response)
+{
+    var jsonData = {};
+    columnsResult.forEach(function(column) 
+    {
+        var columnName = column.metadata.colName;
+        jsonData[columnName] = column.value;
+    });
+    viewData.prospect.push(jsonData);
+ };
+</script>
+</apex:page>

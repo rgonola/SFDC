@@ -1,0 +1,24 @@
+<apex:page standardController="invoiceit_s__Payment_Method__c" extensions="IIT_createPaymentMethod">
+
+   <apex:form >
+   <apex:pageMessages />
+      <apex:pageBlock >
+      
+        <apex:pageblockSection >
+            <apex:repeat value="{!$ObjectType.invoiceit_s__Payment_Method__c.FieldSets.Payment_Method}" var="fieldAPI" >
+                           
+                                    <apex:inputField value="{!paymentMethod[fieldAPI]}" required="true"/>
+                                    <!--{!fieldAPI.Label}-->
+                            
+                        </apex:repeat> 
+        </apex:pageblockSection>
+        <apex:pageBlockButtons >
+          <apex:commandButton action="{!Save}" value="Save"/>
+          <apex:commandButton action="{!cancelPaymentOption}" value="Cancel" immediate="true"/>
+        </apex:pageBlockButtons>
+      
+      </apex:pageBlock>
+   
+   </apex:form>
+
+</apex:page>

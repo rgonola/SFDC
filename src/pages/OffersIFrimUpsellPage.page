@@ -1,0 +1,223 @@
+<apex:page sidebar="false" showHeader="false" applyHtmlTag="false" applyBodyTag="false" standardStylesheets="false" controller="OffersIFirmExtension">
+<html>
+<head>
+
+<meta charset="utf-8"/>
+<title>Upsell Product</title>
+<link href="https://cdn.wolterskluwer.io/wk.css/0.13.x/with-bootstrap.min.css" type="text/css" rel="stylesheet"/>
+
+
+<!--[if IE]><link rel="shortcut icon" href="https://cdn.wolterskluwer.io/wk.css/0.13.x/assets/images/favicon/favicon.ico"><![endif]-->
+<link rel="apple-touch-icon-precomposed" href="https://cdn.wolterskluwer.io/wk.css/0.13.x/assets/images/favicon/favicon-180.png"/>
+<link rel="icon" href="https://cdn.wolterskluwer.io/wk.css/0.13.x/assets/images/favicon/favicon-196.png"/>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<style type="text/css">
+
+p, li {
+    font-family: "Fira Sans","Helvetica Neue",Helvetica,"Roboto",Arial,sans-serif;
+}
+.wk-footer .wk-footer-nav {
+    margin-bottom: 0;
+}
+.wk-footer-nav ul li {
+    float: left;
+    padding-left: 20px;
+}
+.wk-footer-nav ul li a {
+    color: #ffffff;
+    text-decoration: none;
+}
+.wk-footer-nav ul li:first-child {
+    padding-left: 0;
+}
+
+.wk-footer-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.cart-upsell {
+    background-color: #fff;
+    border: 1px solid #dadada;
+    padding: .9375rem;
+    margin-bottom: 10px;
+}
+
+@media screen and (max-width: 1024px) {
+    .wk-row {
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .cart-header {
+        display: none;
+    }
+    .cart-price {
+        text-align: left;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .wk-footer-nav ul li {
+        float: none;
+        padding: 0;
+    }
+    
+    
+}
+
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-3504246-23', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</head>
+
+<body>
+
+<!--HEADER-->
+<div class="wk-header">
+  <div class="wk-header-container">
+    <div class="wk-layout-25-75">
+       <div class="wk-layout-item"> <a href="https://www.cchsfs.com" aria-label="Wolters Kluwer" class="wk-brand"></a> </div>
+        <div class="wk-layout-item text-right"></div>
+    </div>
+  </div>
+</div>
+
+<!--NAVIGATION BAR-->
+<nav class="wk-navbar">
+  <div class="wk-navbar-container">
+   
+    <div class="wk-product-name">CCH Small Firm Services</div>
+  </div>
+</nav>
+
+<!--PAGE CONTENT-->
+<apex:form id="ifm">
+<div class="wk-container wk-clearfix">
+    <div class="wk-row" style="margin-bottom:25px;">
+        <div class="wk-col-12">
+            <h1>Before you Check Out: Simplify Document Sharing with CCH iFirm Client Portal</h1>
+            <h4><em>Access a smarter way to store, track and share sensitive documents with clients.</em></h4>
+            
+        </div>
+    </div>
+</div>
+
+<div class="wk-container wk-clearfix" style="background-color:#dadada; padding-top:50px; padding-bottom:50px;">
+    <div class="wk-row cart-upsell">
+        <div class="wk-col-4 text-center">
+        <h4 style="color:#e5202e;"><del>Retail: ${!smbbkprice.UnitPrice }</del></h4>
+            <h2 style="color:#85bc20;">Your Price: $351.00</h2>
+           <Strong> <p>{!smbbkprice.Product2.Marketing_Name__c}</p> </strong>
+         <!--  <p>When you add Client Portal to your tax renewal, we’ll waive the <strong>$199 portal setup fee </strong>. </p>-->
+            
+
+        </div>
+        <div class="wk-col-8" style="border-left:1px solid #ccc; padding-left:25px;">
+            <p>CCH iFirm Client Portal offers small tax and accounting businesses a way to eliminate insecure e-mails and reduce print costs. 
+Get started with CCH iFirm Client Portal today and discover the many benefits of streamlined document management, including:
+</p>
+            <ul>
+                <li>Securely share documents within your office and with your clients</li>
+                <li>Quickly see when documents were uploaded, downloaded and by whom for a transparent audit trail</li>
+                <li>Customize your Portal homepage with your branding, messaging and color scheme</li>
+                
+            </ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="wk-container wk-clearfix" style="padding: 50px 0 25px;">
+    <div class="wk-row">
+        <div class="wk-col-4">
+            <div class="wk-row">
+                <div class="wk-col-6">
+                    <button type="button" class="wk-button-secondary wk-button-full" onclick="nextpg();"><span>No Thanks</span></button>
+                </div>
+                <div class="wk-col-6">
+                    <button type="button" class="wk-button-danger wk-button-full" onclick="adcrt();"><span>Add to Cart</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<apex:actionstatus id="loading" startText="Loading...">
+ 
+<!--+++++++++++ LOADING START +++++++++++-->
+<apex:facet name="start">
+    <div id="salesforceSource_blurybackground" style="z-index: 9999; position: fixed; left: 1px; top: 1px; width: 100%; height: 100%; text-align: center; vertical-align: middle; background-color: #dcdcdc; opacity: 0.75; filter: alpha(opacity = 50)"></div>
+    <div id="ManageMembersViewport_loading" class="waitingSearchDiv" style="width: 100%; height: 80%; display: '';">
+        <div style="max-width: 800px; width: 100%; position: fixed; top: 40%;left: 25%; z-index:10000;" class="waitingHolder">
+            <table align="center" valign="top" style="width: 100%; height: 30%">
+                <tr align="center" valign="top" style="width: 100%; height: 30%">
+                    <td valign="top">
+                    <p style="font-size:1.5em; color: #474747;" class="text-center">Please wait while we load your items into your quote. Please do not hit the back button or close your browser.<br />
+                <small>This may take a few seconds.</small></p>
+                    <span class="wk-icon-reload wk-spin" style="color: #474747; font-size:2.5em;"></span></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="ManageMembersViewport_loading" class="waitingSearchDiv" style="width: 100%; height: 100%; display:'';" />
+    <script>
+        document.getElementById('ManageMembersViewport_loading').height = window.innerHeight * (3/4);
+    </script>
+</apex:facet>
+
+
+<!--+++++++++++ LOADING END +++++++++++--> 
+
+
+            <apex:facet name="stop"></apex:facet>
+        </apex:actionstatus>
+ <apex:actionFunction name="nextpg" action="{!nothanks}"    rerender="ifm" />
+<apex:actionFunction name="adcrt" action="{!ad2cart}"  status="loading" oncomplete="cqln();"  rerender="ifm" />
+ <apex:actionFunction name="cqln" action="{!cql}"  status="loading"  rerender="ifm" />
+</apex:form>
+
+
+<!--FOOTER-->
+<div class="wk-footer index-footer-nav index-last-footer">
+  <div class="wk-footer-container">
+    <div class="wk-footer-nav" style="margin-bottom:10px;">
+        <ul>
+          <li><a href="https://www.cchsfs.com/pdf/terms.pdf" target="_blank">Terms of Use</a></li>
+          <li><a href="https://www.cchsfs.com/pdf/privacy.pdf" target="_blank">Privacy</a></li>
+          <li><a href="https://www.cchsfs.com/pdf/security.pdf" target="_blank">Security</a></li>
+          <li><a href="https://www.cchsfs.com/legal/" target="_blank">Refund Policy</a></li>
+          <li><a href="https://www.cchsfs.com/pdf/Online_Terms_of_Purchase.pdf" target="_blank">Terms of Purchase</a></li>
+        </ul>
+    </div>
+    <a href="#" aria-label="Wolters Kluwer" class="wk-brand-light"></a>
+    <div class="wk-tagline">When you have to be right</div>
+  </div>
+  <div class="wk-footer-copyright">
+    <div class="wk-footer-copyright-container">&copy; 
+    <script language="javascript" type="text/javascript">
+        var today = new Date()
+        var year = today.getFullYear()
+        document.write(year)
+    </script>
+     Universal Tax Systems, Inc. and its affiliates and/or licensors. All rights reserved.</div>
+  </div>
+</div>
+
+</body>
+</html>
+</apex:page>

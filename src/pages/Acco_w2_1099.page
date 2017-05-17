@@ -1,0 +1,18 @@
+<apex:page sidebar="false" showHeader="false" standardStylesheets="false" standardController="Product2" extensions="DisplayAccoWtwo">
+    <apex:stylesheet value="https://cdn.wolterskluwer.io/wk.css/0.15.x/with-bootstrap.min.css" />
+    <apex:stylesheet value="{!URLFOR($Resource.Styles)}" />
+        <style>
+        body {
+        background-color: transparent;
+        }
+        
+        </style> 
+        <div class="col-sm-3 text-center">
+                    <h3 class="blue">Order Today</h3>
+                    <apex:outputText styleClass="h2 green" value="${0, number, ###,#00}">
+                        <apex:param value="{!wtwotennineprice.UnitPrice}"/>
+                    </apex:outputText>
+                    <br/><br/>
+                    <button type="button"  class="wk-button-default wk-button-full" onclick="window.top.location='{!$Label.Ecom_Link}{!wtwotennineprice.Product2.productcode}&returnurl={!$Label.Ecom_Marketing_Link}professional-accounting-software/w2-1099.aspx';" ><span>Add to Cart</span></button>
+        </div>
+</apex:page>

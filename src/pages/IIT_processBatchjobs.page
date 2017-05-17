@@ -1,0 +1,57 @@
+<apex:page controller="IIT_ControllerProcessBatchJobs">
+   <apex:form >
+   <apex:sectionHeader title="SAP" subtitle="Process to SAP"/>
+     <apex:pageBlock title="Invoice Process(Daily Sales)">
+     <apex:pagemessages id="pb"></apex:pagemessages>
+         <apex:pageBlockSection >
+          <apex:inputfield value="{!invoiceObj.invoiceit_s__Invoice_Date__c}" label="Invoice Date"/>
+         </apex:pageBlockSection>
+         <apex:pageBlockButtons location="bottom">
+           <apex:commandButton value="Process" action="{!processInvoiceToSAP}" reRender="pb"/>
+           <apex:commandLink value="Generate Report" action="{!redirectInvoiceReport}" target="_blank" styleClass="btn"/> 
+           <apex:commandButton value="Post to SAP" action="{!UpdateSAPInvoices}" reRender="pb"/>
+           <!--<apex:commandLink value="Status page" action="{!getinvoiceJobrecordId}" target="_blank" styleClass="btn"/>-->
+         </apex:pageBlockButtons>
+           
+     </apex:pageBlock>
+     
+     <apex:pageBlock title="Revenue Process(Monthly)">
+     <apex:pagemessages id="pb1"></apex:pagemessages>
+         <apex:pageBlockSection >
+          <apex:inputfield value="{!invoiceObjForRevRef.invoiceit_s__Invoice_Date__c}" label="Revenue Start Date"/>
+          <apex:inputfield value="{!invoiceObjForRevRef.invoiceit_s__Due_Date__c}" label="Revenue End Date"/>
+         </apex:pageBlockSection>
+         <apex:pageBlockButtons location="bottom">
+         <apex:commandButton value="Process" action="{!processRevenueRecToSAP}" reRender="pb1" />
+         <apex:commandLink value="Generate Report" action="{!redirectInvoiceRevRecReport}" target="_blank" styleClass="btn"/> 
+         <apex:commandButton value="Post to SAP" action="{!UpdateSAPRevenueRec}" reRender="pb1"/>
+         </apex:pageBlockButtons>
+         
+     </apex:pageBlock>
+     
+     <apex:pageBlock title="Refunds/Rebates">
+     <apex:pagemessages id="pb2"></apex:pagemessages>
+         <apex:pageBlockSection >
+          <apex:inputfield value="{!invoiceObjRebates.invoiceit_s__Invoice_Date__c}" label="Invoice Date"/>
+         </apex:pageBlockSection>
+         <apex:pageBlockButtons location="bottom">
+         <apex:commandLink value="Generate Report" action="{!redirectRebatesReport}" target="_blank" styleClass="btn"/> 
+         <apex:commandButton value="Post to SAP" action="{!UpdateSAPRebates}" reRender="pb2"/>
+         </apex:pageBlockButtons>
+         
+     </apex:pageBlock>
+     
+     
+     <apex:pageBlock title="SAP Payments(Doesn't include 'ACH','Bank Transfer','Cash','Check','Cheque','Credit Card','COA-Legacy Balance', 'Refund' Payments)">
+     <apex:pagemessages id="pb3"></apex:pagemessages>
+         <apex:pageBlockSection >
+          <apex:inputfield value="{!invoiceObjPayments.invoiceit_s__Invoice_Date__c}" label="Payment Date"/>
+         </apex:pageBlockSection>
+         <apex:pageBlockButtons location="bottom">
+         <apex:commandLink value="Generate Report" action="{!redirectPaymentsReport}" target="_blank" styleClass="btn"/> 
+         <apex:commandButton value="Post to SAP" action="{!UpdateSAPPayments}" reRender="pb3"/>
+         </apex:pageBlockButtons>
+         
+     </apex:pageBlock>
+   </apex:form>
+</apex:page>

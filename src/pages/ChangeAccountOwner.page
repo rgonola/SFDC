@@ -1,0 +1,69 @@
+<apex:page StandardController="Account"
+	extensions="ChangeAccountOwnerController">
+	<apex:form id="frm">
+		<script>
+function selectedOwner(){ 
+  if(document.getElementById("{!$Component.frm:pb:owner}").value==''|| document.getElementById("{!$Component.frm:pb:owner}").value==null){
+    	alert('Please select the owner');
+    	document.getElementById("{!$Component.frm:pb:owner}").focus();
+    	return false;
+    }else if(document.getElementById("{!$Component.frm:pb:bobValue}").value==''||document.getElementById("{!$Component.frm:pb:bobValue}").value==null){
+    	alert('Please select the BOB value');
+    	document.getElementById("{!$Component.frm:pb:bobValue}").focus();
+    	return false; 
+    }else{
+  document.getElementById("{!$Component.frm:selectedOwner}").value=document.getElementById("{!$Component.frm:pb:owner}").value;
+  changeOwner();
+  }
+}
+function clearData(){
+	document.getElementById("{!$Component.frm:pb:owner}").value='';
+	document.getElementById("{!$Component.frm:pb:bobValue}").selectedIndex=0;
+	return false;
+}
+</script>
+		<center>
+			<apex:pageBlock id="pb" title="Change Owner">
+				<apex:actionStatus startText="Processing..." id="processing"
+					title="Processing...">
+					<apex:facet name="start">
+						<apex:image value="/img/loading.gif" title="Processing..."
+							width="16" height="16" />
+					</apex:facet>
+					<apex:facet name="stop"></apex:facet>
+				</apex:actionStatus>
+
+				<table border="0">
+					<tr>
+						<td colspan="2"><apex:PageMessages />
+						</td>
+					</tr>
+					<tr>
+						<td><b><apex:outPutLabel value="Owner : " />
+						</b>
+						</td>
+						<td><apex:inputField value="{!Account.OwnerId}" id="owner" />
+						</td>
+					</tr>
+					<tr>
+						<td><b><apex:outPutLabel value="BOB : " />
+						</b>
+						</td>
+						<td><apex:selectList value="{!selectedBOB}"
+								multiselect="false" size="1" id="bobValue">
+								<apex:selectOptions value="{!bobValues}" />
+							</apex:selectList></td>
+					</tr>
+					<tr>
+						<td colspan="2" align="center"><apex:commandButton value="Submit" onclick="selectedOwner();return false;" />&nbsp;&nbsp;&nbsp;<apex:commandButton value="Cancel" action="{!cancel}" />
+						</td>
+					</tr>
+				</table>
+			</apex:pageBlock>
+		</center>
+		<apex:inputHidden id="selectedOwner" value="{!strSelectedOwner}" />
+		<apex:actionFunction name="changeOwner" action="{!changeOwner}"
+			reRender="frm" status="processing"
+			oncomplete="javascript:clearData();return false;" />
+	</apex:form>
+</apex:page>

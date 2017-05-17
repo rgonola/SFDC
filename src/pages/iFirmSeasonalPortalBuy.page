@@ -1,0 +1,376 @@
+<apex:page showHeader="false" sidebar="false" applyHtmlTag="false" applyBodyTag="false" standardStylesheets="false"  Controller="iFirmtaskExt" >
+  <html>
+  <head>
+  <META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=UTF-8"/>
+  <title>iFirm Seasonal Edition Offer</title>
+  <link href="https://cdn.wolterskluwer.io/wk.css/0.13.x/with-bootstrap.min.css" type="text/css" rel="stylesheet"/>
+  
+  <!--[if IE]><link rel="shortcut icon" href="https://cdn.wolterskluwer.io/wk.css/0.13.x/assets/images/favicon/favicon.ico"><![endif]-->
+  <link rel="apple-touch-icon-precomposed" href="https://cdn.wolterskluwer.io/wk.css/0.13.x/assets/images/favicon/favicon-180.png"/>
+  <link rel="icon" href="https://cdn.wolterskluwer.io/wk.css/0.13.x/assets/images/favicon/favicon-196.png"/>
+  <style type="text/css">
+body {
+    background: none;
+}
+p, ul, li, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: "Fira Sans", "Helvetica Neue", Helvetica, "Roboto", Arial, sans-serif;
+}
+.wk-login-screen {
+    background: none;
+}
+.wk-login-screen .wk-login-form {
+    background: none;
+}
+#error {
+    background-color: #ffffcb;
+ //border: 1px solid #d469a3;
+    padding-left: 3%;
+    border-radius: 1%;
+}
+.wk-row .wk-col-6 {
+    width: 48.15254%;
+    float: left;
+    margin-right: 1.69492%
+}
+</style>
+  <script src='https://www.google.com/recaptcha/api.js'></script>
+  <script>
+    //  ReCaptcha Theme Script
+    var RecaptchaOptions = {
+        theme : 'clean'
+    };
+</script>
+<script src="https://www.cchsfs.com/js/iframeResizer.contentWindow.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<script language="javascript">
+
+<!-- This script is based on the javascript code of Roman Feldblum (web.developer@programmer.net) -->
+<!-- Original script : http://javascript.internet.com/forms/format-phone-number.html -->
+<!-- Original script is revised by Eralper Yilmaz (http://www.eralper.com) -->
+<!-- Revised script : http://www.kodyaz.com -->
+<!-- Format : "(123) 456-7890" -->
+
+var zChar = new Array(' ', '(', ')', '-', '.');
+var maxphonelength = 14;
+var phonevalue1;
+var phonevalue2;
+var cursorposition;
+
+function ParseForNumber1(object){
+  phonevalue1 = ParseChar(object.value, zChar);
+}
+
+function ParseForNumber2(object){
+  phonevalue2 = ParseChar(object.value, zChar);
+}
+
+function backspacerUP(object,e) { 
+  if(e){ 
+    e = e 
+  } else {
+    e = window.event 
+  } 
+  if(e.which){ 
+    var keycode = e.which 
+  } else {
+    var keycode = e.keyCode 
+  }
+
+  ParseForNumber1(object)
+
+  if(keycode >= 48){
+    ValidatePhone(object)
+  }
+}
+
+function backspacerDOWN(object,e) { 
+  if(e){ 
+    e = e 
+  } else {
+    e = window.event 
+  } 
+  if(e.which){ 
+    var keycode = e.which 
+  } else {
+    var keycode = e.keyCode 
+  }
+  ParseForNumber2(object)
+} 
+
+function GetCursorPosition(){
+
+  var t1 = phonevalue1;
+  var t2 = phonevalue2;
+  var bool = false
+  for (i=0; i<t1.length; i++)
+  {
+    if (t1.substring(i,1) != t2.substring(i,1)) {
+      if(!bool) {
+        cursorposition=i
+        window.status=cursorposition
+        bool=true
+      }
+    }
+  }
+}
+
+function ValidatePhone(object){
+
+  var p = phonevalue1
+
+  p = p.replace(/[^\d]*/gi,"")
+
+  if (p.length < 3) {
+    object.value=p
+  } else if(p.length==3){
+    pp=p;
+    d4=p.indexOf('(')
+    d5=p.indexOf(')')
+    if(d4==-1){
+      pp="("+pp;
+    }
+    if(d5==-1){
+      pp=pp+")";
+    }
+    object.value = pp;
+  } else if(p.length>3 && p.length < 7){
+    p ="(" + p; 
+    l30=p.length;
+    p30=p.substring(0,4);
+    p30=p30+") " 
+
+    p31=p.substring(4,l30);
+    pp=p30+p31;
+
+    object.value = pp; 
+
+  } else if(p.length >= 7){
+    p ="(" + p; 
+    l30=p.length;
+    p30=p.substring(0,4);
+    p30=p30+") " 
+
+    p31=p.substring(4,l30);
+    pp=p30+p31;
+
+    l40 = pp.length;
+    p40 = pp.substring(0,9);
+    p40 = p40 + "-"
+
+    p41 = pp.substring(9,l40);
+    ppp = p40 + p41;
+
+    object.value = ppp.substring(0, maxphonelength);
+  }
+
+  GetCursorPosition()
+
+  if(cursorposition >= 0){
+    if (cursorposition == 0) {
+      cursorposition = 2
+    } else if (cursorposition <= 2) {
+      cursorposition = cursorposition + 1
+    } else if (cursorposition <= 4) {
+      cursorposition = cursorposition + 3
+    } else if (cursorposition == 5) {
+      cursorposition = cursorposition + 3
+    } else if (cursorposition == 6) { 
+      cursorposition = cursorposition + 3 
+    } else if (cursorposition == 7) { 
+      cursorposition = cursorposition + 4 
+    } else if (cursorposition == 8) { 
+      cursorposition = cursorposition + 4
+      e1=object.value.indexOf(')')
+      e2=object.value.indexOf('-')
+      if (e1>-1 && e2>-1){
+        if (e2-e1 == 4) {
+          cursorposition = cursorposition - 1
+        }
+      }
+    } else if (cursorposition == 9) {
+      cursorposition = cursorposition + 4
+    } else if (cursorposition < 11) {
+      cursorposition = cursorposition + 3
+    } else if (cursorposition == 11) {
+      cursorposition = cursorposition + 1
+    } else if (cursorposition == 12) {
+      cursorposition = cursorposition + 1
+    } else if (cursorposition >= 13) {
+      cursorposition = cursorposition
+    }
+
+    var txtRange = object.createTextRange();
+    txtRange.moveStart( "character", cursorposition);
+    txtRange.moveEnd( "character", cursorposition - object.value.length);
+    txtRange.select();
+  }
+
+}
+
+function ParseChar(sStr, sChar)
+{
+
+  if (sChar.length == null) 
+  {
+    zChar = new Array(sChar);
+  }
+    else zChar = sChar;
+
+  for (i=0; i<zChar.length; i++)
+  {
+    sNewStr = "";
+
+    var iStart = 0;
+    var iEnd = sStr.indexOf(sChar[i]);
+
+    while (iEnd != -1)
+    {
+      sNewStr += sStr.substring(iStart, iEnd);
+      iStart = iEnd + 1;
+      iEnd = sStr.indexOf(sChar[i], iStart);
+    }
+    sNewStr += sStr.substring(sStr.lastIndexOf(sChar[i]) + 1, sStr.length);
+
+    sStr = sNewStr;
+  }
+
+  return sNewStr;
+}
+</script>      
+  </head>
+  
+  <body>
+  <div class="wk-login-screen">
+    <div class="wk-login-layout-options">
+      <div class="wk-login-support-container">
+        <div class="wk-row">
+          <apex:form id="lgn" styleclass="wk-login-form" style="max-width:inherit;" >
+            <div class="col-xs-12">
+              <p>Please complete the fields below to add Seasonal Practice Manager to your existing account</p>
+              <div class="wk-login-fields">
+                <apex:outputPanel id="form">
+                  
+                  <div class="wk-field-item">
+                    <div class="wk-field-header">
+                      <label >CID* <em>Don't know your CID? <apex:outputLink value="mailto:sfs.sales@wolterskluwer.com?subject=iFirm%20Seasonal%20Offer%20-%20CID%20Help">&nbsp;Click here</apex:outputLink></em>. </label>
+                    </div>
+                    <apex:inputText value="{!Cid}" onchange="cids= this.value;"/> 
+                    <div class="wk-field-error"></div>
+                  </div>                                   
+                   
+                   <div class="wk-field-item">
+                    <div class="wk-field-header">
+                      <label >Organization Name*</label>
+                    </div>
+                    <apex:inputText value="{!CompName}" onchange="cmpnme= this.value;"/>
+                    <div class="wk-field-error"></div>
+                  </div>                  
+                  
+                   <div class="wk-field-item">
+                    <div class="wk-field-header">
+                      <label >First Name*</label>
+                    </div>
+                    <!--input type="text" placeholder="john" id="firstname"/-->
+                     <apex:inputText value="{!FirstName}" onchange="fstnam= this.value;"/>
+                    <div class="wk-field-error"></div>
+                  </div>
+                  
+                   <div class="wk-field-item">
+                    <div class="wk-field-header">
+                      <label  >Last Name*</label>
+                    </div>
+                    <apex:inputText value="{!LastName}" onchange="lstnme= this.value;"/>
+                    <div class="wk-field-error"></div>
+                  </div>
+                  
+                  <div class="wk-field-item">
+                    <div class="wk-field-header">
+                      <label >Email*</label>
+                    </div>
+                    <apex:inputText value="{!Email}" onchange="emai= this.value;"/>
+                    <div class="wk-field-error"></div>
+                  </div>
+                  
+                  <div class="wk-field-item">
+                    <div class="wk-field-header">
+                      <label >Phone Number: (xxx) xxx-xxxx</label>
+                    </div>
+                      <apex:inputText value="{!PhneNumber}" id="txtInput" onkeydown="javascript:backspacerDOWN(this,event);" onkeyup="javascript:backspacerUP(this,event);" onchange="phnum= this.value;" />
+                    <div class="wk-field-error"></div>
+                  </div>
+                                  
+                   <div class="wk-field-item">
+                    <div class="wk-field-header">
+                      <label >Existing iFirm URL* (Do not enter .cchifirm.us)</label>
+                    </div>
+                   <apex:inputText value="{!IfirmUrl}" onchange="ifurl= this.value;"/>
+                  </div>
+                  
+                                   
+                  <script>
+                    var cids= '{!Cid}';
+                    var fstnam= '{!FirstName}';
+                    var cmpnme= '{!CompName}';
+                    var lstnme= '{!LastName}';
+                    var emai= '{!Email}';
+                    var phnum='{!PhneNumber}';
+                    var ifurl= '{!IfirmUrl}';
+               </script>
+                 
+                  <br/>
+                </apex:outputPanel>
+                <p>Please ensure that all fields are complete and accurate. *indicates a required field.</p>
+               
+                <div class="wk-row" id="error">
+                  <apex:pageMessages id="error1" />
+                </div>
+
+                <button type="button" class="wk-button-primary wk-button-full" onclick="login(cids,cmpnme,fstnam,lstnme,emai,phnum,ifurl);"><span>Sign Up</span></button>
+              </div>
+            </div>
+            <apex:actionstatus id="loading" startText="Loading..."> 
+              <!--+++++++++++ LOADING START +++++++++++-->
+              <apex:facet name="start">
+                <div id="salesforceSource_blurybackground" style="z-index: 9999; position: fixed; left: 0; top: 0; width: 100%; height: 100%; text-align: center; vertical-align: middle; background-color: #dcdcdc; opacity: 0.75; filter: alpha(opacity = 50)"></div>
+                <div id="ManageMembersViewport_loading" class="waitingSearchDiv" style="width: 100%; height: 80%; display: '';">
+                  <div style="max-width: 100%; width: 100%; position: fixed; top: 40%;left: 0; z-index:10000;" class="waitingHolder">
+                    <div class="container clearfix">
+                      <div class="row">
+                        <div class="col-xs-12">
+                          <p style="font-size:1.5em; color: #474747;" class="text-center">Please wait while your submission is being processed. Please do not hit the back button or close your browser.<br />
+                            <small>This may take a few seconds.</small></p>
+                          <p class="text-center"><span class="wk-icon-reload wk-spin" style="color: #474747; font-size:2.5em;"></span></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div id="ManageMembersViewport_loading" class="waitingSearchDiv" style="width: 100%; height: 100%; display:'';" />
+                <script>
+                    document.getElementById('ManageMembersViewport_loading').height = window.innerHeight * (3/4);
+                </script> 
+              </apex:facet>
+              <!--+++++++++++ LOADING END +++++++++++-->
+              
+              <apex:facet name="stop"></apex:facet>
+            </apex:actionstatus>
+                   
+            <apex:actionFunction name="login" action="{!save}"  status="loading" rerender="form,error1">
+                <apex:param name="s_cid" value="cids" assignTo="{!Cid}"/> 
+                <apex:param name="s_company" value="cmpnme" assignTo="{!CompName}"/>
+                <apex:param name="s_firstname" value="fstnam" assignTo="{!FirstName}"/>
+                <apex:param name="s_lastname" value="lstnme" assignTo="{!LastName}"/>
+                <apex:param name="s_email" value="emai" assignTo="{!Email}"/>
+                <apex:param name="s_phnenumber" value="phnum" assignTo="{!PhneNumber}"/>
+                <apex:param name="s_url" value="ifurl" assignTo="{!IfirmUrl}"/>
+            </apex:actionFunction>
+          </apex:form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  </body>
+  </html>
+</apex:page>

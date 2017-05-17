@@ -1,0 +1,33 @@
+<apex:page sidebar="false" showHeader="false" standardStylesheets="false" standardController="Product2" extensions="DisplayTWOPRODS">
+    <apex:stylesheet value="https://cdn.wolterskluwer.io/wk.css/0.15.x/with-bootstrap.min.css" />
+    <apex:stylesheet value="{!URLFOR($Resource.Styles)}" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> 
+    <script src="https://www.cchsfs.com/js/iframeResizer.contentWindow.min.js"></script>
+    <style>
+        body {
+        background-color: transparent;
+        }
+        
+        </style> 
+    <div class="col-sm-12">
+        <apex:repeat value="{!twoprodprice}" var="p">
+          <div class="col-sm-4 text-center package-box">
+          <div class="cart-upsell h3">
+              <h2>{!p.Product2.Marketing_Name__c}<br/><br/>
+                {!p.Product2.Product_Short_Description__c}</h2>
+              <apex:outputText styleClass="h2 green" value="${0,number,###,#00}">
+                 <apex:param value="{!p.UnitPrice}"/>
+              </apex:outputText>
+                    <br/><br/>
+                    <button type="button"  class="wk-button-danger wk-button-full" onclick="window.top.location='{!$Label.Ecom_Link}{!p.Product2.ProductCode}&returnurl={!$Label.Ecom_Marketing_Link}professional-tax-software/taxwise-online.aspx';"><span>Sign Up Now</span></button>
+          </div>
+          </div>
+          </apex:repeat>
+          <div class="col-sm-12 text-center">
+          <p class="white">One low fee per taxpayer (TIN) covers e-filing for federal, extension and all state returns.<br/>
+                        A $50 processing fee is automatically added to all Pro and Enterprise Packages.<br/>
+                        TaxWise Online requires a high-speed or broadband internet connection.</p>
+          </div>
+        
+        </div> 
+</apex:page>

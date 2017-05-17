@@ -1,0 +1,464 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+		]
+	},
+	"buffers":
+	[
+		{
+			"contents": "@isTest(seealldata=false)\npublic with sharing class Accountownerchangetest{\n    static testMethod void oppowner() {\n\n\n     //Account insert\n        Account account = new Account(Name = 'India',ShippingCity = 'annapolis',ShippingCountry = 'US',ShippingPostalCode = '21401',ShippingState = 'MD',ShippingStreet='Test');\n        insert account;\n\n           //Contact Insert\n        Contact cont = new Contact();\n        cont.AccountId = account.id;\n        cont.Email = 'test@gmail.com';\n        cont.FirstName = 'InvoiceIT';\n        cont.LastName =  'Test';\n        cont.Is_Primary__c = true;\n        insert cont;\n\n        \n\n        //insert Opportunity\n        Opportunity opp = new Opportunity();\n        opp.AccountId = account.id;\n        opp.CloseDate = System.today();\n        opp.StageName = 'Validation';\n        opp.Name = 'Opportunity Test';\n        opp.ForecastCategoryName = 'Medium Probability';\n        opp.Product__c = 'ATX';\n        insert opp;\n\n\n        Profile profileId = [SELECT Id FROM Profile WHERE Name = 'Standard User' LIMIT 1];\n\n        User usr = new User(LastName = 'LIVE',\n                           FirstName='JASN',\n                           Alias = 'jliv',\n                           Email = 'jasonlhhn@asdf.com',\n                           Username = 'jaseston@asdf.com.uat',\n                           ProfileId = profileId.id,\n                           TimeZoneSidKey = 'GMT',\n                           LanguageLocaleKey = 'en_US',\n                           EmailEncodingKey = 'UTF-8',\n                           LocaleSidKey = 'en_US'\n                           );\n                insert usr;\n\n         Test.Starttest();\n\n         account.ownerID= usr.id;\n         update account;\n\n         Test.Stoptest();\n\n    }\n\n }",
+			"file": "src/classes/Accountownerchangetest.cls",
+			"file_size": 1755,
+			"file_write_time": 131395048399371680,
+			"settings":
+			{
+				"buffer_size": 1755,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 381.0,
+		"last_filter": "insta",
+		"selected_items":
+		[
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: ",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 604.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/C/Users/rajesh.gonola/Documents/SFS QA",
+		"/C/Users/rajesh.gonola/Documents/SFS QA/src",
+		"/C/Users/rajesh.gonola/Documents/SFS QA/src/classes"
+	],
+	"file_history":
+	[
+		"/C/Users/rajesh.gonola/Documents/SFS QA/src/classes/Accountownerchangetest.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS QA/src/classes/apexWorkbook.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS QA/src/classes/IIT_createOrder_extension.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS QA/src/classes/DisplayExamReview.cls-meta.xml",
+		"/C/Users/rajesh.gonola/Documents/SFS QA/src/classes/ATXPdfTest.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS QA/SFS QA.sublime-project",
+		"/C/Users/rajesh.gonola/AppData/Roaming/Sublime Text 3/Packages/Package Control/Package Control.sublime-settings",
+		"/C/Users/rajesh.gonola/AppData/Local/Temp/Temp1_PfxAccountpullResponse.zip/PfxAccountpullResponse_Test.apxc",
+		"/C/Users/rajesh.gonola/AppData/Local/Temp/Temp1_JSON2Apex.zip/JSON2Apex_Test.apxc",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/ATXPdfTest.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/WebAuthentication.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/UpdateAccountInfoInDM.cls",
+		"/C/Users/rajesh.gonola/Downloads/invoiceit_s__Transaction__c.workflow",
+		"/C/Users/rajesh.gonola/AppData/Local/Temp/Temp1_classes_removed.zip/classes/IIT_PopulateVSOEOnORPC.cls",
+		"/C/Users/rajesh.gonola/AppData/Local/Temp/Temp1_classes_removed.zip/classes/InvoiceReportBatch.cls",
+		"/C/Users/rajesh.gonola/AppData/Local/Temp/Temp1_classes_removed.zip/classes/PIDCID.cls",
+		"/C/Users/rajesh.gonola/AppData/Local/Temp/Temp1_classes_removed.zip/classes/reCAPTCHA.cls",
+		"/C/Users/rajesh.gonola/AppData/Local/Temp/Temp1_classes_removed.zip/classes/SBQQ__CalculatorReferencedFieldUtils.cls",
+		"/C/Users/rajesh.gonola/AppData/Local/Temp/Temp1_classes_removed.zip/classes/ScheduledDispatcher.cls",
+		"/C/Users/rajesh.gonola/AppData/Local/Temp/Temp1_classes_removed.zip/classes/SBQQ__ReferencedFieldsUtil.cls",
+		"/C/Users/rajesh.gonola/AppData/Local/Temp/Temp1_classes_removed.zip/classes/ScheduleHandler.cls",
+		"/C/Users/rajesh.gonola/AppData/Local/Temp/Temp1_classes_removed.zip/classes/concurrency.cls",
+		"/C/Users/rajesh.gonola/AppData/Local/Temp/Temp1_classes_removed.zip/classes/SettingsTest.cls",
+		"/C/Users/rajesh.gonola/AppData/Local/Temp/Temp1_classes_removed.zip/classes/Settings.cls",
+		"/C/Users/rajesh.gonola/AppData/Local/Temp/Temp1_classes_removed.zip/classes/CustomerDashboardExtension.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/package.xml",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/SFS UAT.sublime-project",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/Createassetstest.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/CreateOrderTest.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayACACOMP.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayAccoPRCOMPREPO.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayAccoWtwo.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayATXADDIUSERS.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayATXADV.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayATXMAX.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayATXPPR.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayATXtenforty.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayATXTTO.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayExamReview.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayGetWiseKenn.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayGetWiseKenn2.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayGetWiseLV.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayGetWiseNO.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayiFirmPortal.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayiFirmPracMngr.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayiFirmSeasonal.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayInterForms.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayIntSolAlloPack.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayIntSolEzIntv.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayIntSolRRetrieval.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayIRSREPCERT.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayPRACBOOK.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayPracTax.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/Displayproducts.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayproductsTest.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayRESANALYSIS.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayRESCALC.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayResCertProg.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayRESELEC.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayRESESSNTLS.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayResHCR.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayRESMasterDEP.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayRESMASTERTAX.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayRESPPLUS.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayRESPRACTAX.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayRESREFORM.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayRESSTATECALI.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayRESSTATECONN.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayRESSTATEFLA.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayRESSTATEHB.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayRESSTATEILL.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayRESSTATEMASS.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayRESSTATEMICH.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayRESSTATENC.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayRESSTATENJ.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayRESSTATENY.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayRESSTATEOH.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayRESSTATEPENN.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayRESSTATETX.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayRESTAXBOOKTENFORTY.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayRESTHETAXBOOK.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayRESTOOLKIT.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayRESTPPTENFO.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayRESTTPLITE.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayRESTTPPSTNDRD.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayTaxCompEstate.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayTaxCompExamRev.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayTaxCompFormTenfo.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayTaxCompIntl.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayTaxCompMulti.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayTaxCompPassThru.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayTaxCompRetire.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayTaxCompSalesUse.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayTaxCompSevens.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayTaxCompUnlCntr.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayTaxCompUnlWebs.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayTWOPRODS.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayTWPOWER.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayTWPPR.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayTWPROFILING.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DisplayWEBREC.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/DsplyatxTest.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/FeeTierTest.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/FlashSaleExtension.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/FormThreeOne.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/FormThreeOneTest.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/HandleStagingTest.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/IFirmExtension.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/IFirmExtensionTest.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/InsertStagingTest.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/IRSRepCertTest.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/jacksonhewitt.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/jacksonhewittpower.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/JacksonHewittPowerTest.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/JacksonHewittTest.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/jacksonhewittTPP.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/jacksonhewittTPPTest.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/MktngPageTest.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/OffersIFirmExtension.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/OffersResearchPageExtension.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/OffersUpsellExtensionTest.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/PrepPlanning.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/PrepPlanningTest.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/RenewalCartTest.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/ResearchPageExtension.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/SalesUseCert.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/SalesUseCertTest.cls",
+		"/C/Users/rajesh.gonola/Documents/SFS UAT/src/classes/SevenSixNine.cls"
+	],
+	"find":
+	{
+		"height": 33.0
+	},
+	"find_in_files":
+	{
+		"height": 117.0,
+		"where_history":
+		[
+			"C:\\Users\\rajesh.gonola\\Documents\\SFS UAT\\src"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"COA",
+			"tmp",
+			"dia",
+			"cnt[0].",
+			"c.",
+			"a.",
+			"\"",
+			",",
+			"ispickval",
+			"width=\"500\" ",
+			"height=\"300\"",
+			"height=\"350\"",
+			"wk-header",
+			"cnt[0]",
+			"accountstopush[0]",
+			"_2016",
+			"editcc",
+			"createcase",
+			"saveacnt",
+			"ach",
+			"savecard",
+			"credit",
+			"updateAddress",
+			"achpm",
+			"ccpm",
+			"credit-edit",
+			"createFunction",
+			"datatogle",
+			"credit-edit",
+			"Ach-edit",
+			"Shopping",
+			"Cart_review",
+			"cart_revie",
+			"http://uat-wksfspaysite.cs25.force.com/",
+			"uat-wksfspaysite.cs25.force.com",
+			"public",
+			"_2016",
+			"ATX-ZSHIPSTDTTO_2016",
+			"ATX-ZSHIPSTD1040_2016",
+			"ATX-ZSHIPSTD1040TO_2016",
+			"ATX-ZSHIPSTDOTHER_2016",
+			"ATX-CCSHIPPING_2016",
+			"TWCCSHIPPING_2016",
+			"ATX-TXN_2016",
+			"ATX-TPP1041_2016",
+			"ATX-TAXLIB_2016",
+			"ATX-MTGBOOK_2016",
+			"TWMTG_2016",
+			"TAXBOOKDELUXE",
+			"TPPSTDBUND_2017",
+			"ATX-KF_2016",
+			"TWTPPSTDBUND",
+			"TPPSTDBUND",
+			"PTEP_2016",
+			"TWTAXBOOKDELUXE",
+			"TAXBOOKDELUXE",
+			"TAXBOOK1040ED",
+			"TWTAXBOOK1040ED",
+			"TWOONLINE_2016",
+			"TWONLINE_2016",
+			"TWONLINE",
+			"XSHIPPING49",
+			"TWCCHRESEARCH_2016",
+			"TWCCHESS_2016",
+			"ATX-CCHESS_2016",
+			"CCHESSENTIALSPKG_2016",
+			"ATX-CCHESSENTIALSPKG_2016",
+			"TWCCHESSENTIALSPKG_2016",
+			"ATX-BOOKSHIPPING_2016",
+			"TWBOOKSHIPPING_2016",
+			"TWAPSHIPPING_2016",
+			"ATX-APSHIPPING_2016",
+			"_2016",
+			"achpm",
+			"acnt",
+			"pymntmethd",
+			"cart",
+			"acnt",
+			"pymntmethd",
+			"required=\"true\"",
+			"crt[0]",
+			"displymnt",
+			"crt[0]",
+			"pymntmethd"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"ct[0].",
+			"cnt[0].",
+			"acc[0].",
+			"'",
+			"==",
+			"",
+			"width=\"550\" ",
+			"height=\"400\"",
+			"height=\"300\"",
+			"contacttoupdate.get(a.id)",
+			"a",
+			"_2017",
+			"displymnt",
+			"Paymentconfirmationpage",
+			"_2017",
+			"TPPSTDBUND_2017",
+			"CCHESSENTIALSPKG_2017",
+			"ccpm",
+			"Existingaccnt[0]",
+			"ccpm",
+			"Existingaccnt[0]",
+			"achpm",
+			"",
+			"achpm",
+			"ccpm"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "src/classes/Accountownerchangetest.cls",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1755,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								444,
+								444
+							]
+						],
+						"settings":
+						{
+							"git_savvy.file_path": "C:\\Users\\rajesh.gonola\\Documents\\SFS QA\\src\\classes\\Accountownerchangetest.cls",
+							"git_savvy.repo_path": "C:\\Users\\rajesh.gonola\\Documents\\SFS QA",
+							"syntax": "Packages/MavensMate/sublime/lang/Apex.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 33.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.MavensMate-OutputPanel":
+	{
+		"height": 222.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "SFS QA.sublime-project",
+	"replace":
+	{
+		"height": 62.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 284.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

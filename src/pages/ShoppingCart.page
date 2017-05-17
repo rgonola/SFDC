@@ -1,0 +1,675 @@
+<apex:page showHeader="false"  sidebar="false" cache="false" applyHtmlTag="false" applyBodyTag="false" standardStylesheets="false" action="{!urltosaveprdct}" standardController="Product2"  extensions="ShoppingCart">
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>Shopping Cart</title>
+<link href="https://cdn.wolterskluwer.io/wk-css/0.16.x/with-bootstrap.min.css" type="text/css" rel="stylesheet"/>
+
+<!--[if IE]><link rel="shortcut icon" href="https://cdn.wolterskluwer.io/wk.css/0.13.x/assets/images/favicon/favicon.ico"><![endif]-->
+<link rel="apple-touch-icon-precomposed" href="https://cdn.wolterskluwer.io/wk.css/0.13.x/assets/images/favicon/favicon-180.png"/>
+<link rel="icon" href="https://cdn.wolterskluwer.io/wk.css/0.13.x/assets/images/favicon/favicon-196.png"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<style type="text/css">
+p, li {
+    font-family: "Fira Sans","Helvetica Neue",Helvetica,"Roboto",Arial,sans-serif;
+}
+.wk-footer .wk-footer-nav {
+    margin-bottom: 0;
+}
+.wk-footer-nav ul li {
+    float: left;
+    padding-left: 20px;
+}
+.wk-footer-nav ul li a {
+    color: #ffffff;
+    text-decoration: none;
+}
+.wk-footer-nav ul li:first-child {
+    padding-left: 0;
+}
+.wk-footer-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.cart-upsell {
+    background-color: #fff;
+    border: 1px solid #dadada;
+    padding: .9375rem;
+    margin-bottom: 10px;
+    position: relative;
+    min-height: 275px;
+}
+.cart-upsell button.only, .cart-upsell button.first, .cart-upsell button.second {
+    position: absolute;
+    bottom: 0;
+    margin: 0;
+}
+.cart-upsell button.only, .cart-upsell button.first {
+    left: 0;
+}
+.cart-upsell button.first {
+    width: 49%;
+}
+.cart-upsell button.second {
+    right: 0;
+    width: 49%;
+}
+.green {
+    color: #85bc20;
+}
+#error5 .message {
+    background-color: #e5202e;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    color: #ffffff
+}
+#error5 .message h4 {
+    color: #ffffff;
+}
+.cart-items {
+    margin-left: -15px;
+    margin-right: -15px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.cart-items:nth-child(even) {
+    background-color: #dadada;
+}
+.cart-items:nth-child(odd) {
+    background-color: #ededed;
+}
+@media screen and (max-width: 1024px) {
+.wk-row {
+    margin-left: 15px;
+    margin-right: 15px;
+}
+}
+
+@media screen and (max-width: 700px) {
+.cart-header {
+    display: none;
+}
+.cart-price {
+    text-align: left;
+}
+}
+
+@media screen and (max-width: 480px) {
+.wk-footer-nav ul li {
+    float: none;
+    padding: 0;
+}
+}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+<script>
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+</script>
+</head>
+
+<body>
+
+<!--HEADER-->
+<div class="wk-header">
+  <div class="wk-header-container">
+    <div class="wk-layout-25-75">
+      <div class="wk-layout-item"> <a href="https://www.cchsfs.com" aria-label="Wolters Kluwer" class="wk-brand"></a> </div>
+      <div class="wk-layout-item text-right"></div>
+    </div>
+  </div>
+</div>
+
+<!--NAVIGATION BAR-->
+<nav class="wk-navbar">
+  <div class="wk-navbar-container">
+    <div class="wk-product-name">Wolters Kluwer</div>
+  </div>
+</nav>
+
+<!--BREADCRUMB-->
+<div class="wk-breadcrumb-bar">
+  <div class="wk-breadcrumb-container">
+    <ol class="wk-breadcrumb">
+      <li><a href="https://www.cchsfs.com"><span>Home</span></a></li>
+      <li><a href="/sales/ShoppingCart">Shopping Cart</a></li>
+      <li>Payment Confirmation</li>
+    </ol>
+  </div>
+</div>
+
+<!--PAGE CONTENT-->
+<div class="container clearfix">
+  <div class="row">
+    <div class="col-sm-8">
+      <h1>Shopping Cart</h1>
+    </div>
+    <div class="col-sm-2">
+      <button type="submit" class="wk-button-primary wk-button-full" onclick="callkpshng1();"><span>Keep Shopping</span></button>
+    </div>
+    <div class="col-sm-2">
+      <button type="submit" class="wk-button-secondary wk-button-full" onclick="empty();" ><span>Empty Cart</span></button>
+    </div>
+  </div>
+</div>
+<div class="container clearfix">
+  <div class="row">
+   <div class="col-xs-12">
+    <h3>Items in Your Cart</h3>
+   </div>
+  </div>
+    <div class="row">
+        <div class="col-xs-12" style="display:{!IF(!cupnscess, 'none;', 'block')}; background-color: #85bc20; padding-bottom: 10px;">
+            <div  class="promoCode" id="error5" >
+                <apex:pageMessages />
+                <h4 style="color: #ffffff">Your promo code was successfully applied. The updates should be reflected in the prices on the right hand side of your screen.</h4>
+            </div>
+        </div>
+    </div>
+
+  
+  <div class="row cart-header" style="background-color:#757575; color:#ffffff; padding:10px 5px;">
+    
+    <div class="col-sm-9">
+      <p>Product Description</p>
+    </div>
+    <div class="col-sm-1 text-center">
+      <p>Quantity</p>
+    </div>
+    <div class="col-sm-1 text-center">
+      <p>Price</p>
+    </div>
+    <div class="col-sm-1 text-center">
+      <p>Remove</p>
+    </div>
+  </div>
+
+  <div class="row" style="display:{!IF(hasprdcts, 'none;', 'block')}">
+    <div class="wk-col-12 text-center" style="background-color:#ececec;padding:50px 0;">
+     <h1>Your cart is empty</h1>
+      <h4>Fill it up with some top-of-the-line tax, accounting, and practice management software.</h4>
+      <a href="https://www.cchsfs.com"><button class="wk-button-success" style="margin-top: 10px;min-width: 300px;">Go to the homepage</button></a>
+    </div>
+  </div>
+  
+  <apex:repeat value="{!products}" var="product">
+  <div class="cart-items">
+  <div class="row" style="padding-top:20px;">
+    
+    <div class="col-sm-9">
+        <h3 style="margin-top:0;">{!product.Marketing_Name__c}</h3>
+        <div class="wk-tooltip wk-position-top">
+          <div class="wk-tooltip-body">Now you see me!</div>
+        </div>
+        <p><span style="display:{!IF((product.Detail_description__c !=null && product.Detail_description__c !=''), '', 'none;')}">
+        <apex:outputtext value="{!product.Detail_description__c}" escape="false" />
+        </span></p>
+        
+        <p><span style="display:{!IF((product.Family!='Research'), '', 'none;')}"><a data-toggle="modal" data-target="#package-includes">Package Includes</a></span></p>
+      
+    </div>
+    <div class="col-sm-1 text-center" style="margin-bottom:10px;">
+      <p><strong><span class="visible-xs">Quantity:</span></strong>
+        <select id="{!product.Id}" onchange="calcuPrice(this.value,'{!product.Id}','{!mapdiscuntdprice[product.Id]}', '{!UnitPrice[product.Id]}','{!UnitPrice[product.Id]}');" class="qtyoptions">
+          <option value="1">1</option>
+          <option style="display: {!IF(( mapfreeprice[product.Id] == True), 'none;', '')}" value="2">2</option>
+          <option style="display: {!IF(( mapfreeprice[product.Id] == True), 'none;', '')}" value="3">3</option>
+          <option style="display: {!IF(( mapfreeprice[product.Id] == True), 'none;', '')}" value="4">4</option>
+          <option style="display: {!IF(( mapfreeprice[product.Id] == True), 'none;', '')}" value="5">5</option>
+        </select>
+      </p>
+    </div>
+    <div class="col-sm-1 text-center" style="margin-bottom:10px;">
+      <p class="cart-price"> 
+      <span style="display:{!IF((mapdiscuntdprice[product.Id] != 0 || mapfreeprice[product.Id] == True), '', 'none;')}">
+              <span style="color:#e5202e;">
+                  <del>
+                      <span id="price2{!product.Id}">
+                          <apex:outputText value="${0, number, ###,##0.00}">
+                              <apex:param value="{!UnitPrice[product.Id]}"/>
+                          </apex:outputText>
+                      </span>
+                  </del>
+              </span>
+          </span>
+          
+          
+          <span style="display:{!IF((mapdiscuntdprice[product.Id] != 0 || mapfreeprice[product.Id] == True), 'none;', '')}">
+              <span id="price{!product.Id}">
+                  <apex:outputText value="${0, number, ###,##0.00}">
+                      <apex:param value="{!UnitPrice[product.Id]}"/>
+                  </apex:outputText>
+              </span>
+          </span>
+          
+          <span class="hidden-xs"><br/>
+          </span>
+          
+          <span style="display: {!IF((mapdiscuntdprice[product.Id] != 0 || mapfreeprice[product.Id] == True), '', 'none;')}">
+              <span id="pricedisc{!product.Id}">
+                  <apex:outputText value="${0, number, ###,##0.00}">
+                      <apex:param value="{!mapdiscuntdprice[product.Id]}"/>
+                  </apex:outputText>
+              </span>
+          </span> 
+          </p>
+
+    </div>
+    <div class="col-sm-1 text-center"> <span style="font-size:2em; color:red;display: {!IF((mapfreeprice[product.Id] == True && product.Type__c!='Main Products' ), 'none;', '')}" class="wk-icon-close-empty" onclick="if(confirm('Are you sure you want to remove this item from your cart?'))removeProduct('{!product.Id}');" ></span> <span class="visible-xs">
+
+      <button type="button" class="wk-button-secondary"><span>Remove Item</span></button>
+      </span> </div>
+  </div>
+
+    
+    <div class="row" style="padding:20px 0;" id="features{!product.Id}">
+        
+         <apex:repeat value="{!productFeatures[product.Id]}" var="feature">
+        <div class="col-sm-10">
+          <form>
+            <div class="wk-shipping-options-fields">
+              <div class="wk-field-item" style="margin:0;">
+                <div class="wk-field-header"><strong>{!feature}</strong></div>
+                
+                <div class="wk-select-field">
+                
+                    <select id="{!feature}{!product.Id}" onchange="collectselectedfeatures(this.value,'{!feature}','{!product.Id}');" class="featureprice">
+                    <option id="{!feature}{!product.Id}NoneId" Value="0.00" selected="selected" >None</option>
+                    <apex:repeat value="{!productFeatures[product.Id][feature]}" var="option">
+                    
+                     <option id="{!option.Id}" value="{!UnitPrice[option.SBQQ__OptionalSKU__c]}"><span>{!IF(ISBLANK(option.SBQQ__OptionalSKU__r.Marketing_Name__c),option.SBQQ__OptionalSKU__r.Name,option.SBQQ__OptionalSKU__r.Marketing_Name__c)}<b> - ${!UnitPrice[option.SBQQ__OptionalSKU__c]}</b></span></option><label>${!UnitPrice[option.SBQQ__OptionalSKU__c]}</label>
+                       <script>
+                           var radiovalue = {!option.SBQQ__Required__c};
+                           var slected= {!option.SBQQ__Selected__c};
+                           var options = '{!selectedOptionsMap[product.Id]}';
+                           var feturename='{!option.SBQQ__Feature__r.Name}';
+                           
+                           
+                            if(options.indexOf('{!option.Id}') > 0 || radiovalue || slected ) {
+                                    document.getElementById('{!option.Id}').selected = true; 
+                                    //document.getElementById('{!option.SBQQ__Feature__r.Name}{!product.Id}NoneId').disabled = true; 
+                                      
+                            } 
+                            
+ if(feturename == 'Processing & Shipping' ||  feturename == 'Setup Fees' || feturename == 'Additional Fees' || feturename == 'Training'|| feturename == 'Shipping and Processing'|| feturename =='Processing'||feturename == 'Shipping'||feturename == 'Fees'||feturename == 'Required Items')
+                          {
+                           document.getElementById('{!option.SBQQ__Feature__r.Name}{!product.Id}NoneId').remove(); 
+                            
+                           } 
+                             
+                       </script>
+                      
+                         
+                         </apex:repeat>
+                         
+                    </select>
+
+                </div>
+               
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="col-sm-2" style="padding-top:35px;">
+          <span id="featureamount{!feature}{!product.Id}">$00.00</span>
+        </div>
+        <script type='text/javascript'>
+         
+                   var spans = document.getElementsByTagName('span');
+                
+                   for(i=0;i<spans.length;i++) {
+                   if(spans[i].id.startsWith('featureamount{!feature}{!product.Id}')) {
+                   spans[i].innerText ='$ '+ document.getElementById('{!feature}{!product.Id}').value;
+                 
+                  }
+                  }
+        </script>
+         </apex:repeat>
+
+      </div>
+     
+      <script>
+         var $mapParentChildren, quantityJSON;
+         var prodInfo = '';
+         var totalvalue = 0;
+         var featurePrices = '';
+         var yousaved=0;
+         
+         
+          
+                
+          function calcuPrice(qty, prodId, pricediscounted, originalPrice) {
+                
+                $('#pricedisc'+prodId).html('$ '+(qty*pricediscounted).formatMoney(2, '.', ','));
+                $('#price'+prodId).html('$ '+(qty*originalPrice).formatMoney(2, '.', ','));
+                $('#price2'+prodId).html('$ '+(qty*originalPrice).formatMoney(2, '.', ','));
+                
+                calculateTotalPrice();
+          }
+          
+          
+          function collectselectedfeatures(fid,feat,prdct) {
+          
+            
+                 //Get all selected radios (options)
+                 var selectedOptions = new Array();
+            
+                 $('#fid option').each(function() { selectedOptions.push($(this).val())});
+                 document.getElementById('featureamount'+feat+prdct).innerHTML = '$ '+(fid);
+                 
+                 calculateTotalPrice();
+            
+          }
+          
+          function calculateTotalPrice() {
+                sum = 0;
+                prodInfo = '';
+                featurePrices = '';
+                var prdcttot=0;
+                yousaved={!chrt.Promo_value__c};
+                
+                 $('select.qtyoptions :selected').each(function() {
+                    sum += Number($(this).val()) * $mapParentChildren[this.parentNode.id];
+                   });
+                   
+                 $('select.featureprice :selected').each(function() {
+                   sum += Number(($(this).val()));
+                   });
+                   
+                $('#subtotal').html('Sub Total: $ ' + (sum).formatMoney(2, '.', ',') );
+               
+                
+                
+               // sum += 99; //tax + processing
+                sum -= yousaved;
+                $('#totalamount').html('Total: $ '+(sum).formatMoney(2, '.', ','));
+                totalvalue = sum;
+          }
+          
+          function callkpshng1() {
+          
+                   var selectedOptions = new Array();
+                   $('select.featureprice :selected').each(function() {
+                   if($(this).val() != '0.00')
+                   selectedOptions.push(this.id);
+                   });
+                   
+                   $('select.qtyoptions :selected').each(function() {
+                    prodInfo += this.parentNode.id + ':'+ $(this).val() + ',';
+                    
+                });
+             
+              kpshng(prodInfo, selectedOptions.toString(), totalvalue, featurePrices);
+          }
+          
+          function callcheckout1() {
+
+              //    Get all selected radios (options)
+              var selectedOptions = new Array();
+                   $('select.featureprice :selected').each(function() {
+                   if($(this).val() != '0.00')
+                   selectedOptions.push(this.id);
+                   });
+
+                  $('select.qtyoptions :selected').each(function() {
+                    prodInfo += this.parentNode.id + ':'+ $(this).val() + ',';
+                });
+
+              checkout(prodInfo, selectedOptions.toString(), totalvalue, featurePrices);
+          }
+
+          function prm(){
+          
+                var selectedOptions = new Array();
+                   $('select.featureprice :selected').each(function() {
+                   if($(this).val() != '0.00')
+                   selectedOptions.push(this.id);
+                   });
+                   
+                   $('select.qtyoptions :selected').each(function() {
+                    prodInfo += this.parentNode.id + ':'+ $(this).val() + ',';
+                });
+
+              promo(prodInfo,selectedOptions.toString());
+          }
+          
+           
+          
+          Number.prototype.formatMoney = function(c, d, t){
+                var n = this, 
+                    c = isNaN(c = Math.abs(c)) ? 2 : c, 
+                    d = d == undefined ? "." : d, 
+                    t = t == undefined ? "," : t, 
+                    s = n < 0 ? "-" : "", 
+                    i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", 
+                    j = (j = i.length) > 3 ? j % 3 : 0;
+                   return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+            };
+          </Script>
+          </div>
+          
+    </apex:repeat>
+    <apex:form id="cp">
+  <div class="row" style="padding-top: 20px;">
+  
+      <div class="col-xs-12" id="error5">
+        <apex:pageMessages />
+                   </div> 
+  </div>
+  <div class="row" style="padding:20px 5px;">
+    <div align="right" class="col-sm-4 col-sm-offset-8">
+       <p id="subtotal"></p>
+      <p>
+          You Saved:
+              <apex:outputText value=" ${0, number, ###,##0.00}">
+                  <apex:param value="{!chrt.Promo_Value__c}"/>
+              </apex:outputText>
+      </p>
+      <h2 id="totalamount"></h2>
+     </div>
+   </div>
+   <div class="row" style="padding:20px 5px;">
+          <div class="col-sm-2 col-sm-offset-8">
+          <button type="button" class="wk-button-primary wk-button-full" onclick="callkpshng1();"><span>Keep Shopping</span></button>
+          </div>
+          <div class="col-sm-2">
+         <button type="button" class="wk-button-danger wk-button-full" onclick="callcheckout1();"><span>Check Out</span></button>
+          </div>
+    </div>
+   <div class="row">
+          <div class="col-sm-4 col-sm-offset-8">
+            <p align="left"><a href="#promoCode" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="promoCode"><strong>Have a Promo Code? Click Here.</strong></a></p>
+            <div id="promoCode" class="collapse">
+                <div class="wk-field-item">
+                  <div class="wk-field-header">
+                  </div>
+                  <apex:inputText value="{!coupon}" id="theTextInput"/>
+                  <button type="button" class="wk-button-success wk-button-full" onclick="prm();"><span>Apply Promo Code</span></button>
+                  <div class="wk-field-error"></div>
+                </div>
+            </div>
+          </div>
+          
+      </div>
+      
+     <apex:actionFunction name="promo" status="status" action="{!applycoupon}"  rerender="cp,error5">
+<apex:param value="" name="prodInfo"/>
+<apex:param value="" name="selectedoptions"/>
+</apex:actionFunction>
+</apex:form>
+
+  
+ </div>
+   
+   <apex:form id="f">
+ <apex:actionstatus id="loading" startText="Loading...">
+ 
+<!--+++++++++++ LOADING START +++++++++++-->
+<apex:facet name="start">
+    <div id="salesforceSource_blurybackground" style="z-index: 9999; position: fixed; left: 1px; top: 1px; width: 100%; height: 100%; text-align: center; vertical-align: middle; background-color: #dcdcdc; opacity: 0.75; filter: alpha(opacity = 50)"></div>
+    <div id="ManageMembersViewport_loading" class="waitingSearchDiv" style="width: 100%; height: 80%; display: '';">
+        <div style="max-width: 800px; width: 100%; position: fixed; top: 40%;left: 25%; z-index:10000;" class="waitingHolder">
+            <table align="center" valign="top" style="width: 100%; height: 30%">
+                <tr align="center" valign="top" style="width: 100%; height: 30%">
+                    <td valign="top">
+                    <p style="font-size:1.5em; color: #474747;" class="text-center">Please wait while we load your items into your quote.<br/> Do not hit the back button or close your browser.<br />
+                <small>This may take a few seconds.</small></p>
+                    <span class="wk-icon-reload wk-spin" style="color: #474747; font-size:2.5em;"></span></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="ManageMembersViewport_loading" class="waitingSearchDiv" style="width: 100%; height: 100%; display:'';" />
+    <script>
+        document.getElementById('ManageMembersViewport_loading').height = window.innerHeight * (3/4);
+    </script>
+</apex:facet>
+
+
+<!--+++++++++++ LOADING END +++++++++++--> 
+
+
+            <apex:facet name="stop"></apex:facet>
+        </apex:actionstatus>
+    <apex:actionFunction name="checkout" action="{!onCheckout}"  status="loading"  oncomplete="cqln();" rerender="f">
+        
+        <apex:param value="" name="prodInfo"/>
+        <apex:param value="" name="selectedoptions"/>
+        <apex:param value="" name="totalprice"/>
+        <apex:param value="" name="featuresPrice"/>
+    </apex:actionFunction>
+        
+    <apex:actionFunction name="cqln" action="{!createql}"  oncomplete="slstx();" status="loading" rerender="f" />
+    <apex:actionFunction name="slstx" action="{!salestx}"   status="loading" rerender="f" />
+
+     <apex:actionFunction name="kpshng" action="{!onKeepshopping}" rerender="f" oncomplete="window.location.href='{!chrt.Originate_URL__c}';">
+        <apex:param value="" name="prodQua"/>
+        <apex:param value="" name="selectedoptions"/>
+        <apex:param value="" name="totalprice"/>
+        <apex:param value="" name="featuresPrice"/>
+    </apex:actionFunction>
+    <apex:actionStatus id="status">
+            <apex:facet name="start">
+            <div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; opacity: 0.75; z-index: 1000; background-color: black;">
+                &nbsp;
+            </div>
+            <div style="position: fixed; left: 0; top: 0; bottom: 0; right: 0; z-index: 1001; margin: 30% 50%">
+                <img src="http://upload.wikimedia.org/wikipedia/commons/e/ed/Cursor_Windows_Vista.gif" />
+            </div>
+            </apex:facet>
+        </apex:actionStatus>
+
+    <apex:actionFunction name="removeProduct" action="{!removeProduct}" status="status" rerender="f" oncomplete="window.location.href='/sales/ShoppingCart';">
+        <apex:param name="removePrdct" value="" />
+    </apex:actionFunction>
+    
+    <apex:actionFunction name="empty" action="{!emptyCart}" rerender="f" status="status"  oncomplete="window.location.href='/sales/ShoppingCart';"/>
+              <script>
+              $(document).ready(function() {
+                $mapParentChildren = jQuery.parseJSON('{!JSENCODE(priceJSON)}');
+                quantityJSON = jQuery.parseJSON('{!JSENCODE(mapProductIdToQuantityJSON)}');
+                sum = 0;
+                var producttotal = 0;
+                
+                $('select.qtyoptions').each(function() {
+                    $(this).val(quantityJSON[this.id]);
+                    $('#price'+this.id).html('$ '+(quantityJSON[this.id] * $mapParentChildren[this.id]).formatMoney(2, '.', ','));
+                });
+                 
+                 $('select.qtyoptions :selected').each(function() {
+                    prodInfo += this.id + ':'+ $(this).val() + ',';
+                });
+
+                 $('select.qtyoptions').each(function() {
+                   producttotal += Number((quantityJSON[this.id] * $mapParentChildren[this.id]));
+                     });
+                     
+                 $('select.featureprice :selected').each(function() {
+                   producttotal += Number(($(this).val()));
+                   });
+                     
+                $('#subtotal').html('Subtotal: $' + (producttotal).formatMoney(2, '.', ',') );
+               
+                yousaved={!chrt.Promo_Value__c};
+              //  sum += 99; //tax + processing
+                producttotal -=yousaved;
+                $('#totalamount').html('Total: $'+(producttotal).formatMoney(2, '.', ','));
+                totalvalue = producttotal;
+               });
+            
+            </script>
+   </apex:form>
+<!--FOOTER-->
+<div class="wk-footer index-footer-nav index-last-footer">
+  <div class="wk-footer-container">
+    <div class="wk-footer-nav" style="margin-bottom:10px;">
+      <ul>
+        <li><a href="https://www.cchsfs.com/pdf/terms.pdf" target="_blank">Terms of Use</a></li>
+        <li><a href="https://www.cchsfs.com/pdf/privacy.pdf" target="_blank">Privacy</a></li>
+        <li><a href="https://www.cchsfs.com/pdf/security.pdf" target="_blank">Security</a></li>
+        <li><a href="https://www.cchsfs.com/legal/" target="_blank">Refund Policy</a></li>
+        <li><a href="https://www.cchsfs.com/pdf/Online_Terms_of_Purchase.pdf" target="_blank">Terms of Purchase</a></li>
+      </ul>
+    </div>
+    <a href="https://www.cchsfs.com" aria-label="Wolters Kluwer" class="wk-brand-light"></a>
+    <div class="wk-tagline">When you have to be right</div>
+  </div>
+  <div class="wk-footer-copyright">
+    <div class="wk-footer-copyright-container">&copy; 
+      <script language="javascript" type="text/javascript">
+        var today = new Date()
+        var year = today.getFullYear()
+        document.write(year)
+
+
+    </script> 
+      Universal Tax Systems, Inc. and its affiliates and/or licensors. All rights reserved.</div>
+  </div>
+</div>
+
+<!--MODALS-->
+
+<div id="package-includes" tabindex="-1" role="dialog" class="wk-modal wk-modal-medium wk-modal-with-overlay fade">
+  <section class="wk-modal-content">
+    <header class="wk-modal-header">
+      <div class="wk-modal-title">Package Includes
+      </div>
+      <div data-dismiss="modal" class="wk-modal-close"><span aria-hidden="true" class="wk-icon-close-empty"></span></div>
+    </header>
+    <div class="wk-modal-body">
+        <div class="container clearfix" style="width: 100%">
+        <apex:repeat value="{!products}" var="prdct">
+            <div class="row">
+              
+              <div class="wk-field-header"><strong>{!prdct.Marketing_Name__c}</strong></div>
+              <apex:repeat value="{!productToSelectedOptionsMap[prdct.Id]}" var="opt">
+        
+       <div class="col-sm-6">
+            <ul>
+                <li>{!opt}</li>
+            </ul>
+        </div>
+      </apex:repeat>
+     
+             
+            </div>
+             </apex:repeat>
+        </div>
+    </div>
+    <footer class="wk-modal-footer">
+      
+    </footer>
+  </section>
+</div>
+ 
+
+
+
+</body>
+</html>
+</apex:page>

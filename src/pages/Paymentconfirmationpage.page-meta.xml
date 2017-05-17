@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApexPage xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>36.0</apiVersion>
+    <availableInTouch>false</availableInTouch>
+    <confirmationTokenRequired>false</confirmationTokenRequired>
+    <label>Paymentconfirmationpage</label>
+    <packageVersions>
+        <majorNumber>24</majorNumber>
+        <minorNumber>0</minorNumber>
+        <namespace>SBQQ</namespace>
+    </packageVersions>
+    <packageVersions>
+        <majorNumber>4</majorNumber>
+        <minorNumber>17</minorNumber>
+        <namespace>invoiceit_s</namespace>
+    </packageVersions>
+</ApexPage>

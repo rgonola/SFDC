@@ -1,0 +1,190 @@
+<apex:component access="global" controller="cls_email_template_quotelines">
+    <apex:attribute name="QuoteId" description="This is the Order Id." type="String" assignTo="{!myQuoteId}"></apex:attribute>
+    <apex:attribute name="accountCID" description="String Order Number" type="String" assignTo="{!accountOrderNumber}"></apex:attribute>
+        <apex:attribute name="fName" description="String Order Number" type="String" assignTo="{!firstName}"></apex:attribute>
+            <apex:attribute name="lName" description="String Order Number" type="String" assignTo="{!lastName}"></apex:attribute>
+                <apex:attribute name="myPhone" description="String Order Number" type="String" assignTo="{!Phone}"></apex:attribute>
+                    <apex:attribute name="myEmail" description="String Order Number" type="String" assignTo="{!Email}"></apex:attribute>
+
+   <img alt="Company Logo" height="75" src="{!myLogoPath}" />
+              <br/><br/>
+              <!--ATX Panel-->
+              {!visibility}
+              <apex:outputPanel rendered="{!order_atx}">
+                  <font face="Trebuchet MS">
+
+                        <p>Dear Tax Professional,</p>
+                        
+                        <p>Thank you for your order!</p>
+                        
+                        <p>You order confirmation can be found at the bottom of this email. Be sure to review the full email below, as it provides you with important information and useful resources to help familiarize you with your software. You will find your Client Identification number (CID) below and we encourage you to keep this information available for quick reference. Your activations code(s) will be provided in a separate email; input the codes during the installation and setup of your software.</p>
+                        
+                        <p><b>Your client identification number (CID) is: {!AccountCID}</b></p>
+                        
+                        <p><b><u>What Happens Now?</u></b></p>
+                            
+                        <p>Within 48 hours, one of our onboarding specialists will contact you to provide access to your tax software.</p>
+                            
+                        <p>If you are a NEW customer:</p>
+                            
+                        <ul><li> In order to setup your account, we need a copy of your EFIN letter or the summary page from your IRS e-Services account. Please send either of those to <a href="mailto:EFIN.AR@cchsfs.com"><font color="#0563c1">EFIN.AR@cchsfs.com</font></a> or fax to 800.834.4859</li><li>Once your EFIN information is on file, registration codes for your purchase will be sent via email. This email is sent after onboarding.</li></ul>
+                            
+                        <p>If you are a returning customer, please read below for information on downloading/logging in to your tax software.</p>
+                            
+                        <p><b><u>Solution Center</u></b></p>
+                        
+                        <p>Self-support resources are available to you, your tax preparers, and your other office personnel at <a href="https://www.myatx.com/"><font color="#0563c1">www.myatx.com</font></a>. </p>
+                         
+                        <p>Most support options are available via direct links from the Solution Center homepage, while those tools/resources that contain taxpayer data require a login. </p>
+                        
+                        <p>The ADMIN user has unlimited access while other users’ access can be limited (refer to the tutorial “How to use your Solution Center” on the landing page).  Our primary customer communication methods including Support Blog posts, module and form delivery dates, e-file delivery dates, and tax return-specific status updates are found on this page. </p>
+                         
+                        <p>Other self-support resources include the knowledge base, community board, software user guides, and software training videos.  ADMIN users can view and edit your office information and run reports such as client lists, e-file statuses and agency reject details, refund settlement and check print reports, and fee and billing information.</p>
+                        
+                        <p>Please review the shipping address on your order confirmation carefully. This address is utilized for shipping any products that you purchase. If the address is incorrect, please log into the Solution Center to update it at your earliest convenience.</p>
+                        
+                        <p><b><u>Downloads</u></b></p>
+                        <p>Access all of your tax and 
+                        ing software products for download at any time at the Customer Care Download Center.  If you have purchased the Tax Season Essentials program, please visit the <a href="https://support.atxinc.com/myatx/TaxSeasonEssentials.aspx"><font color="#0563c1">Support Tab</font></a> to access the content. Or, contact your Account Manager if you would like to learn more about this valuable resource.</p>
+                        
+                        <p><b><u>Conversions</u></b></p>
+                        <p>We provide conversions for many of the major tax software applications, so please review the list of <a href="https://support.atxinc.com/download/UnifiedDownload.aspx?doctype=atxcon"><font color="#0563c1">currently available conversion utilities.</font></a> If your package includes personalized Conversion Services, our support team will be contacting you to arrange for the conversion of your files. To learn more about this service, please contact your Account Manager. </p>
+                        
+                        <p><b><u>Tax Research in IntelliConnect</u></b></p>
+                        
+                        <p>All ATX packages that include online research in IntelliConnect</p>
+                        
+                        <p>Within 24 hours of purchase, you should receive an automatic email from CCH to register for your account.  If you did not receive it, click <a href="http://www.wolterskluwer.com"><font color="#0563c1">here</font></a> to request your registration email.</p>
+                        
+                        <p><b><u>CCH Education and CPE</u></b></p>
+                        
+                        <p>If you purchased CCH Unlimited Seminars or Learning Center self-study packages, you should have received a Welcome Letter email from CCH to access your subscription.  If you did not receive it, contact your Account Manager to request your Welcome Letter.</p>
+                        
+                        <p><b><u>Upload EFIN to begin E-filing</u></b></p>
+                        
+                        <p>To activate electronic filing of your tax returns, upload verification of your EFIN from the Solution Center.  You can provide documentation of the EFIN by uploading a copy of your IRS EFIN letter or a copy of the summary page from your IRS e-Services account.  If the EFIN is changed on your account, the registration code changes and must be entered into the software setup screens.  If you encounter problems uploading the file, you may also email the documentation and your Client ID to <a href="mailto:EFIN.AR@cchsfs.com">EFIN.AR@cchsfs.com</a> or fax to 800.834.4859. </p>
+                        
+                        <br/>
+                        <br/>
+                        <p>If I may be of further assistance, please let me know. I look forward to a successful tax season with you!</p>
+                        <br/>
+                        
+                        <p>Sincerely,</p>
+                        {!firstname}  {!lastname} <br/>
+                         {!Phone}<br/>
+                         {!email}<br/>
+                         
+                        
+                        <p>Wolters Kluwer</p>
+                        </font>
+              </apex:outputPanel>
+              
+
+              <!--TW Panel-->
+                 <apex:outputPanel rendered="{!order_tw}">
+                        <font face="Trebuchet MS">
+
+                            <p>Dear Tax Professional,</p>
+                            
+                            <p>Thank you for your order!</p>
+                            
+                            <p>You order confirmation can be found at the bottom of this email. Be sure to review the full email below, as it provides you with important information and useful resources to help familiarize you with your software. You will find your Client Identification number (CID) below and we encourage you to keep this information available for quick reference. Your registration code(s) will be provided in a separate email; input the codes during the installation and setup of your software.</p>
+                            
+                            <p><b>Your client identification number (CID) is:{!AccountCID}</b></p>
+                            
+                            <p><b><u>What Happens Now?</u></b></p>
+                            
+                            <p>Within 48 hours, one of our onboarding specialists will contact you to provide access to your tax software.</p>
+                            
+                            <p>If you are a NEW customer:</p>
+                            
+                            <ul><li> In order to setup your account, we need a copy of your EFIN letter or the summary page from your IRS e-Services account. Please send either of those to <a href="mailto:EFIN.AR@cchsfs.com"><font color="#0563c1">EFIN.AR@cchsfs.com</font></a> or fax to 800.834.4859</li><li>Once your EFIN information is on file, registration codes for your purchase will be sent via email. This email is sent after onboarding.</li></ul>
+                            
+                            <p>If you are a returning customer, please read below for information on downloading/logging in to your tax software.</p>
+                            
+                            <p><b><u>Solution Center</u></b></p>
+                            
+                            <p>Self-support resources are available to you, your tax preparers, and your other office personnel at <a href="https://support.taxwise.com"><font color="#0563c1">support.taxwise.com</font></a>. </p>
+                             
+                            <p>Most support options are available via direct links from the Solution Center homepage, while those tools/resources that contain taxpayer data require a login. </p>
+                            
+                            <p>The ADMIN user has unlimited access while other users’ access can be limited (refer to the tutorial “How to use your Solution Center” on the landing page).  Our primary customer communication methods including Support Blog posts, module and form delivery dates, e-file delivery dates, and tax return-specific status updates are found on this page. </p>
+                             
+                            <p>Other self-support resources include the knowledge base, community board, software user guides, and software training videos.  ADMIN users can view and edit your office information and run reports such as client lists, e-file statuses and agency reject details, refund settlement and check print reports, and fee and billing information.</p>
+                            
+                            <p>Please review the shipping address on your order confirmation carefully. This address is utilized for shipping any products that you purchase. If the address is incorrect, please log into the Solution Center to update it at your earliest convenience.</p>
+                            
+                            <p><b><u>Downloads</u></b></p>
+                            <p>Access all of your tax and accounting software products for download at any time at the Customer Care Download Center.  If you have purchased the Tax Season Essentials program, please visit the <a href="https://support.taxwise.com/TaxSeasonEssentials.aspx"><font color="#0563c1">Support Tab</font></a> to access the content. Or, contact your Account Manager if you would like to learn more about this valuable resource.</p>
+                            
+                            <p><b><u>Conversions</u></b></p>
+                            <p>We provide conversions for many of the major tax software applications, so please review the list of <a href="https://support.taxwise.com/download/download.aspx?cmd=conversions"><font color="#0563c1">currently available conversion utilities.</font></a> If your package includes personalized Conversion Services, our support team will be contacting you to arrange for the conversion of your files. To learn more about this service, please contact your Account Manager. </p>
+                            
+                            <p><b><u>CCH Education and CPE</u></b></p>
+                            
+                            <p>If you purchased CCH Unlimited Seminars or Learning Center self-study packages, you should have received a Welcome Letter email from CCH to access your subscription.  If you did not receive it, contact your Account Manager to request your Welcome Letter.</p>
+                            
+                            <p><b><u>Upload EFIN to begin E-filing</u></b></p>
+                            
+                            <p>To activate electronic filing of your tax returns, upload verification of your EFIN from the Solution Center.  You can provide documentation of the EFIN by uploading a copy of your IRS EFIN letter or a copy of the summary page from your IRS e-Services account.  If the EFIN is changed on your account, the registration code changes and must be entered into the software setup screens.  If you encounter problems uploading the file, you may also email the documentation and your Client ID to <a href="mailto:EFIN.AR@cchsfs.com">EFIN.AR@cchsfs.com</a> or fax to 800.834.4859. </p>
+                            
+                            <br/>
+                            <br/>
+                            <p>If I may be of further assistance, please let me know. I look forward to a successful tax season with you!</p>
+                            <br/>
+                            
+                            <p>Sincerely,</p>
+                            {!firstname}  {!lastname} <br/>
+                             {!Phone}<br/>
+                             {!email}<br/>
+                             
+                            
+                            <p>Wolters Kluwer</p>
+                            </font>
+                  </apex:outputPanel>
+             
+
+              <apex:outputPanel rendered="{!order_default}">
+                 <font face="Trebuchet MS">
+                    <p>Thank you for your recent purchase!</p>
+
+                    <p>You order confirmation can be found at the bottom of this email. You will find your Client Identification number (CID) below and we encourage you to keep this information available for quick reference. </p>
+                    
+                    <b>Your client identification number (CID) is: {!AccountCID}</b>
+                    
+                    <p>If I may be of further assistance, please let me know. I look forward to a successful tax season with you!</p>
+                    <br/>
+                    
+                    <p>Sincerely,</p>
+                    {!firstname}  {!lastname} <br/>
+                     {!Phone}<br/>
+                     {!email}<br/>
+                     
+                    
+                    <p>Wolters Kluwer</p>
+                </font>
+              </apex:outputPanel>
+              
+              <apex:outputPanel rendered="{!order_iFirm}">
+                 <font face="Trebuchet MS">
+                    <p>Thank you for your recent purchase!</p>
+
+                    <p>You order confirmation can be found at the bottom of this email. You will find your Client Identification number (CID) below and we encourage you to keep this information available for quick reference. You will receive a Welcome email within 1 business day that will include your CCH iFirm site and login information. </p>
+
+                    <b>Your client identification number (CID) is: {!AccountCID}</b>
+                    
+                    <p>If I may be of further assistance, please let me know. I look forward to a successful tax season with you!</p>
+                    <br/>
+                    
+                    <p>Sincerely,</p>
+                    {!firstname}  {!lastname} <br/>
+                     {!Phone}<br/>
+                     {!email}<br/>
+                     
+                    
+                    <p>Wolters Kluwer</p>
+                </font>
+              </apex:outputPanel>
+
+             
+</apex:component>

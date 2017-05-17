@@ -1,0 +1,17 @@
+<apex:page sidebar="false" showHeader="false" standardStylesheets="false" standardController="Product2" extensions="DisplayRESSTATEHB">
+    <apex:stylesheet value="https://cdn.wolterskluwer.io/wk.css/0.15.x/with-bootstrap.min.css" />
+    <apex:stylesheet value="{!URLFOR($Resource.Styles)}" />
+        <style>
+        body {
+        background-color: transparent;
+        }
+        
+        </style> 
+        <div class="col-sm-3 text-center">
+        <apex:outputText styleClass="h3 blue" value="${0,number,###,#00}">
+                        <apex:param value="{!statehbprice.UnitPrice}"/>
+                    </apex:outputText>
+                    <br/><br/>
+                    <button type="button"  styleClass="wk-button-success wk-button-full" onclick="window.top.location='{!$Label.Ecom_Link}{!statehbprice.Product2.ProductCode}&returnurl={!$Label.Ecom_Marketing_Link}enhance/books-ecommerce.aspx';" ><span>Add to Cart</span></button>
+        </div>
+</apex:page>

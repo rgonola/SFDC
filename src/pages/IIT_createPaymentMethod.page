@@ -1,0 +1,20 @@
+<apex:page standardController="SBQQ__Quote__c" extensions="IIT_ControllerCreatePaymentMethod">
+<apex:form > 
+<div class="bPageTitle">
+        <apex:sectionHeader title="PM" subtitle="Create Payment Method"/>
+        <div class="ptBreadcrumb">&nbsp;«&nbsp;
+            <a href="/{!quoteObj.Id}">Back to : {!quoteObj.Name}</a>
+        </div>
+    </div>
+    <apex:pageBlock title="Create Payment Method">
+    
+    
+    <apex:commandButton action="{!redirectPage}" value="Create ACH "/><br/><br/>
+    <apex:commandButton action="{!redirectTOCC}" value="Credit Card"/>
+    
+    
+    </apex:pageBlock>
+
+</apex:form>
+ 
+</apex:page>

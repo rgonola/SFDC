@@ -1,0 +1,15 @@
+<apex:page sidebar="false" showHeader="false" standardStylesheets="false" standardController="Product2" extensions="TRCPKGSEASONAL">
+    <apex:stylesheet value="https://cdn.wolterskluwer.io/wk.css/0.15.x/with-bootstrap.min.css" />
+    <apex:stylesheet value="{!URLFOR($Resource.Styles)}" />
+        <style>
+        body {
+        background-color: transparent;
+        }
+        
+        </style> 
+        <div class="col-sm-3 text-center">
+                    <h2>${!trcpkgprice.UnitPrice}</h2>                    
+                    <p>&nbsp;</p>
+                    <button type="button"  styleClass="wk-button-success wk-button-full" onclick="window.top.location='{!$Label.Ecom_Link}{!trcpkgprice.Product2.productcode}&returnurl={!$Label.Ecom_Marketing_Link}enhance/aca-compliance.aspx';"><span>Add to Cart</span></button>
+        </div>
+</apex:page>

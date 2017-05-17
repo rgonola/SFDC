@@ -1,0 +1,94 @@
+<apex:page standardController="Account" extensions="validateAccount">
+	<script>
+    window.onload = fun;
+    function fun(){
+         var Brandval = '{!Account.Brand__c}'; 
+        var riskRatingVal =  '{!Account.Risk_Rating__c}' ;
+        var impactRating =  '{!Account.Impact__c}' ;
+       
+        if(Brandval == 'ATX')
+        {
+            
+            if(riskRatingVal == 'High' )
+            {
+                document.getElementById('high').style.display = "block";
+            }
+            if(riskRatingVal == 'Medium' )
+            {
+                document.getElementById('medium').style.display = "block";
+            }
+            if(riskRatingVal == 'Low' )
+            {
+                document.getElementById('low').style.display = "block";
+            }
+        }
+       
+        if(Brandval == 'TaxWise') 
+        {
+           
+            if(impactRating == 'High' )
+            {
+                document.getElementById('imphigh').style.display = "block";
+            }
+            if(impactRating == 'Medium' )
+            {
+                document.getElementById('impmedium').style.display = "block";
+            }
+            if(impactRating == 'Low' )
+            {
+                document.getElementById('implow').style.display = "block";
+            }
+        
+        }
+            
+        var validateAcc = '{!validate}' ; 
+          
+           if(validateAcc == 'true')
+           {
+              alert('Do Not Call                                                                                                                                                                                                                                            Contact Name :  {!con.FirstName} {!con.LastName}                                                                                                                                                                                                                                            Contact Email : {!con.Email}'); 
+           }        
+                                                                                               
+    }                                                                                       
+</script>
+	<apex:pageMessages id="errorMessage"></apex:pageMessages>
+	<div
+		style="border: 0px solid black; border-right: 0px solid black; border-left: 0px solid black; display: none;"
+		id="high">
+		<hr width="100%" style="border: 3px solid #DF0101" color="#DF0101"
+			size="6" />
+	</div>
+	<div
+		style="border: 0px solid black; border-right: 0px solid black; border-left: 0px solid black; display: none;"
+		id="medium">
+		<hr width="100%" style="border: 3px solid #DBA901" color="#DBA901"
+			size="6" />
+	</div>
+	<div
+		style="border: 0px solid black; border-right: 0px solid black; border-left: 0px solid black; display: none;"
+		id="low">
+		<hr width="100%" style="border: 3px solid #77A736" color="#77A736"
+			size="6" />
+	</div>
+
+
+	<div
+		style="border: 0px solid black; border-right: 0px solid black; border-left: 0px solid black; display: none;"
+		id="imphigh">
+		<hr width="100%" style="border: 3px solid #FFA500" color="#FFA500"
+			size="6" />
+	</div>
+	<div
+		style="border: 0px solid black; border-right: 0px solid black; border-left: 0px solid black; display: none;"
+		id="impmedium">
+		<hr width="100%" style="border: 3px solid #800080" color="#800080"
+			size="6" />
+	</div>
+
+	<div
+		style="border: 0px solid black; border-right: 0px solid black; border-left: 0px solid black; display: none;"
+		id="implow">
+		<hr width="100%" style="border: 3px solid #0000FF" color="#0000FF"
+			size="6" />
+	</div>
+
+</apex:page>

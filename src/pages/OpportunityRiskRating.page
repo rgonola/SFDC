@@ -1,0 +1,40 @@
+<apex:page standardController="Opportunity">
+	<script>
+    window.onload = fun;
+    function fun(){
+        var riskRatingVal =  '{!Opportunity.Risk_Rating__c}' ;
+        if(riskRatingVal == 'High' )
+        {
+            document.getElementById('high').style.display = "block";
+        }
+        if(riskRatingVal == 'Medium' )
+        {
+            document.getElementById('medium').style.display = "block";
+        }
+        if(riskRatingVal == 'Low' )
+        {
+            document.getElementById('low').style.display = "block";
+        }
+    }
+</script>
+
+	<div
+		style="border: 0px solid black; border-right: 0px solid black; border-left: 0px solid black; display: none;"
+		id="high">
+		<hr width="100%" style="border: 3px solid #DF0101" color="#DF0101"
+			size="6" />
+	</div>
+	<div
+		style="border: 0px solid black; border-right: 0px solid black; border-left: 0px solid black; display: none;"
+		id="medium">
+		<hr width="100%" style="border: 3px solid #DBA901" color="#DBA901"
+			size="6" />
+	</div>
+	<div
+		style="border: 0px solid black; border-right: 0px solid black; border-left: 0px solid black; display: none;"
+		id="low">
+		<hr width="100%" style="border: 3px solid #77A736" color="#77A736"
+			size="6" />
+	</div>
+
+</apex:page>

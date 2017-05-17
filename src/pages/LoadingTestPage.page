@@ -1,0 +1,28 @@
+<apex:page >
+<div style="height: 1000px; width:100%; background-color: #ededed;">
+<!--+++++++++++ LOADING START +++++++++++-->
+<apex:facet name="start">
+  <div id="salesforceSource_blurybackground" style="z-index: 9998; position: fixed; left: 1px; top: 1px; width: 100%; height: 100%; text-align: center; vertical-align: middle; background-color: #cccccc; opacity: 0.7; filter: alpha(opacity = 50)"></div>
+  <div id="ManageMembersViewport_loading" class="waitingSearchDiv" style="width: 100%; height: 80%;">
+    <div style="position: fixed; top: 20%; left:20%" class="waitingHolder row">
+      <table align="center" valign="top" style="width: 100%; height: 30%">
+        <tr align="center" valign="top" style="width: 100%; height: 30%">
+          <div class="row">
+            <div class="col-xs-12">
+              <p style="font-size:1.5em; color: red;" class="text-center">Please wait while we locate your profile. Please do not hit the back button or close your browser.<br />
+                <small>This may take a few seconds.</small></p>
+            </div>
+          </div>
+          <td valign="top"><img class="waitingImage" src="/img/loading.gif" /><span class="waitingDescription">Loading...</span></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <script>
+     document.getElementById('ManageMembersViewport_loading').height = window.innerHeight * (3/4);
+   </script>
+ 
+</apex:facet>
+<!--+++++++++++ LOADING END +++++++++++--> 
+ </div>
+</apex:page>

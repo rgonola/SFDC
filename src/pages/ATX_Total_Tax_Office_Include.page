@@ -1,0 +1,19 @@
+<apex:page sidebar="false" showHeader="false" standardStylesheets="false" standardController="Product2" extensions="DisplayATXTTO">
+    <apex:stylesheet value="https://cdn.wolterskluwer.io/wk.css/0.15.x/with-bootstrap.min.css" />
+    <apex:stylesheet value="{!URLFOR($Resource.Styles)}" />
+        <style>
+        body {
+        background-color: transparent;
+        }
+        
+        </style> 
+        <div class="col-sm-3 text-center">
+            <apex:outputText styleClass="h2 white" value="${0,number,###,##0}">
+                <apex:param value="{!ttoprice.UnitPrice}"/>
+            </apex:outputText>
+            <br/><br/>
+                    <button type="button"  class="wk-button-danger wk-button-full" onclick="window.top.location='{!$Label.Ecom_Link}{!ttoprice.Product2.ProductCode}&returnurl={!$Label.Ecom_Marketing_Link}professional-tax-software/atx-total-tax-office.aspx';"><span>Add to Cart</span></button>
+                    
+        </div>
+
+</apex:page>
