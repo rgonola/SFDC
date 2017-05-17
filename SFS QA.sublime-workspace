@@ -8,14 +8,11 @@
 	"buffers":
 	[
 		{
-			"contents": "@isTest(seealldata=false)\npublic with sharing class Accountownerchangetest{\n    static testMethod void oppowner() {\n\n\n     //Account insert\n        Account account = new Account(Name = 'India',ShippingCity = 'annapolis',ShippingCountry = 'US',ShippingPostalCode = '21401',ShippingState = 'MD',ShippingStreet='Test');\n        insert account;\n\n           //Contact Insert\n        Contact cont = new Contact();\n        cont.AccountId = account.id;\n        cont.Email = 'test@gmail.com';\n        cont.FirstName = 'InvoiceIT';\n        cont.LastName =  'Test';\n        cont.Is_Primary__c = true;\n        insert cont;\n\n        \n\n        //insert Opportunity\n        Opportunity opp = new Opportunity();\n        opp.AccountId = account.id;\n        opp.CloseDate = System.today();\n        opp.StageName = 'Validation';\n        opp.Name = 'Opportunity Test';\n        opp.ForecastCategoryName = 'Medium Probability';\n        opp.Product__c = 'ATX';\n        insert opp;\n\n\n        Profile profileId = [SELECT Id FROM Profile WHERE Name = 'Standard User' LIMIT 1];\n\n        User usr = new User(LastName = 'LIVE',\n                           FirstName='JASN',\n                           Alias = 'jliv',\n                           Email = 'jasonlhhn@asdf.com',\n                           Username = 'jaseston@asdf.com.uat',\n                           ProfileId = profileId.id,\n                           TimeZoneSidKey = 'GMT',\n                           LanguageLocaleKey = 'en_US',\n                           EmailEncodingKey = 'UTF-8',\n                           LocaleSidKey = 'en_US'\n                           );\n                insert usr;\n\n         Test.Starttest();\n\n         account.ownerID= usr.id;\n         update account;\n\n         Test.Stoptest();\n\n    }\n\n }",
 			"file": "src/classes/Accountownerchangetest.cls",
-			"file_size": 1755,
-			"file_write_time": 131395048399371680,
 			"settings":
 			{
 				"buffer_size": 1755,
-				"line_ending": "Unix"
+				"line_ending": "Windows"
 			}
 		}
 	],
@@ -366,7 +363,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 900.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,

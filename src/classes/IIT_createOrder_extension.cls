@@ -360,10 +360,10 @@ public class IIT_createOrder_extension {
                         return null;  
                     }catch (exception e) {
                         // Naveen to write the code, write proper exception
-                        
+                        Database.rollback(sp);
                         system.debug ('ERRORrrrrrrrrr  ' + e);
                         //ErrorMsg = e.getMessage();
-                        string exceptionMessage = 'An exception has occurred, Please Note Payment has been processed in CyberSource and Salesforce ,there was an exception while creating the order and invoice. Exception Message is: ' + e.getMessage()
+                        string exceptionMessage = 'An exception has occurred, Please click on Create Order button again to create the Order & Invoice. ' + e.getMessage()
                                         + ' Line No : ' + e.getLineNumber()
                                         + ' Stack Trace : ' + e.getStackTraceString()
                                         + ' TypeName : ' + e.getTypeName()
@@ -374,7 +374,7 @@ public class IIT_createOrder_extension {
                         update myQuote;
                         orderID='';
                         invoiceID='';
-                        Database.rollback(sp);
+                        
                         
                         ErrorMsg = exceptionMessage;
                         return null;

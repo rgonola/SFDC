@@ -7,7 +7,7 @@ public class TAXBKALLSTATESTest
         Product2 prod = new Product2();
         prod.Name = 'Laptop X200';
         prod.Family = 'Hardware';
-        prod.Productcode='ECBOOKSTATETAX_2017';
+        prod.Productcode='ECTAXBOOKALLSTATE_2017';
         prod.IsActive=true;
         insert prod;
         
