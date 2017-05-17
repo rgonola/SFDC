@@ -16,7 +16,7 @@ public with sharing class Accountownerchangetest{
         cont.Is_Primary__c = true;
         insert cont;
 
-        account.Name='';
+        
 
         //insert Opportunity
         Opportunity opp = new Opportunity();

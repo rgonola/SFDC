@@ -1,0 +1,390 @@
+<apex:page renderAs="pdf"  sidebar="false" showHeader="false" applyHtmlTag="false" applyBodyTag="false" standardStylesheets="false" controller="QuotePDF" >
+  <html>
+  <head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Renewal Quote</title>
+  
+  <!--[if IE]><link rel="shortcut icon" href="https://cdn.wolterskluwer.io/wk.css/0.13.x/assets/images/favicon/favicon.ico"><![endif]-->
+  <link rel="apple-touch-icon-precomposed" href="https://cdn.wolterskluwer.io/wk.css/0.13.x/assets/images/favicon/favicon-180.png"/>
+  <link rel="icon" href="https://cdn.wolterskluwer.io/wk.css/0.13.x/assets/images/favicon/favicon-196.png"/>
+  <style type="text/css">
+html {
+    font-family: sans-serif;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%
+}
+body {
+    margin: 0
+}
+.container {
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 15px;
+    padding-right: 15px
+}
+.container:before, .container:after {
+    display: table
+}
+.container:after {
+    clear: both
+}
+
+@media (min-width:768px) {
+.container {
+    width: 750px
+}
+}
+
+@media (min-width:992px) {
+.container {
+    width: 970px
+}
+}
+
+@media (min-width:1200px) {
+.container {
+    width: 1170px
+}
+}
+.text-center {
+    text-align: center
+}
+p, li, h1, h2, h3, h4, h5 {
+    font-family: "Fira Sans", "Helvetica Neue", Helvetica, "Roboto", Arial, sans-serif;
+}
+p, ul, li {
+    font-size:11px;
+}
+.wk-footer .wk-footer-nav {
+    margin-bottom: 0;
+}
+.wk-footer-nav ul li {
+    float: left;
+    padding-left: 20px;
+}
+.wk-footer-nav ul li a {
+    color: #ffffff;
+    text-decoration: none;
+}
+.wk-footer-nav ul li:first-child {
+    padding-left: 0;
+}
+.wk-footer-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.cart-upsell {
+    background-color: #fff;
+    border: 1px solid #dadada;
+    padding: .9375rem;
+    margin-bottom: 10px;
+    min-height: 155px;
+}
+.blue-row {
+    background-color: #007ac3;
+    color: #ffffff;
+}
+.grey-row {
+    background-color: #ededed;
+}
+.table-col {
+    padding: 0;
+    border-right: 1px solid #bfbfbf;
+}
+.table-col:last-child {
+    border: none;
+}
+.table-content {
+    padding: 2px 0;
+}
+.table-content-first {
+    padding: 2px;
+}
+.row-eq-height {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+@media screen and (max-width: 1024px) {
+.row {
+    margin-left: 15px;
+    margin-right: 15px;
+}
+}
+
+@media screen and (max-width: 700px) {
+.cart-header {
+    display: none;
+}
+.cart-price {
+    text-align: left;
+}
+}
+
+@media screen and (max-width: 480px) {
+.wk-footer-nav ul li {
+    float: none;
+    padding: 0;
+}
+}
+</style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+  </head>
+  
+  <body>
+            <div style="width:680px; margin: auto;
+    border: 3px ">
+                <img src="{!$Resource.WK_Logo}" width="225" />
+            </div>
+   
+<div class="text-center">
+          <h3>Secure your 2016 software and gain peace of mind</h3>
+        </div>
+
+ <!-- <apex:pageBlock >
+    
+    <apex:pageBlockSection columns="1">
+      <apex:pageBlockSectionItem >
+        <div class="blue-row text-center" style="width:680px;">
+          <h2 style="color:#ffffff; padding-bottom:10px;">Three Convenient Options</h2>
+        </div>
+      </apex:pageBlockSectionItem>
+    </apex:pageBlockSection>
+      <apex:pageBlockSection columns="3">
+        <apex:pageBlockSectionItem dataStyle="vertical-align:top;">
+          <div style="width:220px; overflow-wrap: break-word;word-break: break-all;">
+            <p><span style="font-size:1.25em;"><strong>1. Pay Online</strong></span><br/>
+              Review details below. Maximize your productivity by choosing a recommended option and then click <strong>Upgrade Package</strong> or continue with the quoted products by clicking <strong>Renew Now</strong>.</p>
+          </div>
+        </apex:pageBlockSectionItem>
+        <apex:pageBlockSectionItem dataStyle="vertical-align:top;">
+          <div style="width:220px; overflow-wrap: break-word;word-break: break-all;">
+            <p><span style="font-size:1.25em;"><strong>2. Call</strong></span><br/>
+              <strong>800-495-4626</strong><br/>
+              Enter GINGER SCOTT's 4 digit extension: <strong>1235</strong>.</p>
+          </div>
+        </apex:pageBlockSectionItem>
+        <apex:pageBlockSectionItem dataStyle="vertical-align:top;">
+          <div style="width:220px; overflow-wrap: break-word;word-break: break-all;">
+            <p><span style="font-size:1.25em;"><strong>3. Mail</strong></span><br/>
+              <a href="#">Download a Printable Invoice.</a><br/>
+              Make check payable to CCH Small Firm Services.</p>
+          </div>
+        </apex:pageBlockSectionItem>
+      </apex:pageBlockSection>
+  </apex:pageBlock>-->
+  
+  <apex:pageBlock >
+    <apex:pageBlockSection columns="6">
+      <apex:pageBlockSectionItem >
+        <div class="text-center blue-row table-content" style="width:110px">
+          <p>Quote Date</p>
+        </div>
+      </apex:pageBlockSectionItem>
+      <apex:pageBlockSectionItem >
+        <div class="text-center blue-row table-content" style="width:110px">
+          <p>Quote EXP</p>
+        </div>
+      </apex:pageBlockSectionItem>
+      <apex:pageBlockSectionItem >
+        <div class="text-center blue-row table-content" style="width:110px">
+          <p>Quote #</p>
+        </div>
+      </apex:pageBlockSectionItem>
+      <apex:pageBlockSectionItem >
+        <div class="text-center blue-row table-content" style="width:110px">
+          <p>Tax Year Version</p>
+        </div>
+      </apex:pageBlockSectionItem>
+      <apex:pageBlockSectionItem >
+        <div class="text-center blue-row table-content" style="width:120px">
+          <p>Account Management</p>
+        </div>
+      </apex:pageBlockSectionItem>
+      <apex:pageBlockSectionItem >
+        <div class="text-center blue-row table-content" style="width:120px">
+          <p>Account Manager</p>
+        </div>
+      </apex:pageBlockSectionItem>
+    </apex:pageBlockSection>
+  </apex:pageBlock>
+  
+<apex:pageBlock >
+    <apex:pageBlockSection columns="6">
+      <apex:pageBlockSectionItem >
+        <div class="text-center" style="width:110px">
+          <p>{!qutstrt }</p>
+        </div>
+      </apex:pageBlockSectionItem>
+      <apex:pageBlockSectionItem >
+        <div class="text-center" style="width:110px">
+          <p>{!enddat}</p>
+        </div>
+      </apex:pageBlockSectionItem>
+      <apex:pageBlockSectionItem >
+        <div class="text-center" style="width:110px">
+          <p>{!qute.Name}</p>
+        </div>
+      </apex:pageBlockSectionItem>
+      <apex:pageBlockSectionItem >
+        <div class="text-center" style="width:110px">
+          <p>2016</p>
+        </div>
+      </apex:pageBlockSectionItem>
+      <apex:pageBlockSectionItem >
+        <div class="text-center" style="width:120px">
+          <p>1-800-495-4626</p>
+        </div>
+      </apex:pageBlockSectionItem>
+      <apex:pageBlockSectionItem >
+        <div class="text-center" style="width:120px">
+          <p>{!qute.SBQQ__SalesRep__r.Name}</p>
+        </div>
+      </apex:pageBlockSectionItem>
+    </apex:pageBlockSection>
+</apex:pageBlock>
+  
+<apex:pageBlock >
+    <apex:pageBlockSection >
+     
+      <apex:pageBlockSectionItem >
+      <div  style="width:680px;"  >
+      
+                <div class="text-center blue-row table-content" style="width:340px; float:left;">
+                     <p>Product Description</p>
+                </div>
+                <div  style="width:340px; float:right; background-color: #007ac3;">
+                                <div style="width:165px; float:left; background-color: #007ac3;">
+                                <div class="text-center blue-row table-content" style="width:82px; float:left;">
+                                                <p>Quantity</p>
+                        </div>
+                        <div class="text-center blue-row table-content" style="width:82px; float:right;">
+                                                <p>Retail</p>
+                        </div>
+                    </div>
+                   
+                    <div style="width:165px; float:right; background-color: #007ac3;">
+                                <div  class="text-center blue-row table-content" style="width:82px; float:left;">
+                                                <p>You Pay</p>
+                        </div>
+                        <div class="text-center blue-row table-content" style="width:82px; float:right;">
+                                                <p>Total</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+      </apex:pageBlockSectionItem>
+    </apex:pageBlockSection>
+</apex:pageBlock>
+
+<div style="border-bottom:1px solid #efefef;">
+<apex:pageBlock >
+    <apex:pageBlockSection >
+        <apex:pageBlockSectionItem >
+            <apex:repeat value="{!quteline }" var="qutln">
+            <div style="width:660px;">
+                <div style="width:330px; float:left;">
+                   
+                      <h3>{!qutln.SBQQ__Product__r.Name}</h3>
+                      <p><strong><span style="display: {!IF((qutln.SBQQ__Product__r.Description == 'Description'||qutln.SBQQ__Product__r.Description == ''), 'none;', '')}">Product Description</span></strong><br/>
+                        <span style="display: {!IF(qutln.SBQQ__Product__r.Description == 'Description', 'none;', '')}">   {!qutln.SBQQ__Product__r.Description}  </span>  </p>
+                   <p> <apex:outputtext style="font-size:10px !important;" value="{!qutln.SBQQ__Product__r.Detail_description__c}" escape="false" /></p>
+                </div>
+                <div style="width:330px; float:right;">
+                    <div style="width:165px; float:left;">
+                        <div style="width:82px; float:left;">
+                            <div class="text-center" style="width:80px">
+         
+                              <p> {!qutln.SBQQ__Quantity__c} </p>
+                               
+                            </div>
+                        </div>
+                        <div style="width:82px; float:right;">
+                            <div class="text-center" style="width:80px">
+                              <p><span style="color:#e5202e;"><del>{!qutln.SBQQ__ListPrice__c}</del></span></p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="width:165px; float:right;">
+                        <div style="width:82px; float:left;">
+                            <div class="text-center" style="width:80px">
+                              <p>{!qutln.SBQQ__NetPrice__c}</p>
+                            </div>
+                        </div>
+                        <div style="width:82px; float:right;">
+                            <div class="text-center" style="width:80px">
+                              <p><strong>{!qutln.SBQQ__CustomerTotal__c}</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </apex:repeat>
+        </apex:pageBlockSectionItem>
+    </apex:pageBlockSection>
+</apex:pageBlock>
+</div>
+
+
+
+
+<apex:pageBlock >
+    <apex:pageBlockSection columns="4">
+      <apex:pageBlockSectionItem >
+        <div style="width:165px">
+          <h4>Shipping Address</h4>
+          <p>{!accnt.Primary_Contact_Name__c}<br/>{!accnt.ShippingStreet}<br/>{!accnt.ShippingCity}, {!accnt.ShippingState}  {!accnt.Shippingpostalcode}</p>
+        </div>
+      </apex:pageBlockSectionItem>
+      <apex:pageBlockSectionItem >
+        <div style="width:165px">
+          <h4>Billing Address</h4>
+          <p>{!accnt.Primary_Contact_Name__c}<br/>{!accnt.BillingStreet}<br/>{!accnt.Billingcity}, {!accnt.BillingState} {!accnt.Billingpostalcode}</p>
+        </div>
+      </apex:pageBlockSectionItem>
+      <apex:pageBlockSectionItem >
+        <div class="text-center" style="width:165px">
+          &nbsp;
+        </div>
+      </apex:pageBlockSectionItem>
+      <apex:pageBlockSectionItem >
+        <div style="width:165px; text-align:right;">
+          <p>SubTotal: {!qute.Net_Minus_Tax_Fees__c}<br/>Tax: {!qute.Tax__c}<br/>Processing: {!qute.Processing_Fees__c}</p>
+          <h3>Total: ${!qute.SBQQ__CustomerAmount__c}</h3>
+        </div>
+      </apex:pageBlockSectionItem>
+    </apex:pageBlockSection>
+</apex:pageBlock>
+   
+  
+  <div class="container clearfix" style="margin-bottom: 15px; border-top:1px solid #efefef;">
+    <div class="row">
+      <h2 align="center">TERMS OF PURCHASE</h2>
+      <p>Software is licensed under a click-through agreement, to which you must agree at installation. In addition, the following terms of purchase apply:</p>
+      <apex:repeat value="{!mapfinaltcs[qute.Id]}" var="tcbd">
+            <div class="terms-of-purchase"><p>{!tcbd}</p></div>
+          </apex:repeat>
+      <br/>
+    </div>
+    <div class="row" style="margin-bottom:15px;">
+      <div class="wk-col-12">
+        <footer class="wk-login-footer">
+          <p class="wk-copyright-text">&copy; <script language="javascript" type="text/javascript">
+                    var today = new Date()
+                    var year = today.getFullYear()
+                    document.write(year)
+                </script> 
+            Universal Tax Systems, Inc. and its affiliates and/or licensors. All rights reserved.</p>
+        </footer>
+      </div>
+    </div>
+  </div>
+  </body>
+  </html>
+</apex:page>

@@ -1,0 +1,82 @@
+<apex:page sidebar="false" showHeader="false" standardStylesheets="false">
+    <title>ATX Professional Tax Software</title>
+    <apex:stylesheet value="{!URLFOR($Resource.Styles)}" /> 
+    <apex:composition template="Page_Template">
+        <apex:define name="BodyContent">
+
+<!-- =====================BREADCRUMB============================ -->
+<div class="wk-breadcrumb-bar" style="margin:0;">
+  <div class="wk-breadcrumb-container">
+    <ol class="wk-breadcrumb">
+      <li><a href="/"><span>Tax Products</span></a></li>
+      <li><span>ATX</span></li>
+    </ol>
+  </div>
+</div>
+
+<!-- ============================HEADER============================ -->
+<section style="background-image:url(https://www.cchsfs.com/images/atx-header.jpg); background-position-y:70%; background-size:cover; background-repeat:no-repeat;">
+  <section class="light-blue-section" style="padding:50px 0; margin:0;">
+    <div class="container clearfix">
+      <div class="">
+        <div class="row">
+          <div class="col-md-12 col-sm-12">
+            <h1 class="slider-title white text-center">
+                <img class="slider-image" src="https://www.cchsfs.com/images/logos/atx-logo-web-reverse.svg" alt="atx-logo" height="137"/><br />
+              You need a solution that simplifies the tax filing process. We deliver software that addresses the ever-changing tax law.</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+<!-- ============================COMPARISON SECTION============================ -->
+    <apex:include id="ATXComparison" pageName="ATX_Package_Comparison"/> 
+    
+<!-- ============================TAX SOFTWARE SECTION============================ -->
+    <div class="wk-container wk-clearfix" style="padding:50px 0; color:#ffffff;">
+        <div class="wk-row">
+            <div class="wk-col-9 main-content">
+                <h1 class="atx-title" style="color:#ffffff; text-align:left;">ATX<sup>™</sup> <small style="color:#ffffff;">Professional Tax Software</small></h1>
+                <p>The ATX™ tax preparation solution delivers continuous product enhancements to address the ever-changing tax law. This is only one of the reasons why tens of thousands of small firms, CPAs, sole practitioners and other tax and accounting professionals use ATX Software. They also benefit from the best combination of quality and value, are able to serve a singular or diverse customer base and most importantly, take advantage of tax compliance logic built into the software.</p>
+                <p>Of course, all solutions are supported by our<strong> award winning, U.S.-based Training and Support team</strong>. This means we&#39;ll help you get up and operating as soon as you are ready and we&#39;ll be here to answers questions before, during and after the common tax season. You&#39;ll also have access to self-help tools that are available 24/7 at our online Solution Center - especially convenient during your busiest time of year.</p>
+            </div>
+<!-- ============================ATX EVALUATION SECTION============================ -->
+    <apex:include id="ATXEvaluation" pageName="ATX_Evaluation_Section"/>
+         </div>
+    </div>
+  </section>
+</section>
+
+<!-- ============================FEATURE SECTION============================ -->
+<div class="wk-container wk-clearfix" style="padding:100px 0;">
+    <div class="wk-row">
+        <div class="wk-col-6">
+            <h3>Here is a great title about the video</h3>
+            <p align="left">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas tempor mauris quis ligula scelerisque molestie. Morbi suscipit, metus ac vehicula pharetra, lorem massa rhoncus massa, in venenatis nisl turpis a elit. Proin id vulputate arcu. Donec interdum ut libero nec lobortis. Phasellus rhoncus elit vel magna mollis, sit amet vehicula tortor accumsan. Morbi nisl justo, egestas in risus sit amet, eleifend egestas arcu. Praesent sed commodo tellus, sed auctor tortor. Ut lobortis ac risus ac aliquam. Nam non blandit nibh. Ut sit amet quam aliquam, egestas nibh sodales, sollicitudin turpis. Praesent vitae posuere leo. In est augue, scelerisque eget consectetur in, rhoncus vel sem.</p>
+            <div class="col-sm-6" style="padding:0;">
+                <button type="button" class="wk-button-success wk-button-full only"><span>Learn More</span></button>
+            </div>
+        </div>
+        <div class="wk-col-6">
+            <img src="https://www.cchsfs.com/images/ifirm-intro-video-header.jpg" alt="Watch how CCH iFirm Practice Manager helps users streamline their business" width="100%" />
+        </div>
+    </div>
+</div>
+
+<!-- ============================QUOTE SECTION============================ -->
+<section style="background-image: url(https://www.cchsfs.com/images/advantage-package.jpg); background-repeat: no-repeat; background-position-y: -250px;">
+  <div class="wk-container wk-clearfix" style="background-color:rgba(71,71,71,.5); padding: 100px 0;">
+    <div class="wk-row">
+      <div class="wk-col-12" style="color:#ffffff;">
+        <blockquote style="border-left: 5px solid #ffffff;">
+            <h3 style="color:#ffffff;">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas tempor mauris quis ligula scelerisque molestie. Morbi suscipit, metus ac vehicula pharetra, lorem massa rhoncus massa, in venenatis nisl turpis a elit. Proin id vulputate arcu. Donec interdum ut libero nec lobortis."</h3>
+            <footer align="right" style="color:#ffffff;">Someone famous in <cite title="Source Title">Source Title</cite></footer>
+        </blockquote>
+      </div>
+    </div>
+  </div>
+</section>
+</apex:define>
+</apex:composition>
+</apex:page>

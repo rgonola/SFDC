@@ -1,0 +1,190 @@
+<!--  
+Name: SubHistoryRelatedList - RM_NS_FS
+Copyright © 2012 WK
+======================================================
+======================================================
+Purpose: This page is used in the account view page layout to show the subscription history.
+======================================================
+======================================================
+History
+-----------------------------------------------------------------------
+VERSION   AUTHOR   DATE       DETAIL 
+1.0       Aditya   28/03/2012 INITIAL DEVELOPMENT 
+-->
+
+<apex:page standardController="Account"
+	extensions="SubHistoryRelatedlistController"
+	action="{!getSubscriptionHistory}">
+	<apex:form >
+		<apex:inputHidden value="{!year}" id="yr" />
+		<script>
+function viewRecord(strYear,accountId){
+//alert(strYear);
+//alert(accountId);
+var url=window.location.protocol+"//"+window.location.host+"/apex/showProducts?year="+strYear+"&accountId="+accountId;
+//alert(url);
+window.open(url);
+return;
+}
+</script>
+		<table width="25%">
+			<tr>
+				<td><apex:pageMessage summary="No Records Found" strength="3"
+						severity="info" rendered="{!showMessage}" />
+				</td>
+			</tr>
+		</table>
+		<apex:pageBlock rendered="{!showTable}">
+
+			<table border="0" width="100%">
+				<tr bgcolor="skyblue">
+					<td></td>
+					<apex:repeat value="{!listSubscription}" var="obj">
+						<!-- <td><b><apex:commandLink value="{!obj.Year__c}" title="view" onclick="javascript:viewRecord('{!obj.Id}');return false;"/></b></td>-->
+						<td><b><apex:commandLink value="{!obj.Year__c}"
+									title="view"
+									onclick="javascript:viewRecord('{!obj.Year__c}','{!accountId}');return false;" />
+						</b>
+						</td>
+					</apex:repeat>
+					<!-- <apex:actionFunction action="{!getProductsData}" name="getProductData"/> -->
+				</tr>
+				<tr bgcolor="white">
+					<td width="15%"><b><apex:outputLabel value="E-File Count" />
+					</b>
+					</td>
+					<apex:repeat value="{!listSubscription}" var="obj">
+						<td width="20%"><apex:outputField value="{!obj.E_files_del__c}" />
+						</td>
+					</apex:repeat>
+				</tr>
+				<tr bgcolor="white">
+					<td width="15%"><b><apex:outputLabel value="E-File Fees" />
+					</b>
+					</td>
+					<apex:repeat value="{!listSubscription}" var="obj">
+						<td width="20%"><apex:outputField value="{!obj.E_File_Fees__c}" />
+						</td>
+					</apex:repeat>
+				</tr>
+				<tr bgcolor="white">
+					<td width="15%"><b><apex:outputLabel value="Active Bank" />
+					</b>
+					</td>
+					<apex:repeat value="{!listSubscription}" var="obj">
+						<td width="20%"><apex:outputField value="{!obj.Active_Bank_del__c}" />
+						</td>
+					</apex:repeat>
+				</tr>
+				<tr bgcolor="white">
+					<td><b><apex:outputLabel value="Bank Product Count" />
+					</b>
+					</td>
+					<apex:repeat value="{!listSubscription}" var="obj">
+						<td><apex:outputField value="{!obj.Bank_Products_del__c}" />
+						</td>
+					</apex:repeat>
+				</tr>
+				<tr bgcolor="white">
+					<td><b><apex:outputLabel value="PPR/PRS Count" />
+					</b>
+					</td>
+					<apex:repeat value="{!listSubscription}" var="obj">
+						<td><apex:outputField value="{!obj.PPR_PRS_Count__c}" />
+						</td>
+					</apex:repeat>
+				</tr>
+				<tr bgcolor="white">
+					<td><b><apex:outputLabel value="Business Return Count" />
+					</b>
+					</td>
+					<apex:repeat value="{!listSubscription}" var="obj">
+						<td><apex:outputField value="{!obj.Refunded_Product_del__c}" />
+						</td>
+					</apex:repeat>
+				</tr>
+				<tr bgcolor="white">
+					<td><b><apex:outputLabel value="Software Invoice Amount" />
+					</b>
+					</td>
+					<apex:repeat value="{!listSubscription}" var="obj">
+						<td><apex:outputField value="{!obj.Software_Invoice_Amount_del__c}" />
+						</td>
+					</apex:repeat>
+				</tr>
+				<tr bgcolor="white">
+					<td><b><apex:outputLabel value="Whole Value" />
+					</b>
+					</td>
+					<apex:repeat value="{!listSubscription}" var="obj">
+						<td><apex:outputField value="{!obj.Whole_Value_del__c}" />
+						</td>
+					</apex:repeat>
+				</tr>
+				<tr bgcolor="white">
+					<td><b><apex:outputLabel value="Workflow Bundle" />
+					</b>
+					</td>
+					<apex:repeat value="{!listSubscription}" var="obj">
+						<td><apex:outputField value="{!obj.Workflow_Product__c}" />
+						</td>
+					</apex:repeat>
+				</tr>
+				<tr bgcolor="white">
+					<td><b><apex:outputLabel value="Accounting Bundle" />
+					</b>
+					</td>
+					<apex:repeat value="{!listSubscription}" var="obj">
+						<td><apex:outputField value="{!obj.Accounting_Product__c}" />
+						</td>
+					</apex:repeat>
+				</tr>
+				<tr bgcolor="white">
+					<td><b><apex:outputLabel value="Research Bundle" />
+					</b>
+					</td>
+					<apex:repeat value="{!listSubscription}" var="obj">
+						<td><apex:outputField value="{!obj.Research_Product__c}" />
+						</td>
+					</apex:repeat>
+				</tr>
+				<tr bgcolor="white">
+					<td><b><apex:outputLabel value="Total Office Bundle" />
+					</b>
+					</td>
+					<apex:repeat value="{!listSubscription}" var="obj">
+						<td><apex:outputField value="{!obj.Total_Office_Product__c}" />
+						</td>
+					</apex:repeat>
+				</tr>
+				<tr bgcolor="white">
+					<td><b><apex:outputLabel value="Active Promo" />
+					</b>
+					</td>
+					<apex:repeat value="{!listSubscription}" var="obj">
+						<td><apex:outputField value="{!obj.Active_Promo__c}" />
+						</td>
+					</apex:repeat>
+				</tr>
+				<tr bgcolor="white">
+					<td><b><apex:outputLabel value="Active Contract" />
+					</b>
+					</td>
+					<apex:repeat value="{!listSubscription}" var="obj">
+						<td><apex:outputField value="{!obj.Active_Contract__c}" />
+						</td>
+					</apex:repeat>
+				</tr>
+				<tr bgcolor="white">
+					<td><b><apex:outputLabel value="Training Purchased" />
+					</b>
+					</td>
+					<apex:repeat value="{!listSubscription}" var="obj">
+						<td><apex:outputField value="{!obj.Training_Purchased__c}" />
+						</td>
+					</apex:repeat>
+				</tr>
+			</table>
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

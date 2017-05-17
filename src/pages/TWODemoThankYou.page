@@ -1,0 +1,54 @@
+<apex:page showHeader="false" sidebar="false" applyHtmlTag="false" applyBodyTag="false" standardStylesheets="false"  >
+  <html>
+  <head>
+  <meta charset="utf-8"/>
+  <title>Thankyou Page</title>
+  <link href="https://cdn.wolterskluwer.io/wk.css/0.13.x/with-bootstrap.min.css" type="text/css" rel="stylesheet"/>
+  
+  <!--[if IE]><link rel="shortcut icon" href="https://cdn.wolterskluwer.io/wk.css/0.13.x/assets/images/favicon/favicon.ico"><![endif]-->
+  <link rel="apple-touch-icon-precomposed" href="https://cdn.wolterskluwer.io/wk.css/0.13.x/assets/images/favicon/favicon-180.png"/>
+  <link rel="icon" href="https://cdn.wolterskluwer.io/wk.css/0.13.x/assets/images/favicon/favicon-196.png"/>
+  <style type="text/css">
+body {
+    background-color: wk-primary-color('wkGray', 'tint-4');
+}
+#error {
+    background-color: #ffffcb;
+ //border: 1px solid #d469a3;
+    padding-left: 3%;
+    border-radius: 1%;
+}
+.wk-row .wk-col-6 {
+    width: 48.15254%;
+    float: left;
+    margin-right: 1.69492%
+}
+</style>
+  <script src='https://www.google.com/recaptcha/api.js'></script>
+  <script>
+    //  ReCaptcha Theme Script
+    var RecaptchaOptions = {
+        theme : 'clean'
+    };
+</script>
+  </head>
+  
+  <body>
+  <div class="container clearfix"> 
+        <div class="row">
+          <div class="col-xs-12">
+            <h1>Thank you for your interest in the TaxWise Online professional tax preparation solution.</h1>
+            <p>We have received your request, and are currently processing your trial account set-up — you will receive your account access information via e-mail within the next 45 minutes.</p>
+            <h3>Get product updates, industry best practice guides &amp; tax law resources.</h3>
+            <p>Join the conversation on Linkedin to get the latest news, industry updates and tips and tricks to grow your tax preparation business.<br/>
+              <a href="https://www.linkedin.com/company/cch-small-firm-services" target="_blank">Join us on Linkedin</a></p>
+            <p>Discover the tools you need to stay informed in the ever-changing world of tax. From webinars, to online research and tax handbooks, Wolters Kluwer has you covered.<br/>
+              <a href="https://www.cchsfs.com/enhance/tax-research.aspx" target="_blank">Visit the Research &amp; Learning Center</a></p>
+            <p>Download the case study to see how tax professionals like you have found success with TaxWise Online’s time-saving tools user-friendly interface.<br/>
+              <a href="https://www.cchsfs.com/professional-tax-software/taxwise.aspx" target="_blank">Download the case study</a></p>
+          </div>
+        </div>
+      </div>
+  </body>
+  </html>
+</apex:page>

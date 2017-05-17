@@ -1,0 +1,287 @@
+<apex:page showHeader="false"  sidebar="false" cache="false" applyHtmlTag="false" applyBodyTag="false" standardStylesheets="false"  Controller="Dashboard_Login_Extension"   >
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>Dashboard Login</title>
+<link href="https://cdn.wolterskluwer.io/wk-css/0.16.x/with-bootstrap.min.css" type="text/css" rel="stylesheet"/>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"/>
+
+<!--[if IE]><link rel="shortcut icon" href="https://cdn.wolterskluwer.io/wk.css/0.13.x/assets/images/favicon/favicon.ico"><![endif]-->
+<link rel="apple-touch-icon-precomposed" href="https://cdn.wolterskluwer.io/wk.css/0.13.x/assets/images/favicon/favicon-180.png"/>
+<link rel="icon" href="https://cdn.wolterskluwer.io/wk.css/0.13.x/assets/images/favicon/favicon-196.png"/>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<style type="text/css">
+
+p, li {
+    font-family: "Fira Sans","Helvetica Neue",Helvetica,"Roboto",Arial,sans-serif;
+}
+.wk-footer .wk-footer-nav {
+    margin-bottom: 0;
+}
+.wk-footer-nav ul li {
+    float: left;
+    padding-left: 20px;
+}
+.wk-footer-nav ul li a {
+    color: #ffffff;
+    text-decoration: none;
+}
+.wk-footer-nav ul li:first-child {
+    padding-left: 0;
+}
+
+.wk-footer-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.cart-upsell {
+    background-color: #fff;
+    border: 1px solid #dadada;
+    padding: .9375rem;
+    margin-bottom: 10px;
+    position: relative;
+    min-height: 275px;
+}
+.cart-upsell button.only, .cart-upsell button.first, .cart-upsell button.second {
+    position: absolute;
+    bottom: 0;
+    margin: 0;
+}
+.cart-upsell button.only, .cart-upsell button.first {
+    left: 0;
+}
+.cart-upsell button.first {
+    width: 49%;
+}
+.cart-upsell button.second {
+    right: 0;
+    width: 49%;
+}
+.dark, .light {
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+.dark {
+    background-color: #e6e6e6;
+}
+.checklist {
+    padding: 10px;
+}
+.fa-plus {
+    -webkit-transition: .38s;
+    transition: .38s;
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+    opacity: 1;
+}
+
+.fa-plus-transition {
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+    opacity: 0;
+}
+
+.fa-minus {
+    -webkit-transition: .38s;
+    transition: .38s;
+    -webkit-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+    opacity: 0;
+    position: relative;
+    left: -17px;
+}
+
+.fa-minus-transition {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+    opacity: 1;
+}
+/*open plus/minus animation*/
+.fa-plus.open-slide {
+    -webkit-transition: .38s;
+    transition: .38s;
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+    opacity: 0;
+}
+
+.fa-plus-transition.open-slide {
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+    opacity: 1;
+}
+
+.fa-minus.open-slide {
+    -webkit-transition: .38s;
+    transition: .38s;
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+    opacity: 1;
+    position: relative;
+    left: -17px;
+}
+
+.fa-minus-transition.open-slide {
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+    opacity: 0;
+}
+/*Drop Down Styles*/
+#toggle-1-content,#toggle-2-content,#toggle-3-content,#toggle-4-content,#toggle-5-content,#toggle-6-content,#toggle-7-content,#toggle-8-content,#toggle-9-content,#toggle-10-content,#toggle-11-content,#toggle-12-content,#toggle-13-content,#toggle-14-content,#toggle-15-content,#toggle-16-content,#toggle-17-content,#toggle-18-content,#toggle-19-content,#toggle-20-content,#toggle-21-content,#toggle-22-content,#toggle-23-content {
+    display: none;
+}
+#toggle-1-1-content {
+    display: block;
+}
+.close-toggle {
+    text-decoration: none;
+    padding: 3px 10px;
+    margin: 20px 0;
+    cursor: pointer;
+    color: rgb(199,53,52);
+}
+.title p {
+    font-size: 1.5em;
+    color: #0081c6;
+    margin: 0 !important;
+    cursor: pointer;
+}
+.title-text {
+    color: #474747;
+}
+.wk-field-error {
+    display: none;
+}
+.wk-select-field>select {
+    padding: .15rem .5rem;
+}
+.wk-select-field:after {
+    top: .4rem
+}
+.on-file {
+    border: 1px solid #ececec;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+.errorMsg {
+    color: #e5202e !important;
+}
+#billing-address {
+    display: none;
+}
+@media screen and (max-width: 1024px) {
+    .wk-row {
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .cart-header {
+        display: none;
+    }
+    .cart-price {
+        text-align: left;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .wk-footer-nav ul li {
+        float: none;
+        padding: 0;
+    }
+    
+    
+}
+#error5 {
+    background-color: #ffffcb;
+    //border: 1px solid #d469a3;
+    padding-left: 3%;
+    border-radius: 1%;
+   // padding-bottom: 10px;
+}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+
+
+
+
+
+</head>
+
+<body>
+<!--PAGE CONTENT
+<div class="wk-container wk-clearfix">
+    <div class="wk-row">
+        <div class="wk-col-12">
+            <h3>Process Your Order</h3>
+        </div>
+    </div>
+</div>
+-->
+
+
+  
+     <div class="wk-login-screen">
+   
+    <div class="wk-login-layout-options">
+      <div class="wk-login-support-container">
+        <div class="wk-row">
+         <apex:form id="lgn" styleclass="wk-login-form" style="max-width:inherit;">
+         <div class="wk-row" id="error5">
+        <apex:pageMessages id="error1" />
+                   </div> 
+       
+       
+          <div class="wk-login-form-container wk-col-6" style="border-right: #c3c3c3 solid 1px; padding-right: 10px;">
+            <h1>Dashboard Login</h1>
+            <p>Please log in to your account by completing the field below</p>
+            
+            <div class="wk-login-fields">
+            
+              <div class="wk-field-item">
+                <div class="wk-field-header">
+                  <label>User Name</label>
+                </div>
+                <apex:inputField value="{!dsh.Username__c}" id="usrnm"/>
+              </div>
+             
+              <div class="wk-field-item">
+                <div class="wk-field-header">
+                  <label>Password</label>
+                </div>
+                <apex:inputField value="{!dsh.Password__c}" id="paswrd"/>
+              </div>
+              
+              <p><small><strong>WARNING:</strong> Three unsuccessful login attempts will lock your account</small></p>
+              <a href="#" class="forgot-link">Forgot username or password?</a>
+              
+          
+          
+          <button type="button" class="wk-button-primary wk-button-full" onclick="login();"><span>Log in</span></button>
+            </div>
+          </div>
+        
+        
+ 
+    <apex:actionFunction name="login" action="{!onLogin}"  rerender="lgn">
+        
+        </apex:actionFunction>
+      
+    
+        </apex:form>
+        </div> 
+         </div>
+        </div>
+      </div>
+  
+</body>
+</html>
+</apex:page>

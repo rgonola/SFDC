@@ -1,0 +1,24 @@
+<apex:page standardController="invoiceit_s__Payment_Method__c" extensions="IIT_CreditCardPaymentMethod">
+    <apex:form >
+      <apex:pageBlock >
+       <apex:pageMessages ></apex:pageMessages>
+        <apex:pageblockSection >
+            <apex:repeat value="{!$ObjectType.invoiceit_s__Payment_Method__c.FieldSets.payment_for_Credit_Card}" var="fieldAPI">
+                           
+                      <apex:inputField value="{!paymentMethod[fieldAPI]}" required="true" rendered="{!fieldAPI != 'invoiceit_s__Card_Number__c'}"/>
+                      <apex:inputField value="{!paymentMethod.invoiceit_s__Card_Number__c}" label="Card Number " required="true" rendered="{!fieldAPI == 'invoiceit_s__Card_Number__c'}"/>
+                                    <!--{!fieldAPI.Label}-->
+                            
+                        </apex:repeat> 
+                        
+        </apex:pageblockSection>
+        <apex:pageBlockButtons >
+          <apex:commandButton action="{!saveCC}" value="Save"/>
+          <apex:commandButton action="{!cancelQuote}" value="Cancel" immediate="true"/>
+          <!--<apex:commandButton action="{!Cancel}" value="Cancel"/>-->
+        </apex:pageBlockButtons>
+      
+      </apex:pageBlock>
+   
+   </apex:form>  
+</apex:page>

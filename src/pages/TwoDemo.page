@@ -1,0 +1,183 @@
+<apex:page showHeader="false" sidebar="false" applyHtmlTag="false" applyBodyTag="false" standardStylesheets="false" Controller="Twodemoextn"  >
+  <html>
+  <head>
+  <META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=UTF-8"/>
+  <title>TWO Trial</title>
+  <link href="https://cdn.wolterskluwer.io/wk.css/0.13.x/with-bootstrap.min.css" type="text/css" rel="stylesheet"/>
+  
+  <!--[if IE]><link rel="shortcut icon" href="https://cdn.wolterskluwer.io/wk.css/0.13.x/assets/images/favicon/favicon.ico"><![endif]-->
+  <link rel="apple-touch-icon-precomposed" href="https://cdn.wolterskluwer.io/wk.css/0.13.x/assets/images/favicon/favicon-180.png"/>
+  <link rel="icon" href="https://cdn.wolterskluwer.io/wk.css/0.13.x/assets/images/favicon/favicon-196.png"/>
+  <style type="text/css">
+body {
+    background: none;
+}
+p, ul, li, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: "Fira Sans", "Helvetica Neue", Helvetica, "Roboto", Arial, sans-serif;
+}
+.wk-login-screen {
+    background: none;
+}
+.wk-login-screen .wk-login-form {
+    background: none;
+}
+#error {
+    background-color: #ffffcb;
+ //border: 1px solid #d469a3;
+    padding-left: 3%;
+    border-radius: 1%;
+}
+.wk-row .wk-col-6 {
+    width: 48.15254%;
+    float: left;
+    margin-right: 1.69492%
+}
+</style>
+  <script src='https://www.google.com/recaptcha/api.js'></script>
+  <script>
+    //  ReCaptcha Theme Script
+    var RecaptchaOptions = {
+        theme : 'clean'
+    };
+</script>
+  </head>
+  
+  <body>
+  <div class="wk-login-screen">
+    <div class="wk-login-layout-options">
+      <div class="wk-login-support-container">
+        <div class="wk-row">
+          <apex:form id="lgn" styleclass="wk-login-form" style="max-width:inherit;" >
+            <div class="col-xs-12">
+              <p>Please create your account by completing the fields below.</p>
+              <div class="wk-login-fields">
+                <apex:outputPanel id="form">
+                  <div class="wk-field-item">
+                    <div class="wk-field-header">
+                      <label >First Name*</label>
+                    </div>
+                    <apex:inputField required="true" value="{!cnt.FirstName}" id="firstname"/>
+                    <div class="wk-field-error"></div>
+                  </div>
+                  <div class="wk-field-item">
+                    <div class="wk-field-header">
+                      <label  >Last Name*</label>
+                    </div>
+                    <apex:inputField required="true" value="{!cnt.LastName}" id="lastname"/>
+                    <div class="wk-field-error"></div>
+                  </div>
+                  <div class="wk-field-item">
+                    <div class="wk-field-header">
+                      <label >Email*</label>
+                    </div>
+                    <apex:inputField required="true" value="{!cnt.Email}" id="email"/>
+                    <div class="wk-field-error"></div>
+                  </div>
+                  <div class="wk-field-item">
+                    <div class="wk-field-header">
+                      <label >Company Name*</label>
+                    </div>
+                    <apex:inputField required="true" value="{!acc.Name}" id="compname"/>
+                    <div class="wk-field-error"></div>
+                  </div>
+                  <div class="wk-field-item">
+                    <div class="wk-field-header">
+                      <label >Postal Code*</label>
+                    </div>
+                    <apex:inputField required="true" value="{!acc.Billing_Zip_Postal_Code__c}" id="zipcode"/>
+                  </div>                  
+                  <div class="wk-field-item">
+                    <div class="wk-field-header">
+                      <label >Phone (optional)</label>
+                    </div>
+                    <apex:inputField value="{!cnt.Phone}" id="phone"/>
+                  </div>
+       
+                                    
+                 <!-- div class="g-recaptcha" data-sitekey="6LeQKCMTAAAAAHzqUYPygmFTQyUGHMlnQKrth8L8"></div --> 
+                  <br/>
+                </apex:outputPanel>
+                
+                <p>Please ensure that all fields are complete and accurate. *indicates a required field.</p>
+                
+                <div class="wk-row" id="error">
+                  <apex:pageMessages id="error1" />
+                </div>
+                <apex:outputPanel > 
+                  <!-- reCAPTCHA verification 
+                         Source: https://developers.google.com/recaptcha/docs/display --> 
+                  <script type="text/javascript" src="https://www.google.com/recaptcha/api/challenge?k={!publicKey}"></script>
+                  <div style="width: 75%; float:left;">
+                    <noscript>
+                    <iframe src="https://www.google.com/recaptcha/api/noscript?k={!publicKey}"
+                            height="300" width="300" frameborder="0"></iframe>
+                    <br/>
+                    <textarea name="recaptcha_challenge_field" rows="3" cols="40"></textarea>
+                    <input type="hidden" name="recaptcha_response_field"
+                                value="manual_challenge"/>
+                    </noscript>
+                  </div>
+                  
+                  <!-- end reCAPTCHA verification -->
+                  
+                  <apex:outputPanel id="panel">
+                    <div style="float: left; width: 100%;">
+                      <apex:commandButton action="{!verify}" value="I'm Not a Robot" style="width: 40%;" rerender="panel,error1" rendered="{!NOT(verified)}"/>
+                      <apex:outputPanel rendered="{!verified}"> <img src="/img/permissions_confirm16.gif"/> You are now Verified.Now please click on Register for TWO Trial Registration. </apex:outputPanel>
+                      <apex:outputPanel rendered="{!AND(!verified, !onLoad)}"> <br/>
+                        <img src="/img/permissions_deny16.gif"/>Verification Failed. Please refresh Captcha and retry! </apex:outputPanel>
+                    </div>
+                  </apex:outputPanel>
+                </apex:outputPanel>
+                <button type="button" class="wk-button-primary wk-button-full" onclick="login();"><span>Register</span></button>
+              </div>
+            </div>
+            <apex:actionstatus id="loading" startText="Loading..."> 
+              <!--+++++++++++ LOADING START +++++++++++-->
+              <apex:facet name="start">
+                <div id="salesforceSource_blurybackground" style="z-index: 9999; position: fixed; left: 0; top: 0; width: 100%; height: 100%; text-align: center; vertical-align: middle; background-color: #dcdcdc; opacity: 0.75; filter: alpha(opacity = 50)"></div>
+                <div id="ManageMembersViewport_loading" class="waitingSearchDiv" style="width: 100%; height: 80%; display: '';">
+                  <div style="max-width: 100%; width: 100%; position: fixed; top: 40%;left: 0; z-index:10000;" class="waitingHolder">
+                    <div class="container clearfix">
+                      <div class="row">
+                        <div class="col-xs-12">
+                          <p style="font-size:1.5em; color: #474747;" class="text-center">Please wait while we create your Trial profile. Please do not hit the back button or close your browser.<br />
+                            <small>This may take a few seconds.</small></p>
+                          <p class="text-center"><span class="wk-icon-reload wk-spin" style="color: #474747; font-size:2.5em;"></span></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div id="ManageMembersViewport_loading" class="waitingSearchDiv" style="width: 100%; height: 100%; display:'';" />
+                <script>
+                    document.getElementById('ManageMembersViewport_loading').height = window.innerHeight * (3/4);
+                </script> 
+              </apex:facet>
+              <!--+++++++++++ LOADING END +++++++++++-->
+              
+              <apex:facet name="stop"></apex:facet>
+            </apex:actionstatus>
+           <form accept-charset="UTF-8" method="post" action="http://go.pardot.com/l/25142/2016-07-06/bnx8cp" class="form" id="lgn" />          
+            <apex:actionFunction name="login" action="{!save}"  status="loading" rerender="form,error1"> </apex:actionFunction>
+          </apex:form>
+          <script>
+            
+            
+            function login1(flag) {
+                alert(flag);
+                if(flag) {
+                    callSubmit();
+                }
+                else {
+                    alert('Please fill all required information and verify the CAPTCHA details!');
+                }
+            }
+        </script> 
+        </div>
+      </div>
+    </div>
+  </div>
+  </body>
+  </html>
+</apex:page>

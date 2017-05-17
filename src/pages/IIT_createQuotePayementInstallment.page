@@ -1,0 +1,184 @@
+<apex:page standardController="SBQQ__Quote__c" extensions="IIT_ControllerHandlingForPaymentPlan">
+    <apex:includeScript value="{!URLFOR($Resource.invoiceit_s__AJS, 'ajs/js/jquery.min.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.invoiceit_s__AJS, 'ajs/js/jshashtable.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.invoiceit_s__AJS, 'ajs/js/jquery.nf.js')}" />
+    
+    <script>
+            $( document ).ready(function() {
+               var isValidate = '{!listOFInstallmentWrapper.size}';
+               if(isValidate > 0){
+                   calculatePaymentAmount(true); 
+               }else{
+                   calculatePaymentAmount(false); 
+               }
+            });
+           
+            function calculatePaymentAmount(value){
+                var total = 0;
+                var balanceAmount = 0;
+                $(".totalAmount").each(function(){
+                    total += +$(this).val().replace(/[^\d\.\-\ ]/g, '');
+                });
+
+                $(".totalEnteredAmount").text(total.toFixed(2)); 
+                
+                if(value){
+                //alert(document.getElementById('{!$Component.formId.pb.theHiddenInput}').value); 
+                    paymentAmount = document.getElementById('{!$Component.formId.pb.theHiddenInput}').value ; 
+                    //var myNodelist = document.getElementsByName('quoteTotal');
+                    //alert(myNodelist);   
+                            
+                } 
+                
+                if(paymentAmount < total){
+                    //alert('Sum of Payment Amount should not exceed Total Payment Amount');
+                    $(".balanceAmount").text(0);
+                    $(".exceededAmount").text(-(paymentAmount - total).toFixed(2));
+                    //$(".savebutton").prop("disabled",true);
+                    $(".exceededAmount").formatNumber({format:" ###,###,###,##0.00", locale:"us"});
+                    $(".balanceAmount").formatNumber({format:" ###,###,###,##0.00", locale:"us"});
+                }else{
+                    balanceAmount = paymentAmount - total;
+                    $(".balanceAmount").text(balanceAmount.toFixed(2)); 
+                    $(".exceededAmount").text(0);
+                    $(".exceededAmount").formatNumber({format:" ###,###,###,##0.00", locale:"us"});
+                    $(".balanceAmount").formatNumber({format:" ###,###,###,##0.00", locale:"us"});
+                }
+
+               $(".totalEnteredAmount").formatNumber({format:" ###,###,###,##0.00", locale:"us"});
+            } 
+            
+           function savePayment(){
+                var total = 0;
+              $(".totalAmount").each(function(){
+                    total += +$(this).val().replace(/[^\d\.\-\ ]/g, '');
+                });
+               $(".totalEnteredAmount").text(total.toFixed(2)); 
+
+                var  paymentAmount = document.getElementById('{!$Component.formId.pb.theHiddenInput}').value; 
+               
+                if(paymentAmount != total.toFixed(2)){
+                    //alert('paymentAmount  is'+paymentAmount);
+                    //alert('Total'+total);
+                    quoteError();
+                     //alert('Sum of payments should equal quote total.');
+                    //alert('Sum of Payment Amount should not exceed Total Payment Amount');
+               }else{
+                   SaveValue();     
+               }
+            }  
+            function doSave(id) {
+                paraFunction(document.getElementById(id).value);
+                //var ischecked = document.getElementById(id).value;
+            }
+          
+    </script>
+  <apex:form id="formId">
+     <!--<apex:actionFunction action="{!isSplitAmount}" reRender="pb" name="paraFunction">
+         <apex:param name="splitAmount" value=""/>
+     </apex:actionFunction> -->   
+  
+     <apex:actionFunction action="{!saveProcesspaymentPlan}" name="SaveValue" reRender="msid"/>
+     <apex:actionFunction name="quoteError" action="{!addErrrorMsg}" reRender="msid"/>
+     <div class="bPageTitle">
+        <apex:sectionHeader title="Quote" subtitle="Payment Plan"/>
+        <div class="ptBreadcrumb">&nbsp;«&nbsp;
+            <a href="/{!SBQQ__Quote__c.Id}">Back to : {!SBQQ__Quote__c.Name}</a>
+        </div>
+     </div>
+     <apex:pageMessages id="msid"></apex:pageMessages>
+     <apex:pageBlock title="Payment Installment" id="pb" rendered="{!isTaxRender}" >
+          
+             <table width="100%">
+              <tr>   
+              <td>Payment Plan &nbsp;&nbsp; <apex:inputField value="{!quoteObj.QTC__Payment_Plan__c}"/></td>
+              <td><apex:commandButton value="Create Installments" action="{!processpaymentPlanButton}" reRender="pb,msid,DP" oncomplete="calculatePaymentAmount(true);" rendered="{!isrender}"/></td>
+              <td><apex:commandLink value="Create Payment Method" action="/apex/IIT_createPaymentMethod?scontrolCaching=1&id={!quoteObj.Id}" target="_blank"/></td>
+              </tr> 
+            </table>
+            <br></br>
+          
+           <apex:pageblockSection title="Plan Details" collapsible="false" >
+              
+               <apex:repeat value="{!$ObjectType.invoiceit_s__Payment_Plan__c.FieldSets.PaymentPlan_1}" var="fieldAPI">
+                    <apex:outputField value="{!paymentPlan[fieldAPI]}" />   
+                </apex:repeat> 
+              <apex:outputText value="{0, number, ###,###,###,##0.00}" label="Minimun Down Payment :" id="DP">  
+                  <apex:param value="{!firstDownPayment}"/>  
+             </apex:outputText>  
+              <apex:outputText value="{0, number, ###,###,###,##0.00}" label="Quote Total :" id="QT">  
+                  <apex:param value="{!quoteObj.SBQQ__NetAmount__c}" id="quoteTotal"/>  
+             </apex:outputText>  
+             <apex:outputText value="{0, number, ###,###,###,##0.00}" label="Credit On Account :" id="COAccount">  
+                  <apex:param value="{!quoteObj.COA__c}" id="COA"/>  
+             </apex:outputText>  
+             
+           </apex:pageblockSection><br/> 
+                 
+              <table cellspacing="0" cellpadding="0" border="0" class="list">
+                 <thead class="rich-table-thead">
+                    <tr class="headerRow">              
+                       <th colspan="1" scope="col" class="headerRow">
+                          <div>
+                          Select Type
+                          </div>
+                        </th> 
+                       <apex:repeat value="{!$ObjectType.invoiceit_s__Payment_Plan_Installment__c.FieldSets.Paymentinstallment}" var="fieldAPI">
+                            <th colspan="1" scope="col" class="headerRow">
+                                <div>
+                                    {!fieldAPI.Label}
+                                </div>
+                            </th> 
+                        </apex:repeat> 
+                        
+                        <th colspan="1" scope="col" class="headerRow">
+                          <div>
+                          Action
+                          </div>
+                        </th> 
+                    </tr>
+                </thead>
+               <tbody>
+                 <apex:repeat value="{!listOFInstallmentWrapper}" var="installmentWrapper">       
+                    <tr>
+                    <td colspan="1" class="dataCell">
+                         <apex:selectList value="{!installmentWrapper.valuesOfSelect}" size="1" >
+                            <apex:selectOptions value="{!installmentWrapper.selectpick}"/>
+                        </apex:selectList>
+                       </td> 
+                      <apex:repeat value="{!$ObjectType.invoiceit_s__Payment_Plan_Installment__c.FieldSets.Paymentinstallment}" var="fieldAPI"> 
+                           <td colspan="1" class="dataCell">
+                                <apex:inputField value="{!installmentWrapper.paymetnInstallment[fieldAPI]}" styleClass="{!IF(fieldAPI == 'invoiceit_s__Payment_Amount__c', 'totalAmount','')}" onchange="calculatePaymentAmount(false);"/>
+                                
+                           </td> 
+                                 
+                        </apex:repeat> 
+                        <!--<td colspan="1" class="dataCell">
+                         <apex:inputHidden value="{!installmentWrapper.iCount}" id="splitAmount"/>
+                         <apex:inputcheckbox value="{!installmentWrapper.splitAmount}" onchange="splitAmount()" onclick="doSave('{!$Component.interviewDate}');"/> 
+                         <apex:inputcheckbox value="{!installmentWrapper.splitAmount}" id="splitAmountField" disabled="{!installmentWrapper.isSelectedValue == 'Added'}" onclick="doSave('{!$Component.splitAmount}');"/>
+                       </td> -->
+                        <td colspan="1" class="dataCell">
+                        <apex:commandButton value="Remove" action="{!removeInstallment}" reRender="pb,msid" oncomplete="calculatePaymentAmount(false);" rendered="{!isrender }">
+                          <apex:param value="{!installmentWrapper.iCount}" name="unWantedInstallmentCount"/>
+                        </apex:commandButton>
+                       </td> 
+                    </tr>
+                 </apex:repeat> 
+                </tbody> 
+            </table>    
+            <apex:commandButton value="Add" action="{!addInstallment}" reRender="pb,msid" oncomplete="calculatePaymentAmount(false);" rendered="{!isrender && isAddRender}"/> 
+            <apex:outputLabel value="Scheduled Amount :" style="padding-left:15%;"></apex:outputLabel>&nbsp; 
+            <label value="{!totalAmount}" class="totalEnteredAmount" type="currency" lable="Total Amount"/> 
+            <apex:outputLabel value="Remaining Amount :" style="padding-left:15%;"></apex:outputLabel>&nbsp; 
+            <label value="{!balanceAmount}" class="balanceAmount" lable="Total Amount"/>
+            <apex:outputLabel value="Exceeded Amount :" style="padding-left:15%;"></apex:outputLabel>&nbsp; 
+            <label value="{!exceededAmount}" class="exceededAmount" lable="Total Amount"/>
+            <apex:inputHidden value="{!totalPaymentAmount}" id="theHiddenInput"/>
+            <apex:pageBlockButtons location="bottom" id="pbb">
+                <apex:commandButton styleClass="savebutton" value="Save" onclick="savePayment();return false;" rendered="{!isrender}"/>  
+                <apex:commandButton value="Cancel" action="{!Cancel}"/>
+            </apex:pageBlockButtons>   
+     </apex:pageBlock>
+  </apex:form>
+</apex:page>

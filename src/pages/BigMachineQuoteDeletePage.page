@@ -1,0 +1,7 @@
+<apex:page controller="DeleteBigMachinesQuoteController"
+	action="{!deleteBigMachineQuote}">
+	<apex:form id="form1" rendered="TRUE">
+		<apex:pageMessage summary="Batch Process has started. You will receive a mail once the process is completed."
+			strength="3" severity="info" />
+	</apex:form>
+</apex:page>

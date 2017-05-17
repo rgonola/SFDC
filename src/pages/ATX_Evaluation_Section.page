@@ -1,0 +1,14 @@
+<apex:page id="ATXEvaluation" sidebar="false" showHeader="false" standardStylesheets="false">
+
+
+    <div class="wk-col-3 text-center">
+      <div class="col-xs-12">
+        <h3>EVALUATE ATX</h3>
+        <p align="left">See why <strong>tens of thousands of tax professionals</strong> like you, power their business with ATX.</p>
+        <button href="/evaluate-atx" class="wk-button-cta wk-button-full" style="margin-bottom:10px;">FREE EVALUATION</button>
+        <button href="/software-system-requirements/default.aspx#sys-req" class="wk-button-secondary wk-button-full" style="margin-bottom:10px;">SYSTEM REQUIREMENTS</button>
+      </div>
+    </div>
+
+    <apex:insert name="ATXEvaluation" />   
+</apex:page>

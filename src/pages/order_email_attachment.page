@@ -1,0 +1,63 @@
+<apex:page showheader="false" sidebar="false" applyBodyTag="false" applyHtmlTag="false" standardStylesheets="false">
+<html>
+    <head>
+    
+                    <style type="text/css">
+                    .orderdiv{font-family: Trebuchet MS;
+                            font-size:12px;
+                            color:#2F4F4F;
+                        }
+                        
+                        .totalTable tbody tr:nth-of-type(odd){
+                          background:rgba(183, 183, 169, 0.9);
+                        }
+                
+                    .totalTable{
+                        width:100%; 
+                        border-top:1px solid #cccccc;
+                        border-left:1px solid #cccccc;
+                        border-right:1px solid #cccccc;
+                        border-bottom:1px solid #cccccc;
+                    }
+                
+                    .TFtableCol{
+                        width:100%; 
+                        border-top:1px solid #cccccc;
+                        border-left:1px solid #cccccc;
+                        border-right:1px solid #cccccc;
+                        border-bottom:1px solid #cccccc;
+                    }
+                
+                
+                
+                
+                
+                
+                    .TFtableCol tbody td:nth-of-type(even),
+                .TFtableCol tbody tr:nth-of-type(even){
+                  background:rgba(183, 183, 169, 0.9);
+                }
+                
+                .TFtableCol th{ 
+                        background: #0082C8;
+                        text-align:center;
+                        padding:5px;
+                    }
+                  
+                    
+                    
+                    
+                </style>
+                </head>
+                
+       <body>         
+    <c:comp_email_order_body QuoteId="{!$CurrentPage.parameters.Id}" fname="{!$CurrentPage.parameters.fname}" lname="{!$CurrentPage.parameters.lname}" myphone="{!$CurrentPage.parameters.myphone}" myemail="{!$CurrentPage.parameters.myemail}" accountCId="{!$CurrentPage.parameters.accountCId}"/>
+    
+    <div style="page-break-after:always;">  </div>
+    <div class="orderdiv">
+    <c:comp_email_template_quotelines QuoteId="{!$CurrentPage.parameters.Id}"/>
+    </div>
+    </body>
+</html>
+
+</apex:page>

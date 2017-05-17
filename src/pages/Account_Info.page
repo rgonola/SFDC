@@ -1,0 +1,336 @@
+<apex:page showHeader="false"  sidebar="false" cache="false" applyHtmlTag="false" applyBodyTag="false" standardStylesheets="false" standardController="Product2" extensions="CustomerRegistrationExtension"  >
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>Customer Information</title>
+<link href="https://cdn.wolterskluwer.io/wk-css/0.16.x/with-bootstrap.min.css" type="text/css" rel="stylesheet"/>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"/>
+
+<!--[if IE]><link rel="shortcut icon" href="https://cdn.wolterskluwer.io/wk.css/0.13.x/assets/images/favicon/favicon.ico"><![endif]-->
+<link rel="apple-touch-icon-precomposed" href="https://cdn.wolterskluwer.io/wk.css/0.13.x/assets/images/favicon/favicon-180.png"/>
+<link rel="icon" href="https://cdn.wolterskluwer.io/wk.css/0.13.x/assets/images/favicon/favicon-196.png"/>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<style type="text/css">
+
+p, li {
+    font-family: "Fira Sans","Helvetica Neue",Helvetica,"Roboto",Arial,sans-serif;
+}
+.wk-footer .wk-footer-nav {
+    margin-bottom: 0;
+}
+.wk-footer-nav ul li {
+    float: left;
+    padding-left: 20px;
+}
+.wk-footer-nav ul li a {
+    color: #ffffff;
+    text-decoration: none;
+}
+.wk-footer-nav ul li:first-child {
+    padding-left: 0;
+}
+
+.wk-footer-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.cart-upsell {
+    background-color: #fff;
+    border: 1px solid #dadada;
+    padding: .9375rem;
+    margin-bottom: 10px;
+    position: relative;
+    min-height: 275px;
+}
+.cart-upsell button.only, .cart-upsell button.first, .cart-upsell button.second {
+    position: absolute;
+    bottom: 0;
+    margin: 0;
+}
+.cart-upsell button.only, .cart-upsell button.first {
+    left: 0;
+}
+.cart-upsell button.first {
+    width: 49%;
+}
+.cart-upsell button.second {
+    right: 0;
+    width: 49%;
+}
+.dark, .light {
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+.dark {
+    background-color: #e6e6e6;
+}
+.checklist {
+    padding: 10px;
+}
+.fa-plus {
+    -webkit-transition: .38s;
+    transition: .38s;
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+    opacity: 1;
+}
+
+.fa-plus-transition {
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+    opacity: 0;
+}
+
+.fa-minus {
+    -webkit-transition: .38s;
+    transition: .38s;
+    -webkit-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+    opacity: 0;
+    position: relative;
+    left: -17px;
+}
+
+.fa-minus-transition {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+    opacity: 1;
+}
+/*open plus/minus animation*/
+.fa-plus.open-slide {
+    -webkit-transition: .38s;
+    transition: .38s;
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+    opacity: 0;
+}
+
+.fa-plus-transition.open-slide {
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+    opacity: 1;
+}
+
+.fa-minus.open-slide {
+    -webkit-transition: .38s;
+    transition: .38s;
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+    opacity: 1;
+    position: relative;
+    left: -17px;
+}
+
+.fa-minus-transition.open-slide {
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+    opacity: 0;
+}
+/*Drop Down Styles*/
+#toggle-1-content,#toggle-2-content,#toggle-3-content,#toggle-4-content,#toggle-5-content,#toggle-6-content,#toggle-7-content,#toggle-8-content,#toggle-9-content,#toggle-10-content,#toggle-11-content,#toggle-12-content,#toggle-13-content,#toggle-14-content,#toggle-15-content,#toggle-16-content,#toggle-17-content,#toggle-18-content,#toggle-19-content,#toggle-20-content,#toggle-21-content,#toggle-22-content,#toggle-23-content {
+    display: none;
+}
+#toggle-1-1-content {
+    display: block;
+}
+.close-toggle {
+    text-decoration: none;
+    padding: 3px 10px;
+    margin: 20px 0;
+    cursor: pointer;
+    color: rgb(199,53,52);
+}
+.title p {
+    font-size: 1.5em;
+    color: #0081c6;
+    margin: 0 !important;
+    cursor: pointer;
+}
+.title-text {
+    color: #474747;
+}
+.wk-field-error {
+    display: none;
+}
+.wk-select-field>select {
+    padding: .15rem .5rem;
+}
+.wk-select-field:after {
+    top: .4rem
+}
+.on-file {
+    border: 1px solid #ececec;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+#error5 .message {
+    background-color: #e5202e;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    color: #ffffff
+}
+#error5 .message h4 {
+    color: #ffffff;
+}
+.errorMsg {
+    color: #e5202e !important;
+}
+#billing-address {
+    display: none;
+}
+@media screen and (max-width: 1024px) {
+    .wk-row {
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+}
+@media screen and (max-width: 700px) {
+    .cart-header {
+        display: none;
+    }
+    .cart-price {
+        text-align: left;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .wk-footer-nav ul li {
+        float: none;
+        padding: 0;
+    }
+    
+    
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+
+<!--PAGE CONTENT-->
+
+
+<section>
+  
+    <div class="wk-container wk-clearfix">
+        <div class="wk-row">
+            <div class="col-xs-12">
+                <div class="dark checklist">  
+                <apex:form id="form1">
+        
+                     <div class="wk-row" id="error5">
+                    <apex:pageMessages />
+                   </div>
+                   
+
+                    <section style="margin-bottom: 20px;">
+                <div class="container clearfix">
+                                <div class="row">
+                                                <div class="col-xs-12 text-center" style="color: #dadada;">
+                                                <p style="font-size: 1.5em;"><span style="color: #85bc20;">Account</span> <span style="color: #85bc20;" class="wk-icon-angle-right"></span> <span class="current-page">Shipping</span> <span class="wk-icon-angle-right blue"></span> Billing <span class="wk-icon-angle-right"></span> Review</p>
+                                                </div>
+                                </div>
+                </div>
+                </section>
+
+                     
+                     
+                    <div class="wk-row">
+                        <div class="wk-layout-50-50">
+                            <div class="wk-layout-item">
+                                <div class="wk-field-item" >
+                                  <div class="wk-field-header">
+                                    <label>First Name*</label>
+                                  </div>
+                                  <apex:inputField required="true" value="{!cnt.FirstName}" rendered="{!!hasaccount}"/>
+                                  <apex:inputField value="{!Existingaccnt[0].Acct_Primary_Contact__r.FirstName}" rendered="{!hasaccount}" />
+                                <div class="wk-field-error"></div>
+                                </div>
+                            </div>
+                            <div class="wk-layout-item">
+                                <div class="wk-field-item">
+                                  <div class="wk-field-header">
+                                    <label>Last Name*</label>
+                                  </div>
+                                 <apex:inputField required="true" value="{!cnt.LastName}" rendered="{!!hasaccount}" />
+                                  <apex:inputField value="{!Existingaccnt[0].Acct_Primary_Contact__r.LastName}" rendered="{!hasaccount}" />
+                                 <div class="wk-field-error"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wk-row">
+                        <div class="wk-layout-50-50">
+                            <div class="wk-layout-item">
+                                <div class="wk-field-item">
+                                  <div class="wk-field-header">
+                                    <label>Company Name*</label>
+                                  </div>
+                                  <apex:inputField required="true" value="{!acc.Name}" rendered="{!!hasaccount}"/>
+                                  <apex:inputField value="{!Existingaccnt[0].Acct_Primary_Contact__r.Name}" rendered="{!hasaccount}" />
+                                 <div class="wk-field-error"></div>
+                                </div>
+                            </div>
+                            <div class="wk-layout-item">
+                                <div class="wk-field-item">
+                                  <div class="wk-field-header">
+                                    <label>Phone Number*</label>
+                                  </div>
+                                  <apex:inputField required="true" value="{!cnt.Phone}" rendered="{!!hasaccount}"/>
+                                  <apex:inputField value="{!Existingaccnt[0].Acct_Primary_Contact__r.Phone}" rendered="{!hasaccount}" />
+                                 <div class="wk-field-error"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wk-row">
+                        <div class="wk-field-item">
+                                  <div class="wk-field-header">
+                                    <label>Email Address*</label>
+                                  </div>
+                                  <apex:inputField required="true" value="{!cnt.Email}" rendered="{!!hasaccount}"/>
+                                  <apex:inputField value="{!Existingaccnt[0].Acct_Primary_Contact__r.Email}" rendered="{!hasaccount}" />
+                                 <div class="wk-field-error"></div>
+                                </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <p><em>* Indicates a required field</em></p> 
+                        </div>
+                        <div class="col-sm-6 text-right">
+                        <span style="display:{!IF((!hasaccount), '', 'none;')}">
+                            <button  type="button" class="wk-button-success" onclick="create()"  >Save Your Information</button> 
+                            </span>
+                         <span style="display:{!IF((!!hasaccount), '', 'none;')}">
+                            <button  type="button" class="wk-button-success" onclick="window.location.href='/sales/Billing_Info?aci={!Existingaccnt[0].id}';"  >NEXT</button> 
+                            </span>   
+                        </div>
+                    </div>
+                    
+
+                   
+                    
+                    <apex:actionFunction name="create" action="{!CreateAccount}" />
+                    </apex:form>
+                </div>
+    
+            </div>
+        </div>
+        <br/>
+     
+ </div>
+</section> 
+ 
+
+</body>
+</html>
+</apex:page>

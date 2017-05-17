@@ -1,0 +1,8 @@
+<apex:page standardController="Account"
+	extensions="SubHistoryRelatedlistController">
+	<apex:form >
+		<apex:pageblock >
+			<apex:dynamicComponent componentValue="{!tabbedView}" />
+		</apex:pageblock>
+	</apex:form>
+</apex:page>

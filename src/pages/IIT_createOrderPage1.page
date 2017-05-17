@@ -1,0 +1,82 @@
+<apex:page standardController="SBQQ__Quote__c" extensions="IIT_createOrder_extension1" action="{!onPageLoad}">
+   
+    <apex:form id="theform">
+        <apex:pageBlock id="addressValidationSection" title="Payment Processing/Order Creation : {!SBQQ__Quote__c.Name}" >   
+        
+        <apex:pageBlockSection id="dumy" columns="1">
+            <!--   Process Payment Button Code and Status  --> 
+            <apex:actionStatus id="mySaveStatus1" rendered="{!showbuttons}">
+             <apex:facet name="stop">
+                 <apex:commandButton status="mySaveStatus1" value="Process Payment" action="{!processPayments}" reRender="theform" rendered="{!IF(allPaymentPlansPaid, false, true)}"/>
+             </apex:facet>
+             <apex:facet name="start">
+                 <apex:outputPanel >
+                       <apex:image value="/img/loading32.gif" style="height: 15px;"/>
+                       <apex:commandButton value="Processing..." status="mySaveStatus1" disabled="true"/>
+                   </apex:outputPanel>
+               </apex:facet>
+            </apex:actionStatus>
+            
+            <!--   Process Order Button Code and Status   --> 
+            <apex:actionStatus id="mySaveStatus2">
+             <apex:facet name="stop">
+                 <apex:commandButton status="mySaveStatus2" value="Process Order" action="{!processOrder}" reRender="theform" rendered="{!IF( isnull(OrderID) || OrderID='', ( isnull(OrderID) || OrderID='' ) && allPaymentPlansPaid  , false)}"/>
+             </apex:facet>
+             <apex:facet name="start">
+                 <apex:outputPanel >
+                       <apex:image value="/img/loading32.gif" style="height: 15px;"/>
+                       <apex:commandButton value="Processing..." status="mySaveStatus2" disabled="true"/>
+                   </apex:outputPanel>
+               </apex:facet>
+            </apex:actionStatus>
+           
+           <!--<apex:commandButton value="Process Order" action="{!processOrder}" rendered="{!IF( isnull(OrderID) || OrderID='', ( isnull(OrderID) || OrderID='' ) && allPaymentPlansPaid  , false)}"/> -->  
+           <apex:pageBlockSectionItem rendered="{!IF(showGreen, false, true)}">
+               <apex:outputText escape="false" value="{!ErrorMsg}" style="color:red"></apex:outputText>
+           </apex:pageBlockSectionItem> 
+           
+           <apex:pageBlockSectionItem rendered="{!IF(!showGreen, false, true)}">
+               <apex:outputText escape="false" value="{!ErrorMsg}" style="color:green"></apex:outputText>
+           </apex:pageBlockSectionItem> 
+                  
+        </apex:pageBlockSection>
+        
+        <apex:pageBlockSection id="dataCaptureSection1" columns="1" rendered="{!IF( NOT(isnull(OrderID) || OrderID=''),true,false)}">
+        
+        <!--   TRANSACTIONS   -->        
+                <apex:pageBlockSectionItem rendered="{!IF( (isnull(TransactionOK) || TransactionOK='') && allPaymentPlansPaid && (isnull(OrderID) || OrderID='') ,true,false)}"    >
+                   No Transactions created 
+                </apex:pageBlockSectionItem>                
+                 <apex:pageBlockSectionItem rendered="{!IF((isnull(TransactionOK) || TransactionOK='')  ,false,true)}">   
+                    Transactions:    {!TransactionOK}
+                 </apex:pageBlockSectionItem> 
+                 
+        <!--   PIDCID   -->         
+                <apex:pageBlockSectionItem >   
+                    Account PID / CID-  {!IncrementStatus}
+                </apex:pageBlockSectionItem>
+        <!--   ORDERS   -->        
+               <apex:pageBlockSectionItem rendered="{!IF( (isnull(OrderID) || OrderID='') && allPaymentPlansPaid ,true,false)}"    >
+                   No orders created 
+                </apex:pageBlockSectionItem> 
+               <apex:pageBlockSectionItem rendered="{!IF((isnull(OrderID) || OrderID='') ,false,true)}"    >
+                   <apex:outputLink value="/{!orderID}">Order created</apex:outputLink> 
+                </apex:pageBlockSectionItem> 
+         <!--  INVOICES   -->       
+               <apex:pageBlockSectionItem rendered="{!IF( (isnull(invoiceID) || invoiceID='') && allPaymentPlansPaid ,true,false)}"    >
+                   No Invoices created  
+                </apex:pageBlockSectionItem> 
+               <apex:pageBlockSectionItem rendered="{!IF( (isnull(invoiceID) || invoiceID='') ,false,true)}"    >
+                   <apex:outputLink value="/{!invoiceID}">Invoice created</apex:outputLink>
+                </apex:pageBlockSectionItem>  
+                
+          <!--  Exceptions   -->       
+                           
+                
+        </apex:pageBlockSection>
+                <apex:pageBlockButtons location="Bottom" >
+                <apex:commandButton value="Back To Quote" action="{!backToQuote}"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form> 
+</apex:page>

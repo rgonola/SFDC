@@ -1,0 +1,387 @@
+<apex:page renderAs="pdf"  sidebar="false" showHeader="false" readonly="true" applyHtmlTag="false" applyBodyTag="false" standardStylesheets="false" controller="Bulkpdfgenerator" >
+  <html>
+  <head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Renewal Quote</title>
+  
+  <!--[if IE]><link rel="shortcut icon" href="https://cdn.wolterskluwer.io/wk.css/0.13.x/assets/images/favicon/favicon.ico"><![endif]-->
+  <link rel="apple-touch-icon-precomposed" href="https://cdn.wolterskluwer.io/wk.css/0.13.x/assets/images/favicon/favicon-180.png"/>
+  <link rel="icon" href="https://cdn.wolterskluwer.io/wk.css/0.13.x/assets/images/favicon/favicon-196.png"/>
+  <style type="text/css">
+html {
+    font-family: sans-serif;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%
+}
+body {
+    margin: 0
+}
+.container {
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 15px;
+    padding-right: 15px
+}
+.container:before, .container:after {
+    display: table
+}
+.container:after {
+    clear: both
+}
+
+@media (min-width:768px) {
+.container {
+    width: 750px
+}
+}
+
+@media (min-width:992px) {
+.container {
+    width: 970px
+}
+}
+
+@media (min-width:1200px) {
+.container {
+    width: 1170px
+}
+}
+.text-center {
+    text-align: center
+}
+p, li, h1, h2, h3, h4, h5 {
+    font-family: "Fira Sans", "Helvetica Neue", Helvetica, "Roboto", Arial, sans-serif;
+}
+p, ul, li {
+    font-size: 10px;
+}
+.wk-footer .wk-footer-nav {
+    margin-bottom: 0;
+}
+.wk-footer-nav ul li {
+    float: left;
+    padding-left: 20px;
+}
+.wk-footer-nav ul li a {
+    color: #ffffff;
+    text-decoration: none;
+}
+.wk-footer-nav ul li:first-child {
+    padding-left: 0;
+}
+.wk-footer-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.cart-upsell {
+    background-color: #fff;
+    border: 1px solid #dadada;
+    padding: .9375rem;
+    margin-bottom: 10px;
+    min-height: 155px;
+}
+.blue-row {
+    background-color: #007ac3;
+    color: #ffffff;
+}
+.grey-row {
+    background-color: #ededed;
+}
+.table-col {
+    padding: 0;
+    border-right: 1px solid #bfbfbf;
+}
+.table-col:last-child {
+    border: none;
+}
+.table-content {
+    padding: 2px 0;
+}
+.table-content-first {
+    padding: 2px;
+}
+.row-eq-height {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+.terms-of-purchase {
+    font-size: .75em;
+}
+
+@media screen and (max-width: 1024px) {
+.row {
+    margin-left: 15px;
+    margin-right: 15px;
+}
+}
+
+@media screen and (max-width: 700px) {
+.cart-header {
+    display: none;
+}
+.cart-price {
+    text-align: left;
+}
+}
+/* Put page numbers in the top right corner of each
+   page in the pdf document. */
+@top-right {
+ content: "Page " counter(page);
+}
+
+@media screen and (max-width: 480px) {
+.wk-footer-nav ul li {
+    float: none;
+    padding: 0;
+}
+}
+</style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+  </head>
+  
+  <body >
+  <apex:form id="pdf" >
+    <apex:repeat value="{!qute }" var="qt">
+      <div clear="all" style="page-break-before:always" />
+      <table>
+        <tbody>
+          <tr>
+            <td style="width: 75%;"><apex:image url="https://www.cchsfs.com/images/wksfs-logo.png" width="260" styleclass="text-right" />
+              <p class="text-left"></p></td>
+            <td style="width: 25%; text-align: right;"><!-- <apex:image url="https://www.cchsfs.com/images/wksfs-logo.png" width="260" styleclass="text-right" />--></td>
+          </tr>
+        </tbody>
+      </table>
+      <br/>
+      <br/>
+      <apex:pageBlock >
+        <apex:pageBlockSection columns="6">
+          <apex:pageBlockSectionItem >
+            <div class="text-center blue-row table-content" style="width:110px">
+              <p>Quote Date</p>
+            </div>
+          </apex:pageBlockSectionItem>
+          <apex:pageBlockSectionItem >
+            <div class="text-center blue-row table-content" style="width:110px">
+              <p>Quote EXP</p>
+            </div>
+          </apex:pageBlockSectionItem>
+          <apex:pageBlockSectionItem >
+            <div class="text-center blue-row table-content" style="width:110px">
+              <p>Quote #</p>
+            </div>
+          </apex:pageBlockSectionItem>
+          <apex:pageBlockSectionItem >
+            <div class="text-center blue-row table-content" style="width:110px">
+              <p>Tax Year Version</p>
+            </div>
+          </apex:pageBlockSectionItem>
+          <apex:pageBlockSectionItem >
+            <div class="text-center blue-row table-content" style="width:120px">
+              <p>Account Management</p>
+            </div>
+          </apex:pageBlockSectionItem>
+          <apex:pageBlockSectionItem >
+            <div class="text-center blue-row table-content" style="width:120px; padding-right:5px;">
+              <p>Account Manager</p>
+            </div>
+          </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>
+      </apex:pageBlock>
+      <apex:pageBlock >
+        <apex:pageBlockSection columns="6">
+          <apex:pageBlockSectionItem >
+            <div class="text-center" style="width:110px">
+              <p>{!qutstrt }</p>
+            </div>
+          </apex:pageBlockSectionItem>
+          <apex:pageBlockSectionItem >
+            <div class="text-center" style="width:110px">
+              <p>{!enddat}</p>
+            </div>
+          </apex:pageBlockSectionItem>
+          <apex:pageBlockSectionItem >
+            <div class="text-center" style="width:110px">
+              <p>{!qt.Name}</p>
+            </div>
+          </apex:pageBlockSectionItem>
+          <apex:pageBlockSectionItem >
+            <div class="text-center" style="width:110px">
+              <p>2016</p>
+            </div>
+          </apex:pageBlockSectionItem>
+          <apex:pageBlockSectionItem >
+            <div class="text-center" style="width:120px">
+              <p>1-800-495-4626</p>
+            </div>
+          </apex:pageBlockSectionItem>
+          <apex:pageBlockSectionItem >
+            <div class="text-center" style="width:120px">
+              <p>{!qt.SBQQ__SalesRep__r.Name}</p>
+            </div>
+          </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>
+      </apex:pageBlock>
+      
+      
+      
+      
+      
+      <apex:pageBlock >
+       <apex:repeat value="{!accnt[qt.SBQQ__Account__c] }" var="act">
+          <apex:pageBlockSection columns="1">
+            <!-- <apex:pageBlockSectionItem >
+             <div style="width:170px">
+                <h4 style="margin-bottom:0;">Shipping Address</h4>
+                <p style="margin-top:5px;">{!act.Primary_Contact_Name__c}<br/>
+                  {!act.ShippingStreet} {!act.Shipping_Address_2__c} <br/>
+                  {!act.ShippingCity}, {!act.ShippingState}  {!act.Shippingpostalcode}</p>
+              </div>
+            </apex:pageBlockSectionItem>-->
+            <apex:pageBlockSectionItem >
+              <div style="width:170px;padding-left:15px">
+               <!-- <h4 style="margin-bottom:0;">Billing Address</h4>-->
+               <br/>
+                <p>{!act.Primary_Contact_Name__c}<br/>
+                  {!act.BillingStreet} {!act.Billing_Address_2__c}<br/>
+                  {!act.Billingcity}, {!act.BillingState} {!act.Billingpostalcode}<br/>
+                  <br/>
+                  <br/>
+                  Client ID : {!act.CID__c}
+                  </p>
+              </div>
+              
+            </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            </apex:repeat>
+            </apex:pageBlock>
+      <br/>
+      
+     
+      <apex:pageBlock >
+        <apex:pageBlockSection columns="4">
+          <apex:pageBlockSectionItem >
+            <div class="blue-row table-content" style="padding-left:15px; width:410px;">
+              <p>Product</p>
+            </div>
+          </apex:pageBlockSectionItem>
+          <apex:pageBlockSectionItem >
+            <div class="blue-row table-content" style="width:85px; text-align:right;">
+              <p>Quantity</p>
+            </div>
+          </apex:pageBlockSectionItem>
+         <!-- <apex:pageBlockSectionItem >
+            <div class="blue-row table-content" style="width:85px; text-align:right;">
+              <p>Retail</p>
+            </div>
+          </apex:pageBlockSectionItem>-->
+          <apex:pageBlockSectionItem >
+            <div class="blue-row table-content" style="width:85px; text-align:right;">
+              <p>You Pay</p>
+            </div>
+          </apex:pageBlockSectionItem>
+          <apex:pageBlockSectionItem >
+            <div class="blue-row table-content" style="width:85px; text-align:right; padding-right:5px;">
+              <p>Total</p>
+            </div>
+          </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>
+      </apex:pageBlock>
+      
+      <div style="border-bottom:1px solid #efefef;">
+      <apex:pageBlock >
+        <apex:pageBlockSection columns="4">
+            <apex:repeat value="{!quteline[qt.Id] }" var="qutln">
+              <apex:pageBlockSectionItem >
+                <div class="table-content" style="padding-left:5px; width:420px;">
+                  <h4>{!qutln.SBQQ__Product__r.Name}</h4>
+                  <p><strong><span style="display: {!IF((qutln.SBQQ__Product__r.Description == 'Description'||qutln.SBQQ__Product__r.Description == ''), 'none;', '')}">Product Description</span></strong><br/>
+                     <span style="display: {!IF(qutln.SBQQ__Product__r.Description == 'Description', 'none;', '')}"> {!qutln.SBQQ__Product__r.Description}</span> </p>
+                </div>
+              </apex:pageBlockSectionItem>
+              
+              <apex:pageBlockSectionItem >
+                <div class="table-content" style="width:85px; text-align:right;">
+                  <p> {!qutln.SBQQ__Quantity__c} </p>
+                </div>
+              </apex:pageBlockSectionItem>
+             <!-- <apex:pageBlockSectionItem >
+                <div class="table-content" style="width:85px; text-align:right;">
+                  <p><span style="color:#e5202e;"><del>{!qutln.SBQQ__ListPrice__c}</del></span></p>
+                </div>
+              </apex:pageBlockSectionItem>-->
+              <apex:pageBlockSectionItem >
+                <div class="table-content" style="width:85px; text-align:right;">
+                  <p>$ {!qutln.SBQQ__NetPrice__c}</p>
+                </div>
+              </apex:pageBlockSectionItem>
+              <apex:pageBlockSectionItem >
+                <div class="table-content" style="width:85px; text-align:right; padding-right:5px;">
+                  <p><strong> $ {!qutln.SBQQ__CustomerTotal__c}</strong>
+                  
+                  </p>
+                </div>
+              </apex:pageBlockSectionItem>
+            </apex:repeat>
+        </apex:pageBlockSection>
+      </apex:pageBlock>
+      </div>
+
+      <apex:pageBlock >
+        <apex:repeat value="{!accnt[qt.SBQQ__Account__c] }" var="act">
+          <apex:pageBlockSection columns="4">
+          
+            <apex:pageBlockSectionItem >
+              <div class="text-center" style="width:170px"> &nbsp; </div>
+            </apex:pageBlockSectionItem>
+            
+            <apex:pageBlockSectionItem >
+              <div class="text-center" style="width:170px"> &nbsp; </div>
+            </apex:pageBlockSectionItem>
+            
+            <apex:pageBlockSectionItem >
+              <div class="text-center" style="width:170px"> &nbsp; </div>
+            </apex:pageBlockSectionItem>
+            
+            <apex:pageBlockSectionItem >
+              <div style="width:170px; text-align:right;">
+               <!-- <p>Total: {!qt.Net_Minus_Tax_Fees__c}<br/>
+                  Tax: {!qt.Tax__c}<br/>
+                  Processing: {!qt.Processing_Fees__c}</p>-->
+                <h3>Total*: ${!qt.SBQQ__CustomerAmount__c}</h3>
+                
+              </div>
+            </apex:pageBlockSectionItem>
+            
+          </apex:pageBlockSection>
+        </apex:repeat>
+      </apex:pageBlock>
+      
+      <div class="container clearfix" style="margin-bottom: 15px; border-top:1px solid #efefef;">
+        <div class="row">
+       <p>*Plus applicable tax at the time of purchase</p>
+
+          <h6>TERMS OF PURCHASE</h6>
+          <p>Software is licensed under a click-through agreement, to which you must agree at installation. In addition, the following terms of purchase apply:</p>
+          <apex:repeat value="{!mapfinaltcs[qt.Id]}" var="tcbd">
+            <div class="terms-of-purchase"><p>{!tcbd}</p></div>
+          </apex:repeat>
+        </div>
+        <div class="row" style="margin-bottom:15px;">
+          <div class="wk-col-12">
+            <footer class="wk-login-footer" showPageNumbers="true">
+              <p class="wk-copyright-text">&copy; 2016 Universal Tax Systems, Inc. and its affiliates and/or licensors. All rights reserved.</p>
+            </footer>
+          </div>
+        </div>
+      </div>
+    </apex:repeat>
+  </apex:form>
+  </body>
+  </html>
+</apex:page>

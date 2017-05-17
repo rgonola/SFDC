@@ -1,0 +1,106 @@
+<apex:page tabStyle="Account" standardController="Account" extensions="IIT_CustomerStatements">
+  <apex:includeScript value="{!URLFOR($Resource.invoiceit_s__AJS, 'ajs/js/jquery.min.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.invoiceit_s__AJS, 'ajs/js/jshashtable.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.invoiceit_s__AJS, 'ajs/js/jquery.nf.js')}" />
+  <script type="text/javascript">
+    
+    function generateStatementByDatesJS() {
+        
+        var accountId = '{!$CurrentPage.parameters.id}';
+        //var startDate = document.getElementById('startDate').value;
+        //var endDate = document.getElementById('endDate').value;
+        
+         $( document ).ready(function() {});
+         var startDate = $(".startdate1").val();
+         var endDate = $(".endDate12").val();
+
+        Visualforce.remoting.Manager.invokeAction(
+            '{!$RemoteAction.IIT_CustomerStatements.generateStatementByDatesJS}',
+            accountId,
+            startDate, 
+            endDate,
+            function(result, event){
+                if (event.status) {
+                    // Get DOM IDs for HTML and Visualforce elements like this
+                    document.getElementById('remoteAcctId').innerHTML = result.message;
+                      
+                    if(result.message == 'success') {
+                        var snapshotName = result.snapshotName;
+                        window.open('https://www.appextremes.com/apps/Conga/Composer.aspx?SessionId={!$Api.Session_ID}&ServerUrl={!$Api.Partner_Server_URL_210}&QueryId=a3YE0000000PmNC?pv0={!$CurrentPage.parameters.id}~pv1=' + snapshotName + ',a3YE0000000PmND?pv0={!$CurrentPage.parameters.id}~pv1=' + snapshotName + '&Id={!$CurrentPage.parameters.id}&TemplateGroup=CustomerStatement&DefaultPDF=1','_blank','toolbar=yes, scrollbars=yes, resizable=yes, top=50, left=300, width=700, height=525');                               
+                    } else {
+                        document.getElementById('remoteAcctId').innerHTML = result.message;
+                    }
+                    
+                } else if (event.type === 'exception') {
+                    document.getElementById('remoteAcctId').innerHTML = event.message + "<br/>\n<pre>" + event.where + "</pre>";
+                } else {
+                    document.getElementById('remoteAcctId').innerHTML = event.message;
+                }
+            }, 
+            {escape: true}
+        );
+    }
+    </script>
+        
+    <apex:sectionHeader title="{!Account.Name}"/>   
+     <div class="bPageTitle">
+            <div class="ptBreadcrumb"> 
+                <a href="/{!Account.id}">Back to Account :  {!Account.Name}</a>
+            </div>
+      </div>
+      
+    <apex:form >
+    <apex:tabPanel title="Account Statements" id="one">
+        <apex:tab title="firstTab" label="Account Statements - Realtime/Historic" id="two">
+             <apex:pageBlock id="block" title="Account Statements - Realtime/Historic">
+                <apex:pageBlockSection id="blockSection" columns="2">
+                    <apex:pageBlockSectionItem id="firstItem">
+                        <span id="remoteAcctId"/>
+                    </apex:pageBlockSectionItem>       
+                </apex:pageBlockSection>
+                
+                <apex:pageBlockSection columns="2" title="Statement Date Range" id="Datesblock">
+                    <!--Name : <input id="snapshotNametxt" type="text"/>
+                    Start Date : <input id="startDate" type="date"/><br/><br/>
+                    End Date : <input id="endDate" type="date"/> -->
+                    <apex:inputField value="{!invoice.invoiceit_s__Invoice_Date__c}" label="Start Date" styleClass="startdate1"/>
+                    <apex:inputField value="{!invoice.invoiceit_s__Due_Date__c}" label="End Date" styleClass="endDate12"/>
+                    <!--<apex:inputField value="{!invoice.invoiceit_s__Invoice_Date__c}" label="Start Date" id="startDate"/>
+                    <apex:inputField value="{!invoice.invoiceit_s__Due_Date__c}" label="End Date" id="endDate"/>-->
+                    
+                    <apex:commandButton onclick="generateStatementByDatesJS()" value="Generate Statement" reRender="responseErrors"/>
+  
+                </apex:pageBlockSection> 
+                    
+            </apex:pageBlock>
+        </apex:tab>
+        
+          
+        
+        <!--<apex:tab title="Second" label="A/R Aging">
+            <apex:pageBlock id="block2" title="A/R Aging">
+                <apex:pageBlockSection columns="2" title="A/R Aging">
+                    <apex:pageBlockTable value="{!listofInnerclass}" var="innerClass">
+                        <apex:column headerValue="Days Outstanding" style="text-align:right;">
+                            <apex:outputText value="{!innerClass.sRange}" ></apex:outputText>    
+                        </apex:column>
+                        <apex:column headerValue="Amount" style="text-align:right;">
+                            <apex:outputText value="{0, number,###,###,##0.00}"><apex:param value="{!innerClass.dValue}" /></apex:outputText>
+                            
+                        </apex:column>
+                    </apex:pageBlockTable>
+                </apex:pageBlockSection> 
+            </apex:pageBlock>
+        </apex:tab>-->
+    </apex:tabPanel>
+    
+    <apex:pageBlock title="Process AR Aging Report">
+     <apex:pagemessages id="pb3"></apex:pagemessages>
+         Please note that all accounts will be processed to create the AR snapshot, when you click 'Process' button. Please click only once.
+         <apex:pageBlockButtons location="bottom">
+         <apex:commandButton value="Process" action="{!processARreportByAcc}"  reRender="pb3"/>
+         </apex:pageBlockButtons>
+         
+     </apex:pageBlock>
+    </apex:form>
+</apex:page>

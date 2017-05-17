@@ -1,0 +1,28 @@
+<apex:page sidebar="false" showHeader="false" standardStylesheets="false" standardController="Product2" extensions="DisplayiFirmPracMngr">
+    <apex:stylesheet value="https://cdn.wolterskluwer.io/wk.css/0.15.x/with-bootstrap.min.css" />
+    <apex:stylesheet value="{!URLFOR($Resource.Styles)}" />
+        <style>
+        body {
+        background-color: transparent;
+        }
+        
+        </style> 
+                  <!-- div class="col-sm-12 white" -->
+                  <!-- div class="col-xs-12" -- >
+        <!-- apex:repeat value="{!pracmngrprice}" var="p" -->
+            <div class="col-sm-4 col-sm-offset-4">
+             <div class="thumbnail package-box light-blue-section"> 
+              <div class="caption text-center ">
+                    <h2 class="white">{!pracmngrprice.Product2.Marketing_Name__c}</h2>
+                    <apex:outputText styleClass="white h2" value="${0,number,###,#00}/yr*">
+                        <apex:param value="{!pracmngrprice.UnitPrice}"/>
+                    </apex:outputText>
+                    <br/><br/>
+                    <button type="button"  class="wk-button-success wk-button-full" onclick="window.top.location='{!$Label.Ecom_Link}{!pracmngrprice.Product2.Productcode}&returnurl={!$Label.Ecom_Marketing_Link}cchifirm/accounting-practice-management.aspx';"><span>Sign Up Now</span></button>
+              </div>
+             </div>   
+            </div>        
+        <!--/apex:repeat--> 
+                  <!-- /div>
+                  </div -->
+</apex:page>

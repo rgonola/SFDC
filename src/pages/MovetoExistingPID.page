@@ -1,0 +1,6 @@
+<apex:page standardcontroller="Account" extensions="IIT_PID_CID_checkHandler">
+<apex:form >
+<apex:inputField value="{!Account.PID_GROUP__c}"/>
+<apex:commandButton action="{!save}" value="Save"/>
+</apex:form>
+</apex:page>

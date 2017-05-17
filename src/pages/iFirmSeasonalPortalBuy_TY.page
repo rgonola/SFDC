@@ -1,0 +1,54 @@
+<apex:page showHeader="false" sidebar="false" applyHtmlTag="false" applyBodyTag="false" standardStylesheets="false"   >
+  <html>
+  <head>
+  <META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=UTF-8"/>
+  <title>iFirm Seasonal Edition Offer</title>
+  <link href="https://cdn.wolterskluwer.io/wk.css/0.13.x/with-bootstrap.min.css" type="text/css" rel="stylesheet"/>
+      <apex:stylesheet value="https://cdn.wolterskluwer.io/wk-css/0.16.x/standard.min.css" />
+      <apex:stylesheet value="{!URLFOR($Resource.Styles)}" />
+  <!--[if IE]><link rel="shortcut icon" href="https://cdn.wolterskluwer.io/wk.css/0.13.x/assets/images/favicon/favicon.ico"><![endif]-->
+  <link rel="apple-touch-icon-precomposed" href="https://cdn.wolterskluwer.io/wk.css/0.13.x/assets/images/favicon/favicon-180.png"/>
+  <link rel="icon" href="https://cdn.wolterskluwer.io/wk.css/0.13.x/assets/images/favicon/favicon-196.png"/>
+  <style type="text/css">
+body {
+    background: none;
+}
+p, ul, li, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: "Fira Sans", "Helvetica Neue", Helvetica, "Roboto", Arial, sans-serif;
+}
+.wk-login-screen {
+    background: none;
+}
+.wk-login-screen .wk-login-form {
+    background: none;
+}
+#error {
+    background-color: #ffffcb;
+ //border: 1px solid #d469a3;
+    padding-left: 3%;
+    border-radius: 1%;
+}
+.wk-row .wk-col-6 {
+    width: 48.15254%;
+    float: left;
+    margin-right: 1.69492%
+}
+</style>
+<script src="https://www.cchsfs.com/js/iframeResizer.contentWindow.min.js"></script>
+</head>
+
+<body>
+    <div class="wk-header-container" style="padding-top: 50px">
+        <div class="wk-row">
+            <p>Thank you for your order! You will receive an order confirmation within 2 business days, and Practice Manager will be added to your existing CCH iFirm site. Once you receive the Order Confirmation, please sign up for complimentary CCH iFirm Practice Manager training using one of these links:</p>
+            <ol>
+                <li><a href="http://go.cchsfs.com/ifirm-tw-training">TaxWise customers</a></li>
+                <li><a href="http://go.cchsfs.com/ifirm-atx-training">ATX customers</a></li>
+                <li><a href="http://go.cchsfs.com/ifirm-atx-training">Other customers</a></li>
+            </ol>
+        </div>    
+    </div>
+</body>
+</html>
+
+</apex:page>

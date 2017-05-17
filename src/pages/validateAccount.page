@@ -1,0 +1,30 @@
+<apex:page standardController="Account" extensions="validateAccount"
+	showHeader="false">
+	<style>
+table {
+	align: center;
+}
+
+td {
+	height: 20px;
+}
+</style>
+
+	<table style="margin: 0pt auto;">
+		<tr>
+			<td style="background-color: yellow;"><b>Do Not Call</b>
+			</td>
+		</tr>
+		<tr>
+			<td><b>Contact Name : </b>
+			</td>
+			<td>{!con.FirstName} {!con.LastName}</td>
+		</tr>
+		<tr>
+			<td><b>Contact Email : </b>
+			</td>
+			<td>{!con.Email}</td>
+		</tr>
+
+	</table>
+</apex:page>

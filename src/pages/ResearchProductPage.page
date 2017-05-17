@@ -1,0 +1,358 @@
+<apex:Page sidebar="false" showHeader="false" applyHtmlTag="false" applyBodyTag="false" standardStylesheets="false" controller="ResearchPageExtension">
+<html>
+<head>
+
+<meta charset="utf-8"/>
+<title>Shopping Cart</title>
+<link href="https://cdn.wolterskluwer.io/wk.css/0.13.x/with-bootstrap.min.css" type="text/css" rel="stylesheet"/>
+
+
+<!--[if IE]><link rel="shortcut icon" href="https://cdn.wolterskluwer.io/wk.css/0.13.x/assets/images/favicon/favicon.ico"><![endif]-->
+<link rel="apple-touch-icon-precomposed" href="https://cdn.wolterskluwer.io/wk.css/0.13.x/assets/images/favicon/favicon-180.png"/>
+<link rel="icon" href="https://cdn.wolterskluwer.io/wk.css/0.13.x/assets/images/favicon/favicon-196.png"/>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<style type="text/css">
+
+p, li {
+  font-family: "Fira Sans","Helvetica Neue",Helvetica,"Roboto",Arial,sans-serif;
+}
+.wk-footer .wk-footer-nav {
+  margin-bottom: 0;
+}
+.wk-footer-nav ul li {
+  float: left;
+  padding-left: 20px;
+}
+.wk-footer-nav ul li a {
+  color: #ffffff;
+  text-decoration: none;
+}
+.wk-footer-nav ul li:first-child {
+  padding-left: 0;
+}
+
+.wk-footer-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.cart-upsell {
+    background-color: #fff;
+    border: 1px solid #dadada;
+    padding: .9375rem;
+  margin-bottom: 10px;
+}
+
+@media screen and (max-width: 1024px) {
+  .wk-row {
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .cart-header {
+    display: none;
+  }
+  .cart-price {
+    text-align: left;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .wk-footer-nav ul li {
+    float: none;
+    padding: 0;
+  }
+  #error5 {
+    background-color: #ffffcb;
+    //border: 1px solid #d469a3;
+    padding-left: 3%;
+    border-radius: 1%;
+   // padding-bottom: 10px;
+}
+  
+}
+
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-3504246-23', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</head>
+
+<body>
+
+<!--HEADER-->
+<div class="wk-header">
+  <div class="wk-header-container">
+    <div class="wk-layout-25-75">
+       <div class="wk-layout-item"> <a href="https://www.cchsfs.com" aria-label="Wolters Kluwer" class="wk-brand"></a> </div>
+        <div class="wk-layout-item text-right"></div>
+    </div>
+  </div>
+</div>
+
+<!--NAVIGATION BAR-->
+<nav class="wk-navbar">
+  <div class="wk-navbar-container">
+   
+    <div class="wk-product-name">CCH Small Firm Services</div>
+  </div>
+</nav>
+
+<!--PAGE CONTENT-->
+<apex:form id="rsch">
+  <div class="wk-row" id="error5">
+        <apex:pageMessages />
+                   </div> 
+<div class="wk-container wk-clearfix">
+  <div class="wk-row" style="margin-bottom:25px;">
+      <div class="wk-col-12">
+          <h1>Gain Unlimited Access to the Industry's Leading Tax Experts</h1>
+            <p>As a loyal customer, we're offering you an opportunity to put over 100 years of tax and accounting knowledge behind your practice. Whether you find the need to learn more about solutions for complex tax situations or get clarification on tax law changes - when you purchase the recommended learning components alongside your professional tax software renewal, you'll benefit from:</p>
+            <ul>
+              <li>Having the expertise and reliability of Wolters Kluwer, CCH Research &amp; Learning</li>
+                <li>Gaining access to a variety of live webinars and self-study options</li>
+                <li>Getting sound information you can't find anywhere else</li>
+                <li>Taking advantage of the best price, by making this choice today</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="wk-container wk-clearfix" style="background-color:#dadada; padding-top:50px; padding-bottom:50px;">
+    <div class="wk-row cart-upsell">
+      <div class="wk-col-4 text-center">
+          <h4 style="color:#e5202e;">Retail: ${!smbbkprice.UnitPrice}</h4>
+           <!--- <del><h2 style="color:#85bc20;">Your Price:<br/>$399.00</h2></del>--->
+            <div class="wk-field-item">
+              <div class="wk-checkbox-field">
+                <label>
+                  <input type="checkbox" id="{!smbbkprice.Product2.Id}"   name="choice" /><span> </span><span>Include in my purchase</span>
+                </label>
+              </div>
+            </div>
+        </div>
+        <div class="wk-col-8" style="border-left:1px solid #ccc; padding-left:25px;">
+          <h2>{!smbbkprice.Product2.Marketing_Name__c}</h2>
+            <p>With the CCH Unlimited Webinars package, you have access to over 200 two-hour AND half-day webinars hosted by some of the industry's leading experts. Use it now to meet your CPE deadline and use it later when it's time to take Tax Update courses. Discover new topics during your downtime, or cram for those complex issues when you're in the trenches.</p>
+        </div>
+    </div>
+    <div class="wk-row cart-upsell">
+      <div class="wk-col-4 text-center">
+          <h4 style="color:#e5202e;">Retail: ${!smbbkprice2.UnitPrice}</h4>
+           <!--- <del><h2 style="color:#85bc20;">Your Price:<br/>$279.00</h2></del>--->
+            <div class="wk-field-item">
+              <div class="wk-checkbox-field">
+                <label>
+                  <input type="checkbox" id="{!smbbkprice2.Product2.Id}"   name="choice"/><span> </span><span>Include in my purchase</span>
+                </label>
+              </div>
+            </div>
+        </div>
+        <div class="wk-col-8" style="border-left:1px solid #ccc; padding-left:25px;">
+          <h2>{!smbbkprice2.Product2.Marketing_Name__c}</h2>
+            <p>Get unlimited access to over 350 online self-study CPE courses, ranging in topics from accounting, audit, tax, wealth management and more through the CCH Learning Center.</p>
+            <p>View the courses included in this package <a href="https://www.cchgroup.com/media/wk/taa/pdfs/training-and-support/cch-learning-center-course-library-matrix-fact-sheet.pdf" target="_blank">here</a>.</p>
+        </div>
+    </div>
+    <div class="wk-row">
+      <div class="wk-col-12 text-center">
+          <!---<p>This special offer expires Dec 31, 2016. Secure this extraordinary deal today.</p>-->
+        </div>
+    </div>
+  </div>
+<script>
+var  pymnhg=''; 
+var  pymnhg1=''; 
+document.getElementById('{!smbbkprice2.Product2.Id}').onclick = function() {
+    // access properties using this keyword
+    if ( this.checked ) {
+        pymnhg1 ='{!smbbkprice2.Product2.Id}';
+       // alert(pymnhg1);
+    }
+    else {
+        pymnhg1='';
+    } 
+};
+document.getElementById('{!smbbkprice.Product2.Id}').onclick = function() {
+    // access properties using this keyword
+    if ( this.checked ) {
+        pymnhg='{!smbbkprice.Product2.Id}';
+        //alert(pymnhg);
+    } 
+    else {
+        pymnhg='';
+    }
+};
+
+function vchmthd(){
+ var x={!process};
+ if(x ==true){
+  caltax();
+   }else{
+   //alert('{!process}' );
+   crtpmnt();
+   }
+}
+</script>
+<div class="wk-container wk-clearfix" style="padding: 50px 0 25px;">
+  <div class="wk-row">
+      <div class="wk-col-4">
+          <div class="wk-row">
+              <div class="wk-col-6">
+                  <button type="button" class="wk-button-secondary wk-button-full" onclick="nextpg();"><span>No Thanks</span></button>
+                </div>
+                <div class="wk-col-6">
+                  <button type="button" class="wk-button-danger wk-button-full" onclick="adcrt(pymnhg,pymnhg1);"><span>Add to Cart</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<apex:actionstatus id="loading" startText="Loading...">
+ 
+<!--+++++++++++ LOADING START +++++++++++-->
+<apex:facet name="start">
+    <div id="salesforceSource_blurybackground" style="z-index: 9999; position: fixed; left: 1px; top: 1px; width: 100%; height: 100%; text-align: center; vertical-align: middle; background-color: #dcdcdc; opacity: 0.75; filter: alpha(opacity = 50)"></div>
+    <div id="ManageMembersViewport_loading" class="waitingSearchDiv" style="width: 100%; height: 80%; display: '';">
+        <div style="max-width: 800px; width: 100%; position: fixed; top: 40%;left: 25%; z-index:10000;" class="waitingHolder">
+            <table align="center" valign="top" style="width: 100%; height: 30%">
+                <tr align="center" valign="top" style="width: 100%; height: 30%">
+                    <td valign="top">
+                    <p style="font-size:1.5em; color: #474747;" class="text-center">Please wait while we load your items into your quote. Please do not hit the back button or close your browser.<br />
+                <small>This may take a few seconds.</small></p>
+                    <span class="wk-icon-reload wk-spin" style="color: #474747; font-size:2.5em;"></span></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="ManageMembersViewport_loading" class="waitingSearchDiv" style="width: 100%; height: 100%; display:'';" />
+    <script>
+        document.getElementById('ManageMembersViewport_loading').height = window.innerHeight * (3/4);
+    </script>
+</apex:facet>
+
+
+<!--+++++++++++ LOADING END +++++++++++--> 
+
+
+            <apex:facet name="stop"></apex:facet>
+        </apex:actionstatus>
+        
+  <apex:actionstatus id="loading2" startText="Loading...">
+ 
+<!--+++++++++++ LOADING START +++++++++++-->
+<apex:facet name="start">
+    <div id="salesforceSource_blurybackground" style="z-index: 9999; position: fixed; left: 1px; top: 1px; width: 100%; height: 100%; text-align: center; vertical-align: middle; background-color: #dcdcdc; opacity: 0.75; filter: alpha(opacity = 50)"></div>
+    <div id="ManageMembersViewport_loading" class="waitingSearchDiv" style="width: 100%; height: 80%; display: '';">
+        <div style="max-width: 800px; width: 100%; position: fixed; top: 40%;left: 25%; z-index:10000;" class="waitingHolder">
+            <table align="center" valign="top" style="width: 100%; height: 30%">
+                <tr align="center" valign="top" style="width: 100%; height: 30%">
+                    <td valign="top">
+                    <p style="font-size:1.5em; color: #474747;" class="text-center">Your Payment has been successfully Processed. Please wait while we create your order.<br />
+                <small>This may take a few seconds.</small></p>
+                    <span class="wk-icon-reload wk-spin" style="color: #474747; font-size:2.5em;"></span></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="ManageMembersViewport_loading" class="waitingSearchDiv" style="width: 100%; height: 100%; display:'';" />
+    <script>
+        document.getElementById('ManageMembersViewport_loading').height = window.innerHeight * (3/4);
+        
+        function retry(){
+   
+    //alert({!isretry});
+    if({!isretry}){
+        //setTimeout(function(){ }, 3000);
+        crtordr();
+    }else{
+        //alert({!isretry});
+        ordr();
+    
+    }
+    }
+    
+    function eliminateduplicate(){
+    
+    
+    if({!isretry}){
+    
+    crtpymnt();
+    
+    }else if({!nopaymntprcsd}){
+    
+    likqut();
+    }
+    
+    }
+    
+    </script>
+</apex:facet>
+
+
+<!--+++++++++++ LOADING END +++++++++++--> 
+
+
+            <apex:facet name="stop"></apex:facet>
+        </apex:actionstatus>
+        
+ <apex:actionFunction name="nextpg" action="{!nothanks}" oncomplete="vchmthd();" status="loading"  rerender="rsch,error5" />
+ <apex:actionFunction name="crtpmnt" action="{!CreatePayment}" oncomplete="eliminateduplicate();" status="loading"  rerender="rsch,error5" />
+ <apex:actionFunction name="likqut" action="{!linkquoteandopp}" oncomplete="if({!!collectpayment})crtordr();" status="loading"  rerender="rsch,error5" />
+ <apex:actionFunction name="crtordr" action="{!createorder}" oncomplete="retry();" status="loading2"   rerender="rsch,error5" />
+  <apex:actionFunction name="ordr" action="{!orderconf}" status="loading2"   rerender="rsch,error5" />
+ 
+ <apex:actionFunction name="adcrt" action="{!ad2cart}" status="loading" oncomplete="if({!process})caltax();"  rerender="rsch,error5" >
+ <apex:param value="" name="pymnhg"/>
+ <apex:param value="" name="pymnhg1"/>
+ </apex:actionFunction>
+ <apex:actionFunction name="caltax" action="{!Tax}"  status="loading"  rerender="rsch,error5" />
+</apex:form>
+
+
+<!--FOOTER-->
+<div class="wk-footer index-footer-nav index-last-footer">
+  <div class="wk-footer-container">
+    <div class="wk-footer-nav" style="margin-bottom:10px;">
+        <ul>
+          <li><a href="https://www.cchsfs.com/pdf/terms.pdf" target="_blank">Terms of Use</a></li>
+          <li><a href="https://www.cchsfs.com/pdf/privacy.pdf" target="_blank">Privacy</a></li>
+          <li><a href="https://www.cchsfs.com/pdf/security.pdf" target="_blank">Security</a></li>
+          <li><a href="https://www.cchsfs.com/legal/" target="_blank">Refund Policy</a></li>
+          <li><a href="https://www.cchsfs.com/pdf/Online_Terms_of_Purchase.pdf" target="_blank">Terms of Purchase</a></li>
+        </ul>
+    </div>
+    <a href="#" aria-label="Wolters Kluwer" class="wk-brand-light"></a>
+    <div class="wk-tagline">When you have to be right</div>
+  </div>
+  <div class="wk-footer-copyright">
+    <div class="wk-footer-copyright-container">&copy; 
+    <script language="javascript" type="text/javascript">
+    var today = new Date()
+    var year = today.getFullYear()
+    document.write(year)
+  </script>
+     Universal Tax Systems, Inc. and its affiliates and/or licensors. All rights reserved.</div>
+  </div>
+</div>
+
+</body>
+</html>
+
+
+
+</apex:Page>

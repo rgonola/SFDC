@@ -1,0 +1,277 @@
+<apex:component access="global" controller="cls_email_template_quotelines">
+    <apex:attribute name="QuoteId" description="This is the Order Id." type="Id" assignTo="{!myQuoteId}"></apex:attribute>
+
+    
+<font face="Trebuchet MS">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+
+    <tbody>
+        <tr>
+            <td style="vertical-align: top;">
+            <p>&#160;</p>
+
+            <p><strong><span><span style="font-size:22px;">Thank You For Your Order</span></span></strong><br />
+            <span style="font-size:16px;"><span><em>Please save a copy of this Order Confirmation for your records</em></span></span></p>
+            </td>
+            <td style="text-align: right; vertical-align: top;"><img alt="Company Logo" height="75" src="{!myLogoPath}" /></td>
+        </tr>
+    </tbody>
+</table>
+
+
+    <table border="0" cellpadding="0" cellspacing="1" style="width:100%; 
+                        border-top:1px solid #E6E6E6;
+                        border-left:1px solid #E6E6E6;
+                        border-right:1px solid #E6E6E6;
+                        border-bottom:1px solid #E6E6E6;">
+    <tbody>
+        <tr>
+            <th align="center" style="background: #0082C8; text-align: center; vertical-align: middle; padding:3px; width: 125px;"><span style="color:#FFFFFF;">Quote Date</span></th>
+            <th align="center" style="background: #0082C8;text-align: center; vertical-align: middle; padding:3px; width: 125px;"><span style="color:#FFFFFF;">Quote <br/>Expires</span></th>
+            <th align="center" style="background: #0082C8;text-align: center; vertical-align: middle; padding:3px; width: 125px; "><span style="color:#FFFFFF;">Quote Number</span></th>
+            <th align="center" style="background: #0082C8;text-align: center; vertical-align: middle; padding:3px; width: 125px; "><span style="color:#FFFFFF;">Tax Year Version</span></th>
+            <th align="center" style="background: #0082C8;text-align: center; vertical-align: middle; padding:3px; width: 150px;"><span style="color:#FFFFFF;">Account Management</span></th>
+            <th align="center" style="background: #0082C8;text-align: center; vertical-align: middle; padding:3px;"><span style="color:#FFFFFF;">Account Manager</span></th>
+        </tr>
+        <tr>
+            <td align="center" style="text-align: center; padding: 3px; vertical-align: middle;" valign="middle">
+            <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                <apex:param value="{!myQuoteDetails.Quote_Created_Date__c}" /> 
+            </apex:outputText></td>
+            <td align="center" style="text-align: center; padding: 3px; vertical-align: middle;" valign="middle"><apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                <apex:param value="{!myQuoteDetails.SBQQ__ExpirationDate__c}" /> 
+            </apex:outputText></td>
+            <td align="center" style="text-align: center; padding: 3px; vertical-align: middle;" valign="middle">{!myQuoteDetails.Name}</td>
+            <td align="center" style="text-align: center; padding: 3px; vertical-align: middle;" valign="middle">{!myQuoteDetails.Tax_Year__c}</td>
+            <td align="center" style="text-align: center; padding: 3px; vertical-align: middle;" valign="middle">{!myQuoteDetails.Sales_Rep_Phone__c}</td>
+            <td align="center" style="text-align: center; padding: 3px; vertical-align: middle;" valign="middle">{!myQuoteDetails.Account_Manager__c}</td>
+        </tr>
+    </tbody>
+</table>
+    <br/>
+    <br/>
+
+    <table border="0" cellpadding="0" cellspacing="1" style="width:100%; 
+                        border-top:1px solid #E6E6E6;
+                        border-left:1px solid #E6E6E6;
+                        border-right:1px solid #E6E6E6;
+                        border-bottom:1px solid #E6E6E6;">
+    <tr>
+        <th style="background: #0082C8;text-align:center;padding:5px;"><span style="color:#FFFFFF; float:left;">Product Description</span></th>
+        <th style="background: #0082C8;text-align:center;padding:5px;"><span style="color:#FFFFFF;">QTY</span></th>
+        <th style="background: #0082C8;text-align:center;padding:5px;"><span style="color:#FFFFFF;">Retail<br/>Price</span></th>
+        <th style="background: #0082C8;text-align:center;padding:5px;"><span style="color:#FFFFFF;">Your Price</span></th>
+        <th style="background: #0082C8;text-align:center;padding:5px;"><span style="color:#FFFFFF;">Total</span></th>
+    </tr>
+    <apex:repeat value="{!myQuoteLines}" var="ql" id="quotelinestable">
+        <tr>
+            <td style="width:50%;"><apex:outputText value="{!ql.Product_Name_and_Description__c}" escape="false"/></td>
+            <td style="text-align:center;">
+                <apex:outputText value="{0,number,##0}">
+                    <apex:param value="{!ql.SBQQ__Quantity__c}" /> 
+                </apex:outputText>
+            </td>
+            <td style="text-align:center;">
+                <apex:outputText value="${0, number, ###,###,###,##0.00}">
+                    <apex:param value="{!ql.SBQQ__ListPrice__c}" /> 
+                </apex:outputText>
+            </td>
+            <td style="text-align:center;">
+                <apex:outputText value="${0, number, ###,###,###,##0.00}">
+                    <apex:param value="{!ql.SBQQ__CustomerPrice__c}" /> 
+                </apex:outputText>
+            </td>
+            <td style="text-align:center;">
+                <apex:outputText value="${0, number, ###,###,###,##0.00}">
+                    <apex:param value="{!ql.SBQQ__NetTotal__c}" /> 
+                </apex:outputText>
+            </td>
+
+        </tr>
+    </apex:repeat>
+    </table>
+ <!--
+    <table border="0" cellpadding="0" cellspacing="1" style="width:100%; 
+                        border-top:1px solid #E6E6E6;
+                        border-left:1px solid #E6E6E6;
+                        border-right:1px solid #E6E6E6;
+                        border-bottom:1px solid #E6E6E6;">
+    <tr>
+        <th><span style="color:#FFFFFF; float:left; text-align:left; width:90%;">Fee Description</span></th>
+        <th><span style="color:#FFFFFF;">Amount</span></th>
+
+    </tr>
+   
+    <apex:repeat value="{!myFeeLines}" var="ql_fees" id="feelinestable">
+        <tr>
+            <td  style="width:80%;">
+                {!ql_fees.SBQQ__ProductName__c}
+            </td>
+            <td style="text-align:right;">
+                <apex:outputText value="${0, number, ###,###,###,##0.00}">
+                    <apex:param value="{!ql_fees.SBQQ__NetTotal__c}" /> 
+                </apex:outputText>
+                
+            </td>
+        </tr>
+    </apex:repeat>
+   
+    </table> 
+ -->
+    <apex:outputText value="{!myQuoteDetails.Fee_Tier_Details__c}" escape="false" rendered="{!hasFees}"/>
+    <br/>
+    <br/>
+    <div style="width:100%;float:left; ">
+    <table border="0" cellpadding="0" cellspacing="1" style="width:100%;border-top:1px solid #E6E6E6;
+                        border-left:1px solid #E6E6E6;
+                        border-right:1px solid #E6E6E6;
+                        border-bottom:1px solid #E6E6E6;">
+                     <tr colspan="4">
+                     <td><b>Customer Information</b></td>
+                     </tr>      
+                    <tr>
+                        <th colspan="2"><span style="color:#FFFFFF; text-align:left;">Customer Information</span></th>
+                    </tr>
+
+                                <tr>
+                                    <td style="width:25%"><span style="font-size:12px;"><strong>Shipping Information</strong></span></td>
+                                    <td style="width:25%"><span style="font-size:12px;"><strong>Billing Information</strong></span></td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td><span style="font-size:11px;">{!myQuoteDetails.SBQQ__ShippingName__c}</span></td>
+                                    <td><span style="font-size:11px;">{!myQuoteDetails.SBQQ__BillingName__c}</span></td>
+                                     <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td><span style="font-size:11px;">{!myQuoteDetails.SBQQ__ShippingStreet__c}</span></td>
+                                    <td><span style="font-size:11px;">{!myQuoteDetails.SBQQ__BillingStreet__c} </span></td>
+                                     <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td><span style="font-size:11px;">{!myQuoteDetails.SBQQ__ShippingCity__c}, {!myQuoteDetails.SBQQ__ShippingState__c} {!myQuoteDetails.SBQQ__ShippingPostalCode__c}</span></td>
+                                    <td><span style="font-size:11px;">{!myQuoteDetails.SBQQ__BillingCity__c}, {!myQuoteDetails.SBQQ__BillingState__c} {!myQuoteDetails.SBQQ__BillingPostalCode__c}</span></td>
+                                     <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                        
+              
+            </table>
+            </div>
+
+             <div style="width:100%;float:right;">
+            <table border="0" cellpadding="1" cellspacing="1"  style="width:100%; 
+                        border-top:1px solid #E6E6E6;
+                        border-left:1px solid #E6E6E6;
+                        border-right:1px solid #E6E6E6;
+                        border-bottom:1px solid #E6E6E6;
+                        text-align:right;">
+                     
+                    <tr>
+                        <td align="right" style="text-align: right; width:90%;">Total:</td>
+                        <td align="right" style="text-align: right;">
+                        <apex:outputText value="${0, number, ###,###,###,##0.00}">
+                            <apex:param value="{!myQuoteDetails.Net_Minus_Tax_Fees__c}" /> 
+                        </apex:outputText>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" style="text-align: right;">Tax:</td>
+                        <td align="right" style="text-align: right;">
+                            <apex:outputText value="${0, number, ###,###,###,##0.00}">
+                                <apex:param value="{!myQuoteDetails.TaxCurrency__c}" /> 
+                            </apex:outputText>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" style="text-align: right;">Processing:</td>
+                        <td align="right" style="text-align: right;">
+                            <apex:outputText value="${0, number, ###,###,###,##0.00}">
+                                <apex:param value="{!myQuoteDetails.Processing_Fees__c}" /> 
+                            </apex:outputText>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" style="text-align: right;background-color: #474847; color:#ffffff;">Total:</td>
+                        <td align="right" style="text-align: right;background-color: #474847; color:#ffffff;">
+                            <apex:outputText value="${0, number, ###,###,###,##0.00}">
+                                <apex:param value="{!myQuoteDetails.SBQQ__NetAmount__c}" /> 
+                            </apex:outputText>
+                        </td>
+                    </tr>
+  
+            </table>
+            </div>
+
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <div style="clear: left;">
+<table border="0" cellpadding="0" cellspacing="1" style="width:100%; 
+                        border-top:1px solid #E6E6E6;
+                        border-left:1px solid #E6E6E6;
+                        border-right:1px solid #E6E6E6;
+                        border-bottom:1px solid #E6E6E6;">
+                         <tr colspan="4">
+                     <td><b>Payment Details</b></td>
+                     </tr>
+                     
+    <tr>
+        <th colspan="3"><span style="color:#FFFFFF;text-align:left;">Payment Details</span></th>
+    </tr>
+    <tr>
+        <td><strong>Method</strong></td>
+        <td style="text-align:right;"><strong>Payment Date</strong></td>
+        <td style="text-align:right;"><strong>Amount</strong></td>
+    </tr>
+    <apex:repeat value="{!myPaymentDetails}" var="ql_pay" id="paymenttable">
+        <tr>
+            <td  style="width:80%;">
+                <apex:outputText value="{!IF(ql_pay.invoiceit_s__Payment_Type__c='Credit Card',
+  'Credit card ending in ' + ql_pay.Payment_Method1__r.invoiceit_s__Card_Number__c,
+  IF(ql_pay.invoiceit_s__Payment_Type__c='ACH', 'ACH ending in ' + ql_pay.Payment_Method1__r.Last_4_Digits__c, ''))}"></apex:outputText>
+            </td>
+            <td style=" text-align:right;">
+                <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                    <apex:param value="{!ql_pay.invoiceit_s__Payment_Date__c}" /> 
+                </apex:outputText>
+                
+            </td>
+
+            <td style="text-align:right;">
+                <apex:outputText value="${0, number, ###,###,###,##0.00}">
+                    <apex:param value="{!ql_pay.invoiceit_s__Payment_Amount__c}" /> 
+                </apex:outputText>
+                
+            </td>
+        </tr>
+    </apex:repeat>
+    </table> 
+    
+</div>
+    <br/>
+    <br/>
+   <!-- <hr style="width:100%"/>-->
+
+    <br/>
+     <div style="text-align:center">
+                     <font color="red"> *Corrected Order Confirmation – </font>  Please be advised that the enclosed order confirmation reflects your recent order. Your original order confirmation may have included a misprint for your e-file fees. Please use this updated order confirmation as the current terms of service. We apologize for any inconvenience.</div> 
+                        <br/>
+    <center><strong><span style="font-size:22px;">Terms of Purchase</span></strong></center>
+    <br/>
+   
+    <apex:repeat value="{!TandC}" var="tc">
+<p>        <apex:outputText value="{!tc}"/></p>
+
+    </apex:repeat>
+    <br/>
+    <br/>
+    <hr style="width:100%"/>
+
+    <br/>
+    </font>
+</apex:component>

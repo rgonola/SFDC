@@ -1,0 +1,87 @@
+<apex:page sidebar="false" showHeader="false" standardStylesheets="false">
+    <apex:stylesheet value="{!URLFOR($Resource.Styles)}" />
+    <head>
+        <meta charset="utf-8" />
+        <title>Untitled Document</title>
+        <link href="https://cdn.wolterskluwer.io/wk.css/0.13.x/with-bootstrap.min.css" type="text/css" rel="stylesheet"/>
+
+<!--[if IE]><link rel="shortcut icon" href="https://cdn.wolterskluwer.io/wk.css/0.13.x/assets/images/favicon/favicon.ico"><![endif]-->
+<link rel="apple-touch-icon-precomposed" href="https://cdn.wolterskluwer.io/wk.css/0.13.x/assets/images/favicon/favicon-180.png"/>
+<link rel="icon" href="https://cdn.wolterskluwer.io/wk.css/0.13.x/assets/images/favicon/favicon-196.png"/>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+</head>
+
+<!--HEADER-->
+<div class="wk-header">
+  <div class="wk-header-container">
+    <div class="wk-layout-25-75">
+        <div class="wk-layout-item">
+            <a href="#" aria-label="Wolters Kluwer" class="wk-brand"></a>
+        </div>
+        <div class="wk-layout-item text-right">
+            <span class="wk-icon-search" style="font-size: 2em; vertical-align: bottom; margin: 1.5rem 0; line-height: 1.75em;"></span>
+            <span class="wk-icon-cart" style="font-size: 2em; vertical-align: bottom; margin: 1.5rem 0; line-height: 1.75em;"></span>
+            <span class="wk-icon-person" style="font-size: 2em; vertical-align: bottom; margin: 1.5rem 0; line-height: 1.75em;"></span>
+        </div>
+    </div>
+  </div>
+</div>
+
+<!--NAVIGATION BAR-->
+<nav class="wk-navbar">
+  <div class="wk-navbar-container">
+    <ul class="wk-more-menu">
+      <li role="presentation"><a href="#"><span class="wk-icon-menu"></span>Menu</a></li>
+    </ul>
+    <ul class="wk-nav">
+      <li role="presentation" class="active"><a href="#">Products</a></li>
+      <li role="presentation"><a href="#">Tax Research</a></li>
+      <li role="presentation"><a href="#">Education &amp; CPE</a></li>
+      <li role="presentation"><a href="#">Training &amp; Support</a></li>
+    </ul>
+    <div class="wk-product-name">CCH Small Firm Services</div>
+  </div>
+</nav>
+
+
+<!-- BODY -->
+
+<apex:insert name="BodyContent"/>
+
+
+<!-- END BODY-->
+
+<!-- FOOTER -->
+<div class="wk-footer index-footer-nav index-last-footer">
+  <div class="wk-footer-container">
+    <div class="wk-footer-nav">
+      <div class="wk-footer-nav-list">
+        <h3 class="wk-footer-heading"> Enim minim 
+        </h3>
+        <ul>
+          <li><a href="#">Laborum excepteur aliquip </a></li>
+          <li><a href="#">Consequat sunt esse </a></li>
+          <li><a href="#">Laborum ad non </a></li>
+          <li><a href="#">Sunt duis tempor </a></li>
+        </ul>
+      </div>
+      <div class="wk-footer-nav-list">
+        <h3 class="wk-footer-heading">Voluptate et 
+        </h3>
+        <ul>
+          <li><a href="#">Quis quis ea </a></li>
+          <li><a href="#">Sit do quis </a></li>
+          <li><a href="#">Eu culpa est </a></li>
+          <li><a href="#">Nisi magna consequat </a></li>
+        </ul>
+      </div>
+    </div><a href="#" aria-label="Wolters Kluwer" class="wk-brand-light"></a>
+    <div class="wk-tagline">When you have to be right</div>
+  </div>
+  <div class="wk-footer-copyright">
+    <div class="wk-footer-copyright-container">&copy; 2015 Wolters Kluwer and/or its affiliates. All rights reserved.</div>
+  </div>
+</div>
+</apex:page>

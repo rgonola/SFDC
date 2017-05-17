@@ -1,0 +1,18 @@
+<apex:page sidebar="false" showHeader="false" Controller="FeeTier">
+  
+  <apex:pageblock title="Fee Pricing Structure" id="saveParentBlock">
+            
+           <apex:pageBlockTable value="{!orpctier}" var="tier">
+                   
+                <apex:column value="{!tier.Product__c}"/><br/>
+                <apex:column value="{!tier.Fee_Product__c}"/><br/>
+                <apex:column value="{!tier.Start_Unitx__c}"/><br/>
+                <apex:column value="{!tier.End_Unitx__c}"/><br/>
+                
+                <apex:column value="{!tier.Unit_Pricex__c}"/>
+                
+            </apex:pageBlockTable>
+            
+   </apex:pageblock>  
+              
+</apex:page>
