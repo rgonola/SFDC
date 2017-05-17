@@ -13,7 +13,7 @@
     </packageVersions>
     <packageVersions>
         <majorNumber>4</majorNumber>
-        <minorNumber>17</minorNumber>
+        <minorNumber>20</minorNumber>
         <namespace>invoiceit_s</namespace>
     </packageVersions>
     <status>Active</status>
